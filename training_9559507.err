@@ -1,0 +1,386 @@
+2025-05-01 23:05:40,536 - INFO - Using device: cuda
+2025-05-01 23:05:40,536 - INFO - Initialized I/O data processor for data/sample_train_100.csv
+2025-05-01 23:05:40,536 - INFO - Loading data from data/sample_train_100.csv
+2025-05-01 23:05:40,541 - INFO - Loaded data with shape (100, 46)
+2025-05-01 23:05:40,541 - INFO - Preprocessing data
+2025-05-01 23:05:40,541 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-01 23:05:40,541 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-01 23:05:40,541 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_10K_100K
+2025-05-01 23:05:40,541 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-01 23:05:40,541 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-01 23:05:40,541 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-01 23:05:40,541 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-01 23:05:40,541 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-05-01 23:05:40,541 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-05-01 23:05:40,541 - INFO - Initialized multiplex graph constructor for 9 features
+2025-05-01 23:05:40,541 - INFO - Creating combined PyG data
+2025-05-01 23:05:40,541 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:05:40,541 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:05:40,541 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:40,552 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:40,648 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:40,648 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:05:40,650 - INFO - Splitting data into train, validation, and test sets
+2025-05-01 23:05:40,651 - INFO - Train: 69, Val: 16, Test: 15
+2025-05-01 23:05:40,654 - INFO - Saving processed data to logs/training/lightgbm/Experiment1/processed_data
+2025-05-01 23:05:40,663 - INFO - Constructing multiplex graphs
+2025-05-01 23:05:40,663 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:40,671 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:40,748 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:40,791 - INFO - Creating combined PyG data
+2025-05-01 23:05:40,791 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:05:40,791 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:05:40,791 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:40,799 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:40,815 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:40,815 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:05:40,825 - INFO - Saved processed data to logs/training/lightgbm/Experiment1/processed_data
+2025-05-01 23:05:40,825 - INFO - Initialized lightgbm model
+/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+2025-05-01 23:05:41,095 - INFO - LightGBM model fitted with 45 features
+/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+2025-05-01 23:05:41,098 - INFO - Evaluation metrics: {'mse': 0.29426818819955236, 'rmse': 0.5424649188653146, 'mae': 0.22236526406185117, 'r2': 0.43993287259622216}
+2025-05-01 23:05:41,100 - INFO - Final metrics: {'mse': 0.29426818819955236, 'rmse': 0.5424649188653146, 'mae': 0.22236526406185117, 'r2': 0.43993287259622216}
+2025-05-01 23:05:41,100 - INFO - Model and results saved to logs/training/lightgbm/Experiment1
+2025-05-01 23:05:41,116 - INFO - Model saved to logs/training/lightgbm/Experiment1/lightgbm_model.joblib
+2025-05-01 23:05:45,206 - INFO - Using device: cuda
+2025-05-01 23:05:45,206 - INFO - Initialized I/O data processor for data/sample_train_100.csv
+2025-05-01 23:05:45,207 - INFO - Loading data from data/sample_train_100.csv
+2025-05-01 23:05:45,209 - INFO - Loaded data with shape (100, 46)
+2025-05-01 23:05:45,210 - INFO - Preprocessing data
+2025-05-01 23:05:45,210 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-01 23:05:45,210 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-01 23:05:45,210 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_10K_100K
+2025-05-01 23:05:45,210 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-01 23:05:45,210 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-01 23:05:45,210 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-01 23:05:45,210 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-01 23:05:45,210 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-05-01 23:05:45,210 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-05-01 23:05:45,210 - INFO - Initialized multiplex graph constructor for 9 features
+2025-05-01 23:05:45,210 - INFO - Creating combined PyG data
+2025-05-01 23:05:45,210 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:05:45,210 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:05:45,210 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:45,220 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:45,305 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:45,305 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:05:45,307 - INFO - Splitting data into train, validation, and test sets
+2025-05-01 23:05:45,308 - INFO - Train: 69, Val: 16, Test: 15
+2025-05-01 23:05:45,312 - INFO - Saving processed data to logs/training/catboost/Experiment1/processed_data
+2025-05-01 23:05:45,320 - INFO - Constructing multiplex graphs
+2025-05-01 23:05:45,320 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:45,328 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:45,406 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:45,450 - INFO - Creating combined PyG data
+2025-05-01 23:05:45,450 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:05:45,450 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:05:45,450 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:45,458 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:45,475 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:45,475 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:05:45,484 - INFO - Saved processed data to logs/training/catboost/Experiment1/processed_data
+2025-05-01 23:05:45,484 - INFO - Initialized catboost model
+2025-05-01 23:05:45,984 - INFO - CatBoost model fitted with 45 features
+2025-05-01 23:05:45,987 - INFO - Evaluation metrics: {'mse': 0.08458129256871344, 'rmse': 0.2908286309301638, 'mae': 0.1585899347631063, 'r2': 0.8390203105171057}
+2025-05-01 23:05:45,989 - INFO - Final metrics: {'mse': 0.08458129256871344, 'rmse': 0.2908286309301638, 'mae': 0.1585899347631063, 'r2': 0.8390203105171057}
+2025-05-01 23:05:45,989 - INFO - Model and results saved to logs/training/catboost/Experiment1
+2025-05-01 23:05:45,999 - INFO - Model saved to logs/training/catboost/Experiment1/catboost_model.joblib
+2025-05-01 23:05:49,814 - INFO - Using device: cuda
+2025-05-01 23:05:49,814 - INFO - Initialized I/O data processor for data/sample_train_100.csv
+2025-05-01 23:05:49,814 - INFO - Loading data from data/sample_train_100.csv
+2025-05-01 23:05:49,817 - INFO - Loaded data with shape (100, 46)
+2025-05-01 23:05:49,817 - INFO - Preprocessing data
+2025-05-01 23:05:49,817 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-01 23:05:49,817 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-01 23:05:49,817 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_10K_100K
+2025-05-01 23:05:49,817 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-01 23:05:49,817 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-01 23:05:49,817 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-01 23:05:49,817 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-01 23:05:49,817 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-05-01 23:05:49,817 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-05-01 23:05:49,817 - INFO - Initialized multiplex graph constructor for 9 features
+2025-05-01 23:05:49,817 - INFO - Creating combined PyG data
+2025-05-01 23:05:49,817 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:05:49,817 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:05:49,817 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:49,827 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:49,911 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:49,911 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:05:49,913 - INFO - Splitting data into train, validation, and test sets
+2025-05-01 23:05:49,915 - INFO - Train: 69, Val: 16, Test: 15
+2025-05-01 23:05:49,917 - INFO - Saving processed data to logs/training/xgboost/Experiment1/processed_data
+2025-05-01 23:05:49,924 - INFO - Constructing multiplex graphs
+2025-05-01 23:05:49,924 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:49,932 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:50,012 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:50,052 - INFO - Creating combined PyG data
+2025-05-01 23:05:50,052 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:05:50,052 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:05:50,052 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:50,060 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:50,077 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:50,077 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:05:50,087 - INFO - Saved processed data to logs/training/xgboost/Experiment1/processed_data
+2025-05-01 23:05:50,087 - INFO - Initialized xgboost model
+2025-05-01 23:05:50,605 - INFO - XGBoost model fitted with 45 features
+2025-05-01 23:05:50,607 - INFO - Evaluation metrics: {'mse': 0.06028585880994797, 'rmse': 0.245531787778992, 'mae': 0.1455836147069931, 'r2': 0.8852607011795044}
+2025-05-01 23:05:50,610 - INFO - Final metrics: {'mse': 0.06028585880994797, 'rmse': 0.245531787778992, 'mae': 0.1455836147069931, 'r2': 0.8852607011795044}
+2025-05-01 23:05:50,610 - INFO - Model and results saved to logs/training/xgboost/Experiment1
+2025-05-01 23:05:50,626 - INFO - Model saved to logs/training/xgboost/Experiment1/xgboost_model.joblib
+2025-05-01 23:05:54,887 - INFO - Using device: cuda
+2025-05-01 23:05:54,887 - INFO - Initialized I/O data processor for data/sample_train_100.csv
+2025-05-01 23:05:54,887 - INFO - Loading data from data/sample_train_100.csv
+2025-05-01 23:05:54,890 - INFO - Loaded data with shape (100, 46)
+2025-05-01 23:05:54,890 - INFO - Preprocessing data
+2025-05-01 23:05:54,891 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-01 23:05:54,891 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-01 23:05:54,891 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_10K_100K
+2025-05-01 23:05:54,891 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-01 23:05:54,891 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-01 23:05:54,891 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-01 23:05:54,891 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-01 23:05:54,891 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-05-01 23:05:54,891 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-05-01 23:05:54,891 - INFO - Initialized multiplex graph constructor for 9 features
+2025-05-01 23:05:54,891 - INFO - Creating combined PyG data
+2025-05-01 23:05:54,891 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:05:54,891 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:05:54,891 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:54,901 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:54,999 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:54,999 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:05:55,000 - INFO - Splitting data into train, validation, and test sets
+2025-05-01 23:05:55,002 - INFO - Train: 69, Val: 16, Test: 15
+2025-05-01 23:05:55,003 - INFO - Saving processed data to logs/training/mlp/Experiment1/processed_data
+2025-05-01 23:05:55,012 - INFO - Constructing multiplex graphs
+2025-05-01 23:05:55,012 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:55,020 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:55,097 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:55,319 - INFO - Creating combined PyG data
+2025-05-01 23:05:55,319 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:05:55,319 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:05:55,319 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:55,327 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:55,344 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:55,344 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:05:55,368 - INFO - Saved processed data to logs/training/mlp/Experiment1/processed_data
+2025-05-01 23:05:55,368 - INFO - Initialized mlp model
+2025-05-01 23:05:55,400 - INFO - MLP model fitted with 45 features
+2025-05-01 23:05:55,401 - INFO - Evaluation metrics: {'mse': 0.2454574853181839, 'rmse': 0.49543666125770697, 'mae': 0.30503901839256287, 'r2': 0.5328320264816284}
+2025-05-01 23:05:55,405 - INFO - Final metrics: {'mse': 0.2454574853181839, 'rmse': 0.49543666125770697, 'mae': 0.30503901839256287, 'r2': 0.5328320264816284}
+2025-05-01 23:05:55,405 - INFO - Model and results saved to logs/training/mlp/Experiment1
+2025-05-01 23:05:55,411 - INFO - Model saved to logs/training/mlp/Experiment1/mlp_model.joblib
+2025-05-01 23:05:59,345 - INFO - Using device: cuda
+2025-05-01 23:05:59,345 - INFO - Initialized I/O data processor for data/sample_train_100.csv
+2025-05-01 23:05:59,345 - INFO - Loading data from data/sample_train_100.csv
+2025-05-01 23:05:59,349 - INFO - Loaded data with shape (100, 46)
+2025-05-01 23:05:59,349 - INFO - Preprocessing data
+2025-05-01 23:05:59,349 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-01 23:05:59,349 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-01 23:05:59,349 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_10K_100K
+2025-05-01 23:05:59,349 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-01 23:05:59,349 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-01 23:05:59,349 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-01 23:05:59,349 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-01 23:05:59,349 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-05-01 23:05:59,349 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-05-01 23:05:59,349 - INFO - Initialized multiplex graph constructor for 9 features
+2025-05-01 23:05:59,349 - INFO - Creating combined PyG data
+2025-05-01 23:05:59,349 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:05:59,349 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:05:59,349 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:59,359 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:59,463 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:59,463 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:05:59,465 - INFO - Splitting data into train, validation, and test sets
+2025-05-01 23:05:59,466 - INFO - Train: 69, Val: 16, Test: 15
+2025-05-01 23:05:59,468 - INFO - Saving processed data to logs/training/tabnet/Experiment1/processed_data
+2025-05-01 23:05:59,476 - INFO - Constructing multiplex graphs
+2025-05-01 23:05:59,476 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:59,485 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:59,563 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:59,605 - INFO - Creating combined PyG data
+2025-05-01 23:05:59,605 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:05:59,605 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:05:59,605 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:05:59,613 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:05:59,630 - INFO - Created 8 multiplex graphs
+2025-05-01 23:05:59,630 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:05:59,639 - INFO - Saved processed data to logs/training/tabnet/Experiment1/processed_data
+2025-05-01 23:05:59,639 - INFO - Initialized tabnet model
+/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:687: UserWarning: No early stopping will be performed, last training weights will be used.
+  warnings.warn(wrn_msg)
+2025-05-01 23:06:00,164 - INFO - TabNet model fitted with 45 features
+2025-05-01 23:06:00,218 - INFO - Evaluation metrics: {'mse': 197.20175170898438, 'rmse': 14.042854115491778, 'mae': 13.18582534790039, 'r2': -374.3250427246094}
+2025-05-01 23:06:00,221 - INFO - Final metrics: {'mse': 197.20175170898438, 'rmse': 14.042854115491778, 'mae': 13.18582534790039, 'r2': -374.3250427246094}
+2025-05-01 23:06:00,221 - INFO - Model and results saved to logs/training/tabnet/Experiment1
+2025-05-01 23:06:00,264 - INFO - Model saved to logs/training/tabnet/Experiment1/tabnet_model.joblib
+2025-05-01 23:06:04,744 - INFO - Using device: cuda
+2025-05-01 23:06:04,745 - INFO - Initialized I/O data processor for data/sample_train_100.csv
+2025-05-01 23:06:04,745 - INFO - Loading data from data/sample_train_100.csv
+2025-05-01 23:06:04,748 - INFO - Loaded data with shape (100, 46)
+2025-05-01 23:06:04,748 - INFO - Preprocessing data
+2025-05-01 23:06:04,748 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-01 23:06:04,748 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-01 23:06:04,748 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_10K_100K
+2025-05-01 23:06:04,748 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-01 23:06:04,748 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-01 23:06:04,748 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-01 23:06:04,749 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-01 23:06:04,749 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-05-01 23:06:04,749 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-05-01 23:06:04,749 - INFO - Initialized multiplex graph constructor for 9 features
+2025-05-01 23:06:04,749 - INFO - Creating combined PyG data
+2025-05-01 23:06:04,749 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:06:04,749 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:06:04,749 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:06:04,759 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:06:04,856 - INFO - Created 8 multiplex graphs
+2025-05-01 23:06:04,856 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:06:04,858 - INFO - Splitting data into train, validation, and test sets
+2025-05-01 23:06:04,859 - INFO - Train: 69, Val: 16, Test: 15
+2025-05-01 23:06:04,861 - INFO - Saving processed data to logs/training/tabgnn/Experiment1/processed_data
+2025-05-01 23:06:04,868 - INFO - Constructing multiplex graphs
+2025-05-01 23:06:04,868 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:06:04,876 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:06:04,956 - INFO - Created 8 multiplex graphs
+2025-05-01 23:06:04,998 - INFO - Creating combined PyG data
+2025-05-01 23:06:04,998 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:06:04,998 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:06:04,998 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:06:05,007 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:06:05,024 - INFO - Created 8 multiplex graphs
+2025-05-01 23:06:05,024 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:06:05,033 - INFO - Saved processed data to logs/training/tabgnn/Experiment1/processed_data
+2025-05-01 23:06:05,326 - INFO - Initialized GCN model with 2 layers
+2025-05-01 23:06:05,326 - INFO - Initialized TabGNN regressor with 1 graph types
+2025-05-01 23:06:05,495 - INFO - Epoch 1/100: Train Loss: 4.0192, Val Loss: 1.7285, Test Loss: 2.4640
+2025-05-01 23:06:05,502 - INFO - Epoch 2/100: Train Loss: 3.0997, Val Loss: 1.2495, Test Loss: 1.8183
+2025-05-01 23:06:05,506 - INFO - Epoch 3/100: Train Loss: 2.4366, Val Loss: 0.9640, Test Loss: 1.3798
+2025-05-01 23:06:05,510 - INFO - Epoch 4/100: Train Loss: 1.8712, Val Loss: 0.7680, Test Loss: 1.0371
+2025-05-01 23:06:05,515 - INFO - Epoch 5/100: Train Loss: 1.4657, Val Loss: 0.6320, Test Loss: 0.7870
+2025-05-01 23:06:05,519 - INFO - Epoch 6/100: Train Loss: 1.1993, Val Loss: 0.5900, Test Loss: 0.6349
+2025-05-01 23:06:05,523 - INFO - Epoch 7/100: Train Loss: 1.0717, Val Loss: 0.6085, Test Loss: 0.5631
+2025-05-01 23:06:05,528 - INFO - Epoch 8/100: Train Loss: 0.9448, Val Loss: 0.6764, Test Loss: 0.5510
+2025-05-01 23:06:05,532 - INFO - Epoch 9/100: Train Loss: 0.9485, Val Loss: 0.7448, Test Loss: 0.5649
+2025-05-01 23:06:05,536 - INFO - Epoch 10/100: Train Loss: 0.9688, Val Loss: 0.7983, Test Loss: 0.5849
+2025-05-01 23:06:05,540 - INFO - Epoch 11/100: Train Loss: 0.8843, Val Loss: 0.8185, Test Loss: 0.5901
+2025-05-01 23:06:05,545 - INFO - Epoch 12/100: Train Loss: 0.9709, Val Loss: 0.7887, Test Loss: 0.5661
+2025-05-01 23:06:05,549 - INFO - Epoch 13/100: Train Loss: 0.8311, Val Loss: 0.7588, Test Loss: 0.5456
+2025-05-01 23:06:05,553 - INFO - Epoch 14/100: Train Loss: 1.0298, Val Loss: 0.7100, Test Loss: 0.5147
+2025-05-01 23:06:05,557 - INFO - Epoch 15/100: Train Loss: 0.8263, Val Loss: 0.6525, Test Loss: 0.4804
+2025-05-01 23:06:05,562 - INFO - Epoch 16/100: Train Loss: 0.7838, Val Loss: 0.5962, Test Loss: 0.4480
+2025-05-01 23:06:05,562 - INFO - Early stopping at epoch 16
+2025-05-01 23:06:05,566 - INFO - Model checkpoint saved to logs/training/tabgnn/Experiment1/tabgnn_model.pt
+2025-05-01 23:06:05,715 - INFO - Final metrics: {'mse': 0.4479856789112091, 'rmse': 0.6693173230323634, 'mae': 0.522309422492981, 'r2': 0.14736944437026978}
+2025-05-01 23:06:05,715 - INFO - Model and results saved to logs/training/tabgnn/Experiment1
+2025-05-01 23:06:09,669 - INFO - Using device: cuda
+2025-05-01 23:06:09,669 - INFO - Initialized I/O data processor for data/sample_train_100.csv
+2025-05-01 23:06:09,669 - INFO - Loading data from data/sample_train_100.csv
+2025-05-01 23:06:09,672 - INFO - Loaded data with shape (100, 46)
+2025-05-01 23:06:09,672 - INFO - Preprocessing data
+2025-05-01 23:06:09,672 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-01 23:06:09,672 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-01 23:06:09,672 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_10K_100K
+2025-05-01 23:06:09,672 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-01 23:06:09,672 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-01 23:06:09,672 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-01 23:06:09,672 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-01 23:06:09,672 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-05-01 23:06:09,672 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-05-01 23:06:09,672 - INFO - Initialized multiplex graph constructor for 9 features
+2025-05-01 23:06:09,672 - INFO - Creating combined PyG data
+2025-05-01 23:06:09,672 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:06:09,672 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:06:09,672 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:06:09,682 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:06:09,766 - INFO - Created 8 multiplex graphs
+2025-05-01 23:06:09,766 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:06:09,768 - INFO - Splitting data into train, validation, and test sets
+2025-05-01 23:06:09,769 - INFO - Train: 69, Val: 16, Test: 15
+2025-05-01 23:06:09,771 - INFO - Saving processed data to logs/training/combined/Experiment1/processed_data
+2025-05-01 23:06:09,780 - INFO - Constructing multiplex graphs
+2025-05-01 23:06:09,780 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:06:09,788 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:06:09,865 - INFO - Created 8 multiplex graphs
+2025-05-01 23:06:09,913 - INFO - Creating combined PyG data
+2025-05-01 23:06:09,913 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-01 23:06:09,913 - INFO - Creating PyTorch Geometric Data objects
+2025-05-01 23:06:09,913 - INFO - Constructing multiplex graphs for 9 features
+2025-05-01 23:06:09,921 - WARNING - Feature POSIX_SIZE_READ_10K_100K not found in data, skipping
+2025-05-01 23:06:09,938 - INFO - Created 8 multiplex graphs
+2025-05-01 23:06:09,938 - INFO - Creating combined graph from multiplex graphs
+2025-05-01 23:06:09,950 - INFO - Saved processed data to logs/training/combined/Experiment1/processed_data
+2025-05-01 23:06:10,237 - INFO - Initialized GCN model with 2 layers
+2025-05-01 23:06:10,238 - INFO - Initialized TabGNN regressor with 1 graph types
+2025-05-01 23:06:10,388 - INFO - Epoch 1/100: Train Loss: 4.0192, Val Loss: 1.7285, Test Loss: 2.4640
+2025-05-01 23:06:10,395 - INFO - Epoch 2/100: Train Loss: 3.0997, Val Loss: 1.2495, Test Loss: 1.8183
+2025-05-01 23:06:10,399 - INFO - Epoch 3/100: Train Loss: 2.4366, Val Loss: 0.9640, Test Loss: 1.3798
+2025-05-01 23:06:10,404 - INFO - Epoch 4/100: Train Loss: 1.8712, Val Loss: 0.7680, Test Loss: 1.0371
+2025-05-01 23:06:10,408 - INFO - Epoch 5/100: Train Loss: 1.4657, Val Loss: 0.6320, Test Loss: 0.7870
+2025-05-01 23:06:10,413 - INFO - Epoch 6/100: Train Loss: 1.1993, Val Loss: 0.5900, Test Loss: 0.6349
+2025-05-01 23:06:10,417 - INFO - Epoch 7/100: Train Loss: 1.0717, Val Loss: 0.6085, Test Loss: 0.5631
+2025-05-01 23:06:10,421 - INFO - Epoch 8/100: Train Loss: 0.9448, Val Loss: 0.6764, Test Loss: 0.5510
+2025-05-01 23:06:10,425 - INFO - Epoch 9/100: Train Loss: 0.9485, Val Loss: 0.7448, Test Loss: 0.5649
+2025-05-01 23:06:10,430 - INFO - Epoch 10/100: Train Loss: 0.9688, Val Loss: 0.7983, Test Loss: 0.5849
+2025-05-01 23:06:10,434 - INFO - Epoch 11/100: Train Loss: 0.8843, Val Loss: 0.8185, Test Loss: 0.5901
+2025-05-01 23:06:10,438 - INFO - Epoch 12/100: Train Loss: 0.9709, Val Loss: 0.7887, Test Loss: 0.5661
+2025-05-01 23:06:10,443 - INFO - Epoch 13/100: Train Loss: 0.8311, Val Loss: 0.7588, Test Loss: 0.5456
+2025-05-01 23:06:10,447 - INFO - Epoch 14/100: Train Loss: 1.0298, Val Loss: 0.7100, Test Loss: 0.5147
+2025-05-01 23:06:10,451 - INFO - Epoch 15/100: Train Loss: 0.8263, Val Loss: 0.6525, Test Loss: 0.4804
+2025-05-01 23:06:10,455 - INFO - Epoch 16/100: Train Loss: 0.7838, Val Loss: 0.5962, Test Loss: 0.4480
+2025-05-01 23:06:10,455 - INFO - Early stopping at epoch 16
+2025-05-01 23:06:10,456 - INFO - Initialized lightgbm model
+2025-05-01 23:06:10,456 - INFO - Initialized TabGNN tabular model with lightgbm base model
+/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+2025-05-01 23:06:10,682 - INFO - LightGBM model fitted with 109 features
+2025-05-01 23:06:10,682 - INFO - TabGNN tabular model fitted with 109 features
+/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+2025-05-01 23:06:10,687 - INFO - Evaluation metrics: {'mse': 0.010804923285235102, 'rmse': 0.1039467329223728, 'mae': 0.07441541345161302, 'r2': 0.9857262797609964}
+2025-05-01 23:06:10,690 - INFO - Final metrics: {'mse': 0.010804923285235102, 'rmse': 0.1039467329223728, 'mae': 0.07441541345161302, 'r2': 0.9857262797609964}
+2025-05-01 23:06:10,690 - INFO - Model and results saved to logs/training/combined/Experiment1
+2025-05-01 23:06:10,693 - INFO - Model checkpoint saved to logs/training/combined/Experiment1/tabgnn_part.pt
+2025-05-01 23:06:10,711 - INFO - Model saved to logs/training/combined/Experiment1/tabular_part.joblib
+2025-05-01 23:06:10,711 - INFO - TabGNN tabular model saved to logs/training/combined/Experiment1/tabgnn_part.pt and logs/training/combined/Experiment1/tabular_part.joblib
+2025-05-01 23:06:12,019 - WARNING - No metrics file found in logs/training/all/Experiment1
+2025-05-01 23:06:12,020 - INFO - Loaded metrics for catboost: {'mse': 0.08458129256871344, 'rmse': 0.2908286309301638, 'mae': 0.1585899347631063, 'r2': 0.8390203105171057}
+2025-05-01 23:06:12,020 - INFO - Loaded metrics for combined: {'mse': 0.010804923285235102, 'rmse': 0.1039467329223728, 'mae': 0.07441541345161302, 'r2': 0.9857262797609964}
+2025-05-01 23:06:12,021 - INFO - Loaded metrics for lightgbm: {'mse': 0.29426818819955236, 'rmse': 0.5424649188653146, 'mae': 0.22236526406185117, 'r2': 0.43993287259622216}
+2025-05-01 23:06:12,022 - INFO - Loaded metrics for mlp: {'mse': 0.2454574853181839, 'rmse': 0.49543666125770697, 'mae': 0.30503901839256287, 'r2': 0.5328320264816284}
+2025-05-01 23:06:12,022 - INFO - Loaded metrics for tabgnn: {'mse': 0.4479856789112091, 'rmse': 0.6693173230323634, 'mae': 0.522309422492981, 'r2': 0.14736944437026978}
+2025-05-01 23:06:12,023 - INFO - Loaded metrics for tabnet: {'mse': 197.20175170898438, 'rmse': 14.042854115491778, 'mae': 13.18582534790039, 'r2': -374.3250427246094}
+2025-05-01 23:06:12,024 - INFO - Loaded metrics for xgboost: {'mse': 0.06028585880994797, 'rmse': 0.245531787778992, 'mae': 0.1455836147069931, 'r2': 0.8852607011795044}
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/pandas/compat/_optional.py", line 135, in import_optional_dependency
+    module = importlib.import_module(name)
+  File "/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 984, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'tabulate'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/compare_models.py", line 203, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/compare_models.py", line 193, in main
+    report = create_comparison_report(metrics, args.output_file)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/compare_models.py", line 169, in create_comparison_report
+    comparison_md = comparison.reset_index().to_markdown(index=False)
+  File "/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+  File "/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/pandas/core/frame.py", line 2983, in to_markdown
+    tabulate = import_optional_dependency("tabulate")
+  File "/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/pandas/compat/_optional.py", line 138, in import_optional_dependency
+    raise ImportError(msg)
+ImportError: Missing optional dependency 'tabulate'.  Use pip or conda to install tabulate.
