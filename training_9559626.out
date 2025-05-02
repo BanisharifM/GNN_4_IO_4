@@ -1,6 +1,6 @@
-Starting GNN4_IO_4 pipeline at Thu May  1 23:05:36 CDT 2025
+Starting GNN4_IO_4 pipeline at Thu May  1 23:18:52 CDT 2025
 Running lightgbm model...
-[LightGBM] [Info] Auto-choosing col-wise multi-threading, the overhead of testing was 0.048537 seconds.
+[LightGBM] [Info] Auto-choosing col-wise multi-threading, the overhead of testing was 0.050367 seconds.
 You can set `force_col_wise=true` to remove the overhead.
 [LightGBM] [Info] Total Bins 345
 [LightGBM] [Info] Number of data points in the train set: 69, number of used features: 38
@@ -1119,9 +1119,9 @@ Epoch 00012: reducing learning rate of group 0 to 5.0000e-04.
 tabgnn model completed.
 Running combined model...
 Epoch 00012: reducing learning rate of group 0 to 5.0000e-04.
-[LightGBM] [Info] Auto-choosing col-wise multi-threading, the overhead of testing was 0.043121 seconds.
+[LightGBM] [Info] Auto-choosing col-wise multi-threading, the overhead of testing was 0.049252 seconds.
 You can set `force_col_wise=true` to remove the overhead.
-[LightGBM] [Info] Total Bins 1959
+[LightGBM] [Info] Total Bins 1914
 [LightGBM] [Info] Number of data points in the train set: 100, number of used features: 102
 [LightGBM] [Info] Start training from score 1.198571
 [LightGBM] [Warning] No further splits with positive gain, best gain: -inf
@@ -2125,4 +2125,4 @@ You can set `force_col_wise=true` to remove the overhead.
 [LightGBM] [Warning] No further splits with positive gain, best gain: -inf
 [LightGBM] [Warning] No further splits with positive gain, best gain: -inf
 combined model completed.
-All jobs completed at Thu May  1 23:06:12 CDT 2025
+All jobs completed at Thu May  1 23:19:39 CDT 2025
