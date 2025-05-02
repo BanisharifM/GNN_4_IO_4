@@ -22,7 +22,7 @@ mkdir -p logs/slurm
 mkdir -p logs/training
 
 # Set variables for the workflow
-DATA_PATH="data/sample_train_100.csv"
+DATA_PATH="data/sample_train_100.csv"   #/u/mbanisharifdehkordi/Github/GNN_4_IO_3/data/sample_train_total.csv
 OUTPUT_DIR="logs/training/GNN4_IO_4"
 TARGET_COLUMN="tag"
 MODEL_TYPE="all"  # Options: lightgbm, catboost, xgboost, mlp, tabnet, tabgnn, combined, all
