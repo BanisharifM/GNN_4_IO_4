@@ -13,6 +13,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from typing import Dict, List, Any
 import logging
+import glob
 
 # Set up logging
 logging.basicConfig(
@@ -44,8 +45,9 @@ def load_metrics(results_dir: str) -> Dict[str, Dict[str, float]]:
     metrics = {}
     
     # Get subdirectories (one for each model)
-    model_dirs = [d for d in os.listdir(results_dir) if os.path.isdir(os.path.join(results_dir, d))]
-    
+    # model_dirs = [d for d in os.listdir(results_dir) if os.path.isdir(os.path.join(results_dir, d))]
+    model_dirs = glob.glob(os.path.join(results_dir, "*", "Experiment1"))
+ 
     for model_dir in model_dirs:
         metrics_file = os.path.join(results_dir, model_dir, "metrics.json")
         
