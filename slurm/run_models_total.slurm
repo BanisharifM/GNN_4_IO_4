@@ -88,6 +88,7 @@ if [ "$MODEL_TYPE" = "all" ]; then
 
     $CONDA_ENV_PATH scripts/compare_models.py \
         --results_dir "logs/training" \
+        --experiment_name "${EXPERIMENT_NAME}" \
         --output_file "logs/training/comparison_report_${EXPERIMENT_NAME}.json" \
         --plot_file "logs/training/model_comparison_${EXPERIMENT_NAME}.png"
 else

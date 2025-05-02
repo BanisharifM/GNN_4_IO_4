@@ -7,11 +7,11 @@
 #SBATCH --cpus-per-task=64
 #SBATCH --gres=gpu:1
 #SBATCH --mem=128G
-#SBATCH --time=12:00:00
+#SBATCH --time=24:00:00
 
 # === Experiment & model setup ===
 CONDA_ENV_PATH="$HOME/.conda/envs/gnn4_env/bin/python"
-CONFIG_FILE="configs/experiment3.yml"
+CONFIG_FILE="configs/experiment2.yml"
 
 # === Setup environment ===
 module load cuda

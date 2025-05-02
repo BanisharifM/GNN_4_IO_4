@@ -29,10 +29,11 @@ def parse_args():
     parser.add_argument("--results_dir", type=str, required=True, help="Directory containing model results")
     parser.add_argument("--output_file", type=str, default="comparison_report.json", help="Output file for comparison report")
     parser.add_argument("--plot_file", type=str, default="model_comparison.png", help="Output file for comparison plot")
-    
+    parser.add_argument("--experiment_name", type=str, required=True, help="Name of the experiment (e.g., Experiment3)")
+
     return parser.parse_args()
 
-def load_metrics(results_dir: str) -> Dict[str, Dict[str, float]]:
+def load_metrics(results_dir: str, experiment_name: str) -> Dict[str, Dict[str, float]]:
     """
     Load metrics from model results directories.
 
@@ -44,8 +45,8 @@ def load_metrics(results_dir: str) -> Dict[str, Dict[str, float]]:
     """
     metrics = {}
 
-    # Find all Experiment1 subdirectories under each model
-    model_dirs = glob.glob(os.path.join(results_dir, "*", "Experiment1"))
+    # Find all Experiment subdirectories under each model
+    model_dirs = glob.glob(os.path.join(results_dir, "*", experiment_name))
 
     for model_dir in model_dirs:
         metrics_file = os.path.join(model_dir, "metrics.json")
@@ -167,7 +168,7 @@ def main():
     args = parse_args()
     
     # Load metrics
-    metrics = load_metrics(args.results_dir)
+    metrics = load_metrics(args.results_dir, args.experiment_name)
     
     if not metrics:
         logger.error("No metrics found in results directory")
