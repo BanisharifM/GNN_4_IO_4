@@ -35,30 +35,30 @@ def parse_args():
 def load_metrics(results_dir: str) -> Dict[str, Dict[str, float]]:
     """
     Load metrics from model results directories.
-    
+
     Args:
         results_dir (str): Directory containing model results
-        
+
     Returns:
         Dict[str, Dict[str, float]]: Dictionary mapping model names to metrics
     """
     metrics = {}
-    
-    # Get subdirectories (one for each model)
-    # model_dirs = [d for d in os.listdir(results_dir) if os.path.isdir(os.path.join(results_dir, d))]
+
+    # Find all Experiment1 subdirectories under each model
     model_dirs = glob.glob(os.path.join(results_dir, "*", "Experiment1"))
- 
+
     for model_dir in model_dirs:
-        metrics_file = os.path.join(results_dir, model_dir, "metrics.json")
-        
+        metrics_file = os.path.join(model_dir, "metrics.json")
+        model_name = os.path.basename(os.path.dirname(model_dir))  # Extract just 'lightgbm', 'xgboost', etc.
+
         if os.path.exists(metrics_file):
             with open(metrics_file, 'r') as f:
                 model_metrics = json.load(f)
-                metrics[model_dir] = model_metrics
-                logger.info(f"Loaded metrics for {model_dir}: {model_metrics}")
+                metrics[model_name] = model_metrics
+                logger.info(f"Loaded metrics for {model_name}: {model_metrics}")
         else:
-            logger.warning(f"No metrics file found for {model_dir}")
-    
+            logger.warning(f"No metrics file found in {model_dir}")
+
     return metrics
 
 def create_comparison_table(metrics: Dict[str, Dict[str, float]]) -> pd.DataFrame:
@@ -165,13 +165,16 @@ def create_comparison_report(metrics: Dict[str, Dict[str, float]], output_file: 
         'best_model': comparison.index[0] if not comparison.empty else None,
         'best_metrics': comparison.iloc[0].to_dict() if not comparison.empty else None
     }
+
+    comparison_md = comparison.reset_index().to_markdown(index=False)
+    report["markdown_table"] = comparison_md
     
     # Save report
     with open(output_file, 'w') as f:
         json.dump(report, f, indent=4)
     
     logger.info(f"Comparison report saved to {output_file}")
-    
+
     return report
 
 def main():
