@@ -728,9 +728,9 @@ class TabNetModel(TabularModelBase):
         self.n_shared = n_shared
         self.lambda_sparse = lambda_sparse
         self.optimizer_fn = optimizer_fn
-        self.optimizer_params = optimizer_params
+        self.optimizer_params = optimizer_params or {}
         self.scheduler_fn = scheduler_fn
-        self.scheduler_params = scheduler_params
+        self.scheduler_params = scheduler_params or {}
         self.mask_type = mask_type
         self.max_epochs = max_epochs
         self.batch_size = batch_size
