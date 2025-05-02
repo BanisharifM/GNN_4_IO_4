@@ -97,7 +97,8 @@ def plot_comparison(metrics: Dict[str, Dict[str, float]], output_file: str):
     fig, ax = plt.subplots(figsize=(12, 8))
     
     # Extract model names and metrics
-    models = list(metrics.keys())
+    # models = list(metrics.keys())
+    models = [m for m in metrics.keys() if m != "tabnet"]
     
     # Check which metrics are available
     available_metrics = set()
@@ -144,36 +145,46 @@ def plot_comparison(metrics: Dict[str, Dict[str, float]], output_file: str):
 
 def create_comparison_report(metrics: Dict[str, Dict[str, float]], output_file: str):
     """
-    Create comparison report.
-    
-    Args:
-        metrics (Dict[str, Dict[str, float]]): Dictionary mapping model names to metrics
-        output_file (str): Output file for report
+    Create comparison report and markdown summary.
     """
     # Create comparison table
     comparison = create_comparison_table(metrics)
     
-    # Calculate improvement over baseline
+    # Calculate improvement over LightGBM
     if 'lightgbm' in comparison.index and 'rmse' in comparison.columns:
         baseline_rmse = comparison.loc['lightgbm', 'rmse']
         comparison['improvement'] = (baseline_rmse - comparison['rmse']) / baseline_rmse * 100
-    
-    # Convert to dictionary for JSON serialization
+
+    # Determine best model
+    best_model = comparison.index[0] if not comparison.empty else None
+    best_metrics = comparison.iloc[0].to_dict() if not comparison.empty else None
+
+    # Create markdown table
+    comparison_md = comparison.reset_index().to_markdown(index=False)
+
+    # Create report dict for JSON
     report = {
         'metrics': metrics,
         'comparison': comparison.to_dict(),
-        'best_model': comparison.index[0] if not comparison.empty else None,
-        'best_metrics': comparison.iloc[0].to_dict() if not comparison.empty else None
+        'best_model': best_model,
+        'best_metrics': best_metrics,
+        'markdown_table': comparison_md
     }
 
-    comparison_md = comparison.reset_index().to_markdown(index=False)
-    report["markdown_table"] = comparison_md
-    
-    # Save report
-    with open(output_file, 'w') as f:
-        json.dump(report, f, indent=4)
-    
+    # Save markdown report
+    md_path = output_file.replace(".json", ".md")
+    with open(md_path, "w") as f_md:
+        f_md.write("# 🧪 Model Comparison Results\n\n")
+        f_md.write(f"🏆 **Best Model:** `{best_model}`  \n\n")
+        f_md.write("### 📊 Comparison Table (sorted by RMSE)\n\n")
+        f_md.write(comparison_md)
+
+    # Save JSON report
+    with open(output_file, 'w') as f_json:
+        json.dump(report, f_json, indent=4)
+
     logger.info(f"Comparison report saved to {output_file}")
+    logger.info(f"Markdown summary saved to {md_path}")
 
     return report
 
