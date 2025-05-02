@@ -9,28 +9,30 @@
 #SBATCH --mem=16G
 #SBATCH --time=01:00:00
 
+# === Experiment & model setup ===
+CONDA_ENV_PATH="$HOME/.conda/envs/gnn4_env/bin/python"
+CONFIG_FILE="configs/experiment1.yml"
+
 # === Setup environment ===
 module load cuda
-source activate gnn4_env
 
-# === Read config file ===
-CONFIG_FILE="configs/experiment2.yml"
-EXPERIMENT_NAME=$(yq '.experiment_name' "$CONFIG_FILE")
-MODEL_TYPE=$(yq '.model_type' "$CONFIG_FILE")
-DATA_PATH=$(yq '.data_path' "$CONFIG_FILE")
-TARGET_COLUMN=$(yq '.target_column' "$CONFIG_FILE")
-IMPORTANT_FEATURES=$(yq '.important_features' "$CONFIG_FILE" | paste -sd ' ' -)
-SIM_THRESHOLD=$(yq '.similarity_threshold' "$CONFIG_FILE")
+# === Read config values from YAML ===
+EXPERIMENT_NAME=$(yq -r '.experiment_name' "$CONFIG_FILE")
+MODEL_TYPE=$(yq -r '.model_type' "$CONFIG_FILE")
+DATA_PATH=$(yq -r '.data_path' "$CONFIG_FILE")
+TARGET_COLUMN=$(yq -r '.target_column' "$CONFIG_FILE")
+IMPORTANT_FEATURES=$(yq -r '.important_features[]' "$CONFIG_FILE" | paste -sd ' ' -)
+SIM_THRESHOLD=$(yq -r '.similarity_threshold' "$CONFIG_FILE")
 
-HIDDEN_DIM=$(yq '.hyperparams.hidden_dim' "$CONFIG_FILE")
-NUM_LAYERS=$(yq '.hyperparams.num_layers' "$CONFIG_FILE")
-DROPOUT=$(yq '.hyperparams.dropout' "$CONFIG_FILE")
-BATCH_SIZE=$(yq '.hyperparams.batch_size' "$CONFIG_FILE")
-EPOCHS=$(yq '.hyperparams.epochs' "$CONFIG_FILE")
-LR=$(yq '.hyperparams.lr' "$CONFIG_FILE")
-WEIGHT_DECAY=$(yq '.hyperparams.weight_decay' "$CONFIG_FILE")
-PATIENCE=$(yq '.hyperparams.patience' "$CONFIG_FILE")
-SEED=$(yq '.hyperparams.seed' "$CONFIG_FILE")
+HIDDEN_DIM=$(yq -r '.hyperparams.hidden_dim' "$CONFIG_FILE")
+NUM_LAYERS=$(yq -r '.hyperparams.num_layers' "$CONFIG_FILE")
+DROPOUT=$(yq -r '.hyperparams.dropout' "$CONFIG_FILE")
+BATCH_SIZE=$(yq -r '.hyperparams.batch_size' "$CONFIG_FILE")
+EPOCHS=$(yq -r '.hyperparams.epochs' "$CONFIG_FILE")
+LR=$(yq -r '.hyperparams.lr' "$CONFIG_FILE")
+WEIGHT_DECAY=$(yq -r '.hyperparams.weight_decay' "$CONFIG_FILE")
+PATIENCE=$(yq -r '.hyperparams.patience' "$CONFIG_FILE")
+SEED=$(yq -r '.hyperparams.seed' "$CONFIG_FILE")
 
 # === Logging setup ===
 LOG_DIR="logs/slurm/${EXPERIMENT_NAME}"
@@ -48,7 +50,7 @@ run_model() {
     mkdir -p "$model_dir"
 
     echo "Running $model model..."
-    python scripts/train.py \
+    $CONDA_ENV_PATH scripts/train.py \
         --data_path "$DATA_PATH" \
         --output_dir "$model_dir" \
         --target_column "$TARGET_COLUMN" \
@@ -78,7 +80,7 @@ if [ "$MODEL_TYPE" = "all" ]; then
         run_model "$model"
     done
 
-    python scripts/compare_models.py \
+    $CONDA_ENV_PATH scripts/compare_models.py \
         --results_dir "logs/training" \
         --output_file "logs/training/comparison_report_${EXPERIMENT_NAME}.json" \
         --plot_file "logs/training/model_comparison_${EXPERIMENT_NAME}.png"
