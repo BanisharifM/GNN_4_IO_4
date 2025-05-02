@@ -1,4 +1,4 @@
-experiment_name: Experiment1
+experiment_name: Experiment233
 model_type: all
 data_path: data/sample_train_100.csv
 target_column: tag
