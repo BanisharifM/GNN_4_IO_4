@@ -1,4 +1,4 @@
-experiment_name: Experiment2
+experiment_name: Experiment3
 model_type: all
 data_path: data/sample_train_total.csv
 target_column: tag
@@ -6,14 +6,17 @@ similarity_threshold: 0.05
 
 important_features:
   - POSIX_SEQ_WRITES
+  - POSIX_SEQ_WRITES
   - POSIX_SIZE_READ_1K_10K
   - POSIX_SIZE_READ_10K_100K
   - POSIX_SIZE_READ_0_100
   - POSIX_SIZE_WRITE_100K_1M
+  - POSIX_write_only_bytes
   - POSIX_MEM_NOT_ALIGNED
   - POSIX_FILE_NOT_ALIGNED
-  - POSIX_SIZE_WRITE_0_100
-  - POSIX_SIZE_WRITE_10K_100K
+  - POSIX_unique_bytes
+  - POSIX_SEEKS
+  - POSIX_OPENS
 
 hyperparams:
   hidden_dim: 64
