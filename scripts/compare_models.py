@@ -85,63 +85,36 @@ def create_comparison_table(metrics: Dict[str, Dict[str, float]]) -> pd.DataFram
     
     return comparison
 
-def plot_comparison(metrics: Dict[str, Dict[str, float]], output_file: str):
+def plot_comparison(metrics: Dict[str, Dict[str, float]], output_file_base: str):
     """
-    Plot model comparison.
+    Plot separate bar charts for RMSE, MAE, and R² (excluding tabnet).
     
     Args:
         metrics (Dict[str, Dict[str, float]]): Dictionary mapping model names to metrics
-        output_file (str): Output file for plot
+        output_file_base (str): Base path for saving plot files (e.g., "model_comparison")
     """
-    # Create figure
-    fig, ax = plt.subplots(figsize=(12, 8))
-    
-    # Extract model names and metrics
-    # models = list(metrics.keys())
-    models = [m for m in metrics.keys() if m != "tabnet"]
-    
-    # Check which metrics are available
-    available_metrics = set()
-    for model_metrics in metrics.values():
-        available_metrics.update(model_metrics.keys())
-    
-    # Select metrics to plot
-    plot_metrics = ['rmse', 'mae', 'r2'] if all(m in available_metrics for m in ['rmse', 'mae', 'r2']) else list(available_metrics)
-    
-    # Extract metric values
-    metric_values = {}
-    for metric in plot_metrics:
-        metric_values[metric] = [metrics[model].get(metric, 0) for model in models]
-    
-    # Set up bar positions
-    x = np.arange(len(models))
-    width = 0.2
-    n_metrics = len(plot_metrics)
-    offsets = np.linspace(-(n_metrics-1)*width/2, (n_metrics-1)*width/2, n_metrics)
-    
-    # Plot bars
-    for i, metric in enumerate(plot_metrics):
-        ax.bar(x + offsets[i], metric_values[metric], width, label=metric.upper())
-    
-    # Add labels and legend
-    ax.set_xlabel('Model')
-    ax.set_ylabel('Metric Value')
-    ax.set_title('Model Comparison')
-    ax.set_xticks(x)
-    ax.set_xticklabels(models, rotation=45, ha='right')
-    ax.legend()
-    
-    # Add grid
-    ax.grid(axis='y', linestyle='--', alpha=0.7)
-    
-    # Adjust layout
-    plt.tight_layout()
-    
-    # Save figure
-    plt.savefig(output_file)
-    plt.close()
-    
-    logger.info(f"Comparison plot saved to {output_file}")
+    metrics_to_plot = ['rmse', 'mae', 'r2']
+    models = [m for m in metrics if m != "tabnet"]
+
+    for metric in metrics_to_plot:
+        values = [metrics[model].get(metric, 0) for model in models]
+        
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.bar(models, values, color='skyblue')
+        
+        ax.set_title(f'{metric.upper()} Comparison')
+        ax.set_ylabel(f'{metric.upper()} Value')
+        ax.set_xlabel('Model')
+        ax.set_xticks(np.arange(len(models)))
+        ax.set_xticklabels(models, rotation=45, ha='right')
+        ax.grid(axis='y', linestyle='--', alpha=0.7)
+        
+        plt.tight_layout()
+        output_path = output_file_base.replace(".png", f"_{metric}.png")
+        plt.savefig(output_path)
+        plt.close()
+        
+        logger.info(f"Saved {metric.upper()} plot to {output_path}")
 
 def create_comparison_report(metrics: Dict[str, Dict[str, float]], output_file: str):
     """
