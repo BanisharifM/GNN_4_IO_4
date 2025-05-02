@@ -787,7 +787,11 @@ class TabNetModel(TabularModelBase):
             seed=self.random_state,
             verbose=1
         )
-        
+
+       # Reshape y for single-target regression
+        if y.ndim == 1:
+            y = y.reshape(-1, 1) 
+            
         # Fit model
         self.model.fit(
             X, y,

@@ -14,8 +14,8 @@
 #SBATCH --error=logs/slurm/default.err
 
 # === Experiment & model setup ===
-EXPERIMENT_NAME="Experiment1"
-MODEL_TYPE="lightgbm"  # Options: lightgbm, catboost, xgboost, mlp, tabnet, tabgnn, combined, all
+EXPERIMENT_NAME="Experiment9"
+MODEL_TYPE="all"  # Options: lightgbm, catboost, xgboost, mlp, tabnet, tabgnn, combined, all
 CONDA_ENV_PATH="$HOME/.conda/envs/gnn4_env/bin/python"
 TARGET_COLUMN="tag"
 DATA_PATH="data/sample_train_100.csv"
@@ -35,14 +35,14 @@ mkdir -p "$OUTPUT_DIR"
 
 # === Important features list ===
 IMPORTANT_FEATURES=(
-    "POSIX_SEQ_WRITES"
-    "POSIX_SIZE_READ_1K_10K"
-    "POSIX_SIZE_READ_10K_100K"
-    "POSIX_unique_bytes"
-    "POSIX_SIZE_READ_0_100"
-    "POSIX_SIZE_WRITE_100K_1M"
-    "POSIX_write_only_bytes"
-    "POSIX_MEM_NOT_ALIGNED"
+    "POSIX_SEQ_WRITES",
+    "POSIX_SIZE_READ_1K_10K",
+    "POSIX_SIZE_READ_10K_100K",
+    "POSIX_unique_bytes",
+    "POSIX_SIZE_READ_0_100",
+    "POSIX_SIZE_WRITE_100K_1M",
+    "POSIX_write_only_bytes",
+    "POSIX_MEM_NOT_ALIGNED",
     "POSIX_FILE_NOT_ALIGNED"
 )
 FEATURES_STR=$(IFS=" "; echo "${IMPORTANT_FEATURES[*]}")
