@@ -14,7 +14,7 @@
 #SBATCH --error=logs/slurm/default.err
 
 # === Experiment & model setup ===
-EXPERIMENT_NAME="Experiment9"
+EXPERIMENT_NAME="Experiment1"
 MODEL_TYPE="all"  # Options: lightgbm, catboost, xgboost, mlp, tabnet, tabgnn, combined, all
 CONDA_ENV_PATH="$HOME/.conda/envs/gnn4_env/bin/python"
 TARGET_COLUMN="tag"
