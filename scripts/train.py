@@ -54,8 +54,10 @@ def parse_args():
     parser.add_argument("--target_column", type=str, required=True, help="Target column for prediction")
     
     # Graph construction arguments
-    parser.add_argument("--important_features", type=str, nargs="+", default=None, 
-                        help="List of important features for graph construction")
+    # parser.add_argument("--important_features", type=str, nargs="+", default=None, 
+    #                     help="List of important features for graph construction")
+    parser.add_argument("--important_features", type=str, default=None,
+                    help="Space-separated string of important features for graph construction")
     parser.add_argument("--similarity_threshold", type=float, default=0.05, 
                         help="Threshold for feature similarity")
     
@@ -383,6 +385,10 @@ def main():
     # Parse arguments
     args = parse_args()
     
+    # Parse important_features string to list
+    if args.important_features:
+        args.important_features = args.important_features.strip().split()
+
     # Set random seed
     set_seed(args.seed)
     
@@ -469,9 +475,26 @@ def main():
                 'mae': mae,
                 'r2': r2
             }
+
+            # Save metrics
+            metrics_path = os.path.join(args.output_dir, "metrics.json")
+            with open(metrics_path, 'w') as f:
+                json.dump(metrics, f, indent=4)
+
+            logger.info(f"Final metrics: {metrics}")
+            logger.info(f"Model and results saved to {args.output_dir}")
+
         
     elif args.model_type == 'combined':
         model, metrics = train_combined_model(data, args, device)
+
+        # Save metrics
+        metrics_path = os.path.join(args.output_dir, "metrics.json")
+        with open(metrics_path, 'w') as f:
+            json.dump(metrics, f, indent=4)
+
+        logger.info(f"Final metrics: {metrics}")
+        logger.info(f"Model and results saved to {args.output_dir}")
         
         # Save model
         gnn_path = os.path.join(args.output_dir, "tabgnn_part.pt")
@@ -482,17 +505,20 @@ def main():
         # Train traditional tabular model
         model, metrics = train_tabular_model(data, args, args.model_type)
         
+        # Save metrics
+        metrics_path = os.path.join(args.output_dir, "metrics.json")
+        with open(metrics_path, 'w') as f:
+            json.dump(metrics, f, indent=4)
+
+        logger.info(f"Final metrics: {metrics}")
+        logger.info(f"Model and results saved to {args.output_dir}")
+
+        
         # Save model
         model_path = os.path.join(args.output_dir, f"{args.model_type}_model.joblib")
         model.save(model_path)
     
-    # Save metrics
-    metrics_path = os.path.join(args.output_dir, "metrics.json")
-    with open(metrics_path, 'w') as f:
-        json.dump(metrics, f, indent=4)
-    
-    logger.info(f"Final metrics: {metrics}")
-    logger.info(f"Model and results saved to {args.output_dir}")
+    pass
 
 if __name__ == "__main__":
     main()
