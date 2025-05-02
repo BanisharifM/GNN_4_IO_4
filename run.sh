@@ -18,7 +18,7 @@ mkdir -p $OUTPUT_DIR
 
 # Run the training script
 echo "Running GNN4_IO_4 training with TabGNN model..."
-python scripts/train.py \
+'~/.conda/envs/gnn4_env/bin/python' scripts/train.py \
     --data_path $DATA_PATH \
     --output_dir $OUTPUT_DIR \
     --target_column $TARGET_COLUMN \

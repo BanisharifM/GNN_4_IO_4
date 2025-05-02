@@ -1,33 +1,39 @@
 #!/bin/bash
 #SBATCH --job-name=GNN4_IO_4
 #SBATCH --account=bdau-delta-gpu    
-#SBATCH --partition=gpuA100x4
+#SBATCH --partition=gpuA100x4-interactive
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=64
+#SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:1
-#SBATCH --mem=128G
-#SBATCH --time=24:00:00
-#SBATCH --output=logs/slurm/GNN4_IO_4_%j.out
-#SBATCH --error=logs/slurm/GNN4_IO_4_%j.err
+#SBATCH --mem=16G
+#SBATCH --time=01:00:00
 
-# Load required modules
-module load cuda
+# === Fallback static log paths (used only if dynamic logging fails) ===
+#SBATCH --output=logs/slurm/default.out
+#SBATCH --error=logs/slurm/default.err
 
-# Activate conda environment (replace with your environment name)
-source activate gnn_env
-
-# Create logs directory if it doesn't exist
-mkdir -p logs/slurm
-mkdir -p logs/training
-
-# Set variables for the workflow
-DATA_PATH="data/sample_train_100.csv"   #/u/mbanisharifdehkordi/Github/GNN_4_IO_3/data/sample_train_total.csv
-OUTPUT_DIR="logs/training/GNN4_IO_4"
+# === Experiment & model setup ===
+EXPERIMENT_NAME="Experiment1"
+MODEL_TYPE="lightgbm"  # Options: lightgbm, catboost, xgboost, mlp, tabnet, tabgnn, combined, all
+CONDA_ENV_PATH="$HOME/.conda/envs/gnn4_env/bin/python"
 TARGET_COLUMN="tag"
-MODEL_TYPE="all"  # Options: lightgbm, catboost, xgboost, mlp, tabnet, tabgnn, combined, all
+DATA_PATH="data/sample_train_100.csv"
+OUTPUT_DIR="logs/training/${MODEL_TYPE}/${EXPERIMENT_NAME}"
 
-# Define important features for graph construction
+# === Setup environment ===
+module load cuda
+source activate gnn4_env
+
+# === Dynamic logging (SLURM variables not available at SBATCH time) ===
+LOG_DIR="logs/slurm/${EXPERIMENT_NAME}"
+mkdir -p "$LOG_DIR"
+exec > >(tee -a "${LOG_DIR}/training_${SLURM_JOB_ID}.out") 2> >(tee -a "${LOG_DIR}/training_${SLURM_JOB_ID}.err" >&2)
+
+# === Create model output directory ===
+mkdir -p "$OUTPUT_DIR"
+
+# === Important features list ===
 IMPORTANT_FEATURES=(
     "POSIX_SEQ_WRITES"
     "POSIX_SIZE_READ_1K_10K"
@@ -39,25 +45,23 @@ IMPORTANT_FEATURES=(
     "POSIX_MEM_NOT_ALIGNED"
     "POSIX_FILE_NOT_ALIGNED"
 )
-
-# Convert array to space-separated string
 FEATURES_STR=$(IFS=" "; echo "${IMPORTANT_FEATURES[*]}")
 
-# Function to run a specific model
+# === Model runner function ===
 run_model() {
-    local model_type=$1
-    local model_output_dir="$OUTPUT_DIR/$model_type"
+    local model=$1
+    local model_dir="logs/training/${model}/${EXPERIMENT_NAME}"
     
-    echo "Running $model_type model..."
-    mkdir -p $model_output_dir
-    
-    python scripts/train.py \
-        --data_path $DATA_PATH \
-        --output_dir $model_output_dir \
-        --target_column $TARGET_COLUMN \
-        --important_features $FEATURES_STR \
+    echo "Running $model model..."
+    mkdir -p "$model_dir"
+
+    $CONDA_ENV_PATH scripts/train.py \
+        --data_path "$DATA_PATH" \
+        --output_dir "$model_dir" \
+        --target_column "$TARGET_COLUMN" \
+        --important_features "$FEATURES_STR" \
         --similarity_threshold 0.05 \
-        --model_type $model_type \
+        --model_type "$model" \
         --gnn_type gcn \
         --hidden_dim 64 \
         --num_layers 2 \
@@ -69,27 +73,24 @@ run_model() {
         --patience 10 \
         --seed 42 \
         --device cuda
-    
-    echo "$model_type model completed."
+
+    echo "$model model completed."
 }
 
+# === Main execution ===
 echo "Starting GNN4_IO_4 pipeline at $(date)"
 
-# Run models based on the specified model type
 if [ "$MODEL_TYPE" = "all" ]; then
-    # Run all models
     for model in lightgbm catboost xgboost mlp tabnet tabgnn combined; do
-        run_model $model
+        run_model "$model"
     done
-    
-    # Create comparison report
-    python scripts/compare_models.py \
-        --results_dir $OUTPUT_DIR \
-        --output_file $OUTPUT_DIR/comparison_report.json \
-        --plot_file $OUTPUT_DIR/model_comparison.png
+
+    $CONDA_ENV_PATH scripts/compare_models.py \
+        --results_dir "logs/training" \
+        --output_file "logs/training/comparison_report_${EXPERIMENT_NAME}.json" \
+        --plot_file "logs/training/model_comparison_${EXPERIMENT_NAME}.png"
 else
-    # Run specific model
-    run_model $MODEL_TYPE
+    run_model "$MODEL_TYPE"
 fi
 
 echo "All jobs completed at $(date)"
