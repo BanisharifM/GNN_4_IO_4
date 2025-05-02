@@ -44,19 +44,18 @@ def load_metrics(results_dir: str, experiment_name: str) -> Dict[str, Dict[str, 
         Dict[str, Dict[str, float]]: Dictionary mapping model names to metrics
     """
     metrics = {}
-
-    # Find all Experiment subdirectories under each model
     model_dirs = glob.glob(os.path.join(results_dir, "*", experiment_name))
 
     for model_dir in model_dirs:
-        metrics_file = os.path.join(model_dir, "metrics.json")
-        model_name = os.path.basename(os.path.dirname(model_dir))  # Extract just 'lightgbm', 'xgboost', etc.
+        model_name = os.path.basename(os.path.dirname(model_dir))
+        if model_name == "all":
+            continue  # Skip fake "all" model
 
+        metrics_file = os.path.join(model_dir, "metrics.json")
         if os.path.exists(metrics_file):
             with open(metrics_file, 'r') as f:
-                model_metrics = json.load(f)
-                metrics[model_name] = model_metrics
-                logger.info(f"Loaded metrics for {model_name}: {model_metrics}")
+                metrics[model_name] = json.load(f)
+                logger.info(f"Loaded metrics for {model_name}: {metrics[model_name]}")
         else:
             logger.warning(f"No metrics file found in {model_dir}")
 
