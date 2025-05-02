@@ -11,7 +11,7 @@
 
 # === Experiment & model setup ===
 CONDA_ENV_PATH="$HOME/.conda/envs/gnn4_env/bin/python"
-CONFIG_FILE="configs/experiment1.yml"
+CONFIG_FILE="configs/experiment3.yml"
 
 # === Setup environment ===
 module load cuda
