@@ -87,7 +87,7 @@ if [ "$MODEL_TYPE" = "all" ]; then
     done
 
     $CONDA_ENV_PATH scripts/compare_models.py \
-        --results_dir "logs/training/*/${EXPERIMENT_NAME}" \
+        --results_dir "logs/training" \
         --output_file "logs/training/comparison_report_${EXPERIMENT_NAME}.json" \
         --plot_file "logs/training/model_comparison_${EXPERIMENT_NAME}.png"
 else
@@ -95,3 +95,19 @@ else
 fi
 
 echo "All jobs completed at $(date)"
+
+
+
+# IMPORTANT_FEATURES=(
+#     "POSIX_SEQ_WRITES"
+#     "POSIX_SIZE_READ_1K_10K"
+#     "POSIX_SIZE_READ_10K_100K"
+#     "POSIX_SIZE_READ_0_100"
+#     "POSIX_SIZE_WRITE_100K_1M"
+#     "POSIX_write_only_bytes"
+#     "POSIX_MEM_NOT_ALIGNED"
+#     "POSIX_FILE_NOT_ALIGNED"
+#     "POSIX_unique_bytes"
+#     "POSIX_SEEKS"
+#     "POSIX_OPENS"
+# )

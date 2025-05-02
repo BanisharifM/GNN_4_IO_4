@@ -727,7 +727,7 @@ class TabNetModel(TabularModelBase):
         self.n_independent = n_independent
         self.n_shared = n_shared
         self.lambda_sparse = lambda_sparse
-        self.optimizer_fn = optimizer_fn
+        self.optimizer_fn = optimizer_fn or torch.optim.Adam
         self.optimizer_params = optimizer_params or {}
         self.scheduler_fn = scheduler_fn
         self.scheduler_params = scheduler_params or {}
