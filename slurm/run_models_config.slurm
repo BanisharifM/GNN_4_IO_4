@@ -14,28 +14,34 @@ module load cuda
 source activate gnn4_env
 
 # === Read config file ===
-CONFIG_FILE="configs/experiment1.yml"
-EXPERIMENT_NAME=$(yq eval '.experiment_name' "$CONFIG_FILE")
-MODEL_TYPE=$(yq eval '.model_type' "$CONFIG_FILE")
-DATA_PATH=$(yq eval '.data_path' "$CONFIG_FILE")
-TARGET_COLUMN=$(yq eval '.target_column' "$CONFIG_FILE")
-IMPORTANT_FEATURES=$(yq eval '.important_features | join(" ")' "$CONFIG_FILE")
+CONFIG_FILE="configs/experiment2.yml"
+EXPERIMENT_NAME=$(yq '.experiment_name' "$CONFIG_FILE")
+MODEL_TYPE=$(yq '.model_type' "$CONFIG_FILE")
+DATA_PATH=$(yq '.data_path' "$CONFIG_FILE")
+TARGET_COLUMN=$(yq '.target_column' "$CONFIG_FILE")
+IMPORTANT_FEATURES=$(yq '.important_features' "$CONFIG_FILE" | paste -sd ' ' -)
+SIM_THRESHOLD=$(yq '.similarity_threshold' "$CONFIG_FILE")
+
+HIDDEN_DIM=$(yq '.hyperparams.hidden_dim' "$CONFIG_FILE")
+NUM_LAYERS=$(yq '.hyperparams.num_layers' "$CONFIG_FILE")
+DROPOUT=$(yq '.hyperparams.dropout' "$CONFIG_FILE")
+BATCH_SIZE=$(yq '.hyperparams.batch_size' "$CONFIG_FILE")
+EPOCHS=$(yq '.hyperparams.epochs' "$CONFIG_FILE")
+LR=$(yq '.hyperparams.lr' "$CONFIG_FILE")
+WEIGHT_DECAY=$(yq '.hyperparams.weight_decay' "$CONFIG_FILE")
+PATIENCE=$(yq '.hyperparams.patience' "$CONFIG_FILE")
+SEED=$(yq '.hyperparams.seed' "$CONFIG_FILE")
+
+# === Logging setup ===
+LOG_DIR="logs/slurm/${EXPERIMENT_NAME}"
+mkdir -p "$LOG_DIR"
+exec > >(tee -a "${LOG_DIR}/training_${SLURM_JOB_ID}.out") 2> >(tee -a "${LOG_DIR}/training_${SLURM_JOB_ID}.err" >&2)
+
+# === Output directory ===
 OUTPUT_DIR="logs/training/${MODEL_TYPE}/${EXPERIMENT_NAME}"
-
-HIDDEN_DIM=$(yq eval '.hyperparams.hidden_dim' "$CONFIG_FILE")
-NUM_LAYERS=$(yq eval '.hyperparams.num_layers' "$CONFIG_FILE")
-DROPOUT=$(yq eval '.hyperparams.dropout' "$CONFIG_FILE")
-BATCH_SIZE=$(yq eval '.hyperparams.batch_size' "$CONFIG_FILE")
-EPOCHS=$(yq eval '.hyperparams.epochs' "$CONFIG_FILE")
-LR=$(yq eval '.hyperparams.lr' "$CONFIG_FILE")
-WEIGHT_DECAY=$(yq eval '.hyperparams.weight_decay' "$CONFIG_FILE")
-PATIENCE=$(yq eval '.hyperparams.patience' "$CONFIG_FILE")
-SEED=$(yq eval '.hyperparams.seed' "$CONFIG_FILE")
-SIM_THRESHOLD=$(yq eval '.similarity_threshold' "$CONFIG_FILE")
-
 mkdir -p "$OUTPUT_DIR"
 
-# === Model runner ===
+# === Run model ===
 run_model() {
     local model=$1
     local model_dir="logs/training/${model}/${EXPERIMENT_NAME}"
@@ -64,13 +70,14 @@ run_model() {
     echo "$model model completed."
 }
 
-# === Main execution ===
+# === Main ===
 echo "Starting Experiment: $EXPERIMENT_NAME"
 
 if [ "$MODEL_TYPE" = "all" ]; then
     for model in lightgbm catboost xgboost mlp tabnet tabgnn combined; do
         run_model "$model"
     done
+
     python scripts/compare_models.py \
         --results_dir "logs/training" \
         --output_file "logs/training/comparison_report_${EXPERIMENT_NAME}.json" \
