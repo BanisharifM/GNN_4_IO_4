@@ -1,0 +1,9 @@
+Computing similarities:   0%|          | 0/3324 [00:00<?, ?it/s]Computing similarities:   0%|          | 0/3324 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/compute_similarity.py", line 62, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/compute_similarity.py", line 56, in main
+    sim_dict = compute_cosine_similarity_batches(data, batch_size=args.batch_size, top_k=args.top_k, device=device)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/compute_similarity.py", line 15, in compute_cosine_similarity_batches
+    sims = torch.matmul(batch, data_tensor.T.to(device))  # Cosine because data is normalized
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 49.53 GiB (GPU 0; 39.38 GiB total capacity; 1.14 GiB already allocated; 37.75 GiB free; 1.14 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

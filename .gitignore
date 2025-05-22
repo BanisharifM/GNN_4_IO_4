@@ -178,5 +178,5 @@ env/
 
 
 data/sample_train_total.csv
-logs/*
+# logs/*
 catboost_info/*

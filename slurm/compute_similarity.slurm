@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH --job-name=compute_similarity
 #SBATCH --account=bdau-delta-gpu
-#SBATCH --partition=gpuA100x4-interactive
+#SBATCH --partition=gpuA100x4
 #SBATCH --nodes=2
 #SBATCH --ntasks=2
-#SBATCH --gres=gpu:1
-#SBATCH --cpus-per-task=16
-#SBATCH --mem=8G
-#SBATCH --time=01:00:00
+#SBATCH --gres=gpu:2
+#SBATCH --cpus-per-task=64
+#SBATCH --mem=128G
+#SBATCH --time=48:00:00
 #SBATCH --output=logs/slurm/compute_similarity_%j.out
 #SBATCH --error=logs/slurm/compute_similarity_%j.err
 
@@ -16,9 +16,9 @@ module load cuda
 # source activate gnn4_env
 
 # Arguments
-CSV_PATH="data/sample_train_100.csv"
+CSV_PATH="data/sample_train_total.csv"
 OUTPUT_PATH="data/similarity_output.pt"
-BATCH_SIZE=4000
+BATCH_SIZE=2000
 TOP_K=  # Leave empty or set value like 30
 
 # Run
