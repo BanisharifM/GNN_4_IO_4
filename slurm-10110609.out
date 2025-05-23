@@ -1,0 +1,40 @@
+Running tabgnn model...
+2025-05-23 01:41:28,866 - INFO - Parsed arguments:
+{
+    "data_path": "data/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment4/tabgnn",
+    "target_column": "tag",
+    "important_features": "POSIX_SEQ_WRITES POSIX_SIZE_READ_1K_10K POSIX_SIZE_READ_0_100 POSIX_SIZE_WRITE_100K_1M POSIX_MEM_NOT_ALIGNED POSIX_FILE_NOT_ALIGNED POSIX_SEEKS POSIX_OPENS",
+    "similarity_threshold": 0.05,
+    "model_type": "tabgnn",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/similarity_output_merged_100K.pt"
+}
+2025-05-23 01:41:28,878 - INFO - Using device: cuda
+2025-05-23 01:41:28,878 - INFO - Initialized I/O data processor for data/sample_100K.csv
+2025-05-23 01:41:28,878 - INFO - Loading data from data/sample_100K.csv
+2025-05-23 01:41:29,267 - INFO - Loaded data with shape (100000, 46)
+2025-05-23 01:41:29,267 - INFO - Preprocessing data
+2025-05-23 01:41:29,268 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-23 01:41:29,268 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-23 01:41:29,268 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-23 01:41:29,268 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-23 01:41:29,268 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-23 01:41:29,268 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-23 01:41:29,268 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-05-23 01:41:29,268 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-05-23 01:41:29,268 - INFO - Initialized multiplex graph constructor for 8 features
+2025-05-23 01:41:29,268 - INFO - Creating combined PyG data
+2025-05-23 01:41:29,268 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-23 01:41:29,268 - INFO - Creating PyTorch Geometric Data objects
+2025-05-23 01:41:29,268 - INFO - Constructing multiplex graphs for 8 features

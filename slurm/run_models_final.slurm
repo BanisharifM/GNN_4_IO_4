@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH --job-name=GNN4_IO_4
 #SBATCH --account=bdau-delta-gpu    
-#SBATCH --partition=gpuH200x8
+#SBATCH --partition=gpuH200x8-interactive
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=64
-#SBATCH --gres=gpu:4
+#SBATCH --cpus-per-task=16
+#SBATCH --gres=gpu:2
 #SBATCH --mem=128G
-#SBATCH --time=05:00:00
+#SBATCH --time=01:00:00
 
 # === Setup environment ===
 module load cuda
