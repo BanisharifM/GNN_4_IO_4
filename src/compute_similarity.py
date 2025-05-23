@@ -4,58 +4,62 @@ import os
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
+import torch.distributed as dist
+from torch.multiprocessing import Process
 
-def compute_cosine_similarity_batches(
-    data_tensor,
-    batch_size=4000,
-    chunk_size=4000,
-    top_k=None,
-    device="cuda"
-):
-    num_rows = data_tensor.size(0)
+def setup(rank, world_size):
+    os.environ['MASTER_ADDR'] = os.environ.get('MASTER_ADDR', 'localhost')
+    os.environ['MASTER_PORT'] = os.environ.get('MASTER_PORT', '12355')
+    dist.init_process_group("nccl", rank=rank, world_size=world_size)
+
+def setup(rank, world_size):
+    dist.init_process_group("nccl", rank=rank, world_size=world_size)
+    torch.cuda.set_device(rank)
+
+def cleanup():
+    dist.destroy_process_group()
+
+def compute_cosine_similarity_distributed(rank, world_size, args):
+    setup(rank, world_size)
+    device = torch.device(f"cuda:{rank}")
+
+    df = pd.read_csv(args.input_csv)
+    data = torch.tensor(df.values, dtype=torch.float32)
+    data = torch.nn.functional.normalize(data, p=2, dim=1)
+    data = data.to(device)
+
+    num_rows = data.size(0)
+    batch_size = args.batch_size
+    chunk_size = args.chunk_size
+    top_k = args.top_k
     similarity_dict = {}
 
-    for i in tqdm(range(0, num_rows, batch_size), desc="Computing similarities"):
-        batch = data_tensor[i:i + batch_size].to(device)
+    # Split the data for this rank
+    local_indices = list(range(rank, num_rows, world_size))
 
+    for i in tqdm(local_indices, desc=f"Rank {rank} computing", position=rank):
+        row = data[i].unsqueeze(0)  # 1 x D
+        similarities = []
         for j in range(0, num_rows, chunk_size):
-            chunk = data_tensor[j:j + chunk_size].to(device)
+            chunk = data[j:j+chunk_size]
+            sims = torch.matmul(row, chunk.T).squeeze(0)  # 1 x chunk -> chunk
+            dst_indices = torch.arange(j, j + chunk.size(0), device=device)
+            if top_k:
+                vals, indices = torch.topk(sims, min(top_k + 1, sims.size(0)))
+                filtered = [(int(dst_indices[idx]), float(vals[k]))
+                            for k, idx in enumerate(indices) if dst_indices[idx] != i]
+                similarities.extend(filtered[:top_k])
+            else:
+                similarities.extend([(int(dst_indices[k]), float(sims[k]))
+                                     for k in range(sims.size(0)) if dst_indices[k] != i])
 
-            sims = torch.matmul(batch, chunk.T)  
+        similarity_dict[i] = similarities
 
-            for row_idx in range(batch.size(0)):
-                src = i + row_idx
-                if src >= num_rows:
-                    continue
-
-                sim_row = sims[row_idx]
-                indices = torch.arange(j, j + chunk.size(0), device=device)
-                if top_k:
-                    top_vals, top_indices = torch.topk(sim_row, k=min(top_k + 1, sim_row.size(0)))
-                    for dst, val in zip(indices[top_indices], top_vals):
-                        if dst.item() != src:
-                            similarity_dict.setdefault(src, []).append((dst.item(), val.item()))
-                else:
-                    for dst, val in zip(indices, sim_row):
-                        if dst.item() != src:
-                            similarity_dict.setdefault(src, []).append((dst.item(), val.item()))
-
-            del chunk, sims
-            torch.cuda.empty_cache()
-
-        if top_k:
-            # Retain only top_k globally for each row
-            for src in similarity_dict:
-                similarity_dict[src] = sorted(similarity_dict[src], key=lambda x: -x[1])[:top_k]
-
-        del batch
-        torch.cuda.empty_cache()
-
-    return similarity_dict
-
-def save_similarity(sim_dict, output_path):
-    torch.save(sim_dict, output_path)
-    print(f"Similarity saved to {output_path}")
+    # Save partial result
+    partial_file = f"{args.output_path}.rank{rank}.pt"
+    torch.save(similarity_dict, partial_file)
+    print(f"[Rank {rank}] Saved partial result to {partial_file}")
+    cleanup()
 
 def main():
     parser = argparse.ArgumentParser()
@@ -64,27 +68,18 @@ def main():
     parser.add_argument("--batch_size", type=int, default=4000)
     parser.add_argument("--chunk_size", type=int, default=4000)
     parser.add_argument("--top_k", type=int, default=None)
+    parser.add_argument("--world_size", type=int, required=True)
+    parser.add_argument("--rank", type=int, required=True) 
     args = parser.parse_args()
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    print(f"Using device: {device}")
-
-    # Load and normalize data
-    df = pd.read_csv(args.input_csv)
-    data = torch.tensor(df.values, dtype=torch.float32)
-    data = torch.nn.functional.normalize(data, p=2, dim=1)
-
-    # Compute similarity
-    sim_dict = compute_cosine_similarity_batches(
-        data,
-        batch_size=args.batch_size,
-        chunk_size=args.chunk_size,
-        top_k=args.top_k,
-        device=device
-    )
-
-    # Save
-    save_similarity(sim_dict, args.output_path)
+    world_size = args.world_size
+    processes = []
+    for rank in range(world_size):
+        p = Process(target=compute_cosine_similarity_distributed, args=(rank, world_size, args))
+        p.start()
+        processes.append(p)
+    for p in processes:
+        p.join()
 
 if __name__ == "__main__":
     main()
