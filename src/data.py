@@ -466,7 +466,8 @@ class IODataProcessor:
         important_features: List[str] = None,
         similarity_thresholds: Dict[str, float] = None,
         similarity_metric: str = "cosine",
-        max_edges_per_node: Optional[int] = None
+        max_edges_per_node: Optional[int] = None,
+        precomputed_similarity_path: Optional[str] = None
     ):
         """
         Initialize I/O data processor.
@@ -483,6 +484,8 @@ class IODataProcessor:
         self.similarity_thresholds = similarity_thresholds
         self.similarity_metric = similarity_metric
         self.max_edges_per_node = max_edges_per_node
+
+        self.precomputed_similarity_path = precomputed_similarity_path
         
         self.data = None
         self.scaler = None
@@ -537,6 +540,23 @@ class IODataProcessor:
             Dict[str, Tuple[torch.Tensor, torch.Tensor]]: Dictionary mapping graph names to (edge_index, edge_attr) tuples
         """
         logger.info("Constructing multiplex graphs")
+        
+        if self.precomputed_similarity_path and os.path.exists(self.precomputed_similarity_path):
+            logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
+            sim_dict = torch.load(self.precomputed_similarity_path)
+
+            edge_index = []
+            edge_attr = []
+
+            for src, neighbors in sim_dict.items():
+                for dst, sim in neighbors:
+                    edge_index.append([src, dst])
+                    edge_attr.append([sim])
+
+            edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
+            edge_attr = torch.tensor(edge_attr, dtype=torch.float)
+
+            return {"combined": (edge_index, edge_attr)}
         
         if self.data is None:
             self.load_data()

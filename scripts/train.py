@@ -21,6 +21,7 @@ import logging
 import sys
 import json
 from datetime import datetime
+import yaml
 
 # Add parent directory to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -45,45 +46,49 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def parse_args():
-    """Parse command line arguments."""
     parser = argparse.ArgumentParser(description="Train TabGNN models for I/O performance prediction")
     
-    # Data arguments
-    parser.add_argument("--data_path", type=str, required=True, help="Path to input data CSV file")
-    parser.add_argument("--output_dir", type=str, default="./output", help="Directory to save outputs")
-    parser.add_argument("--target_column", type=str, required=True, help="Target column for prediction")
-    
-    # Graph construction arguments
-    # parser.add_argument("--important_features", type=str, nargs="+", default=None, 
-    #                     help="List of important features for graph construction")
-    parser.add_argument("--important_features", type=str, default=None,
-                    help="Space-separated string of important features for graph construction")
-    parser.add_argument("--similarity_threshold", type=float, default=0.05, 
-                        help="Threshold for feature similarity")
-    
-    # Model arguments
-    parser.add_argument("--model_type", type=str, default="tabgnn", 
-                        choices=["tabgnn", "lightgbm", "catboost", "xgboost", "mlp", "tabnet", "combined"],
-                        help="Type of model to train")
-    parser.add_argument("--gnn_type", type=str, default="gcn", choices=["gcn", "gat"],
-                        help="Type of GNN to use")
-    parser.add_argument("--hidden_dim", type=int, default=64, help="Hidden dimension size")
-    parser.add_argument("--num_layers", type=int, default=2, help="Number of GNN layers")
-    parser.add_argument("--dropout", type=float, default=0.1, help="Dropout rate")
-    
-    # Training arguments
-    parser.add_argument("--batch_size", type=int, default=32, help="Batch size")
-    parser.add_argument("--epochs", type=int, default=100, help="Number of epochs")
-    parser.add_argument("--lr", type=float, default=0.001, help="Learning rate")
-    parser.add_argument("--weight_decay", type=float, default=0.0001, help="Weight decay")
-    parser.add_argument("--patience", type=int, default=10, help="Patience for early stopping")
-    parser.add_argument("--seed", type=int, default=42, help="Random seed")
-    
-    # Device arguments
-    parser.add_argument("--device", type=str, default=None, 
-                        help="Device to use (cuda or cpu, default: auto-detect)")
-    
-    return parser.parse_args()
+    parser.add_argument("--config_file", type=str, help="YAML config file containing all parameters")
+    args, remaining_args = parser.parse_known_args()
+
+    if args.config_file:
+        with open(args.config_file, 'r') as f:
+            config = yaml.safe_load(f)
+        
+        # Flatten YAML config into a list of CLI args
+        for key, value in config.items():
+            if isinstance(value, list):
+                value = ' '.join(map(str, value))
+            elif isinstance(value, bool):
+                value = str(value).lower()
+            else:
+                value = str(value)
+            remaining_args.extend([f'--{key}', value])
+
+    # Parse the complete argument list (defaults + config overrides + CLI)
+    final_parser = argparse.ArgumentParser(description="Train TabGNN models for I/O performance prediction")
+
+    final_parser.add_argument("--data_path", type=str, required=True)
+    final_parser.add_argument("--output_dir", type=str, default="./output")
+    final_parser.add_argument("--target_column", type=str, required=True)
+    final_parser.add_argument("--important_features", type=str, default=None)
+    final_parser.add_argument("--similarity_threshold", type=float, default=0.05)
+    final_parser.add_argument("--model_type", type=str, default="tabgnn",
+                              choices=["tabgnn", "lightgbm", "catboost", "xgboost", "mlp", "tabnet", "combined"])
+    final_parser.add_argument("--gnn_type", type=str, default="gcn", choices=["gcn", "gat"])
+    final_parser.add_argument("--hidden_dim", type=int, default=64)
+    final_parser.add_argument("--num_layers", type=int, default=2)
+    final_parser.add_argument("--dropout", type=float, default=0.1)
+    final_parser.add_argument("--batch_size", type=int, default=32)
+    final_parser.add_argument("--epochs", type=int, default=100)
+    final_parser.add_argument("--lr", type=float, default=0.001)
+    final_parser.add_argument("--weight_decay", type=float, default=0.0001)
+    final_parser.add_argument("--patience", type=int, default=10)
+    final_parser.add_argument("--seed", type=int, default=42)
+    final_parser.add_argument("--device", type=str, default=None)
+    final_parser.add_argument("--precomputed_similarity_path", type=str, default=None)
+
+    return final_parser.parse_args(remaining_args)
 
 def set_seed(seed):
     """Set random seed for reproducibility."""
@@ -384,6 +389,8 @@ def main():
     """Main function."""
     # Parse arguments
     args = parse_args()
+
+    logger.info("Parsed arguments:\n" + json.dumps(vars(args), indent=4))
     
     # Parse important_features string to list
     if args.important_features:
@@ -406,7 +413,8 @@ def main():
     data_processor = IODataProcessor(
         data_path=args.data_path,
         important_features=args.important_features,
-        similarity_thresholds={f: args.similarity_threshold for f in args.important_features} if args.important_features else None
+        similarity_thresholds={f: args.similarity_threshold for f in args.important_features} if args.important_features else None,
+        precomputed_similarity_path=args.precomputed_similarity_path
     )
     
     # Load and preprocess data
