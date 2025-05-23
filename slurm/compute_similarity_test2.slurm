@@ -2,8 +2,8 @@
 #SBATCH --job-name=compute_similarity
 #SBATCH --account=bdau-delta-gpu
 #SBATCH --partition=gpuH200x8
-#SBATCH --nodes=1                     
-#SBATCH --ntasks=1                   
+#SBATCH --nodes=2                     
+#SBATCH --ntasks=2                   
 #SBATCH --gres=gpu:4                
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=128G
