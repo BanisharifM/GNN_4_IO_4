@@ -8,8 +8,8 @@ import torch.distributed as dist
 from torch.multiprocessing import Process
 
 def setup(rank, world_size):
-    os.environ['MASTER_ADDR'] = os.environ.get('MASTER_ADDR', 'localhost')
-    os.environ['MASTER_PORT'] = os.environ.get('MASTER_PORT', '12355')
+    if 'MASTER_ADDR' not in os.environ or 'MASTER_PORT' not in os.environ:
+        raise RuntimeError("MASTER_ADDR and MASTER_PORT must be set in the environment by SLURM script.")
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     torch.cuda.set_device(rank % torch.cuda.device_count()) 
 
