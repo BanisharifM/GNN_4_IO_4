@@ -55,7 +55,7 @@ def compute_cosine_similarity_batches(
 
 def save_similarity(sim_dict, output_path):
     torch.save(sim_dict, output_path)
-    print(f"\u2705 Similarity saved to {output_path}")
+    print(f"Similarity saved to {output_path}")
 
 def main():
     parser = argparse.ArgumentParser()
@@ -67,7 +67,7 @@ def main():
     args = parser.parse_args()
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    print(f"\ud83d\ude80 Using device: {device}")
+    print(f"Using device: {device}")
 
     # Load and normalize data
     df = pd.read_csv(args.input_csv)
