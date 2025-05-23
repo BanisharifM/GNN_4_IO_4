@@ -20,7 +20,7 @@ export MASTER_ADDR=localhost
 export MASTER_PORT=$((10000 + RANDOM % 20000)) 
 export WORLD_SIZE=4  
 
-CSV_PATH="data/sample_10K.csv"
+CSV_PATH="data/sample_100K.csv"
 OUTPUT_PATH="data/similarity_output_total.pt"
 BATCH_SIZE=10408
 CHUNK_SIZE=10408
