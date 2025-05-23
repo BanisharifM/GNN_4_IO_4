@@ -1,0 +1,297 @@
+Running tabgnn model...
+2025-05-23 01:28:36,987 - INFO - Parsed arguments:
+{
+    "data_path": "data/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment4/tabgnn",
+    "target_column": "tag",
+    "important_features": "POSIX_SEQ_WRITES POSIX_SIZE_READ_1K_10K POSIX_SIZE_READ_0_100 POSIX_SIZE_WRITE_100K_1M POSIX_MEM_NOT_ALIGNED POSIX_FILE_NOT_ALIGNED POSIX_SEEKS POSIX_OPENS",
+    "similarity_threshold": 0.05,
+    "model_type": "tabgnn",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/similarity_output_merged_100K.pt"
+}
+2025-05-23 01:28:37,002 - INFO - Using device: cuda
+2025-05-23 01:28:37,003 - INFO - Initialized I/O data processor for data/sample_100K.csv
+2025-05-23 01:28:37,003 - INFO - Loading data from data/sample_100K.csv
+2025-05-23 01:28:37,428 - INFO - Loaded data with shape (100000, 46)
+2025-05-23 01:28:37,428 - INFO - Preprocessing data
+2025-05-23 01:28:37,428 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-23 01:28:37,428 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-23 01:28:37,428 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-23 01:28:37,428 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-23 01:28:37,428 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-23 01:28:37,428 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-23 01:28:37,428 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-05-23 01:28:37,428 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-05-23 01:28:37,428 - INFO - Initialized multiplex graph constructor for 8 features
+2025-05-23 01:28:37,428 - INFO - Creating combined PyG data
+2025-05-23 01:28:37,428 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-23 01:28:37,428 - INFO - Creating PyTorch Geometric Data objects
+2025-05-23 01:28:37,428 - INFO - Constructing multiplex graphs for 8 features
+/var/spool/slurmd/job10110476/slurm_script: line 25: 727829 Killed                  $CONDA_ENV_PATH scripts/train.py --config_file "$CONFIG_FILE" --output_dir "$OUTPUT_DIR" --device cuda --model_type "$model"
+tabgnn model completed.
+Running lightgbm model...
+2025-05-23 01:29:09,269 - INFO - Parsed arguments:
+{
+    "data_path": "data/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment4/lightgbm",
+    "target_column": "tag",
+    "important_features": "POSIX_SEQ_WRITES POSIX_SIZE_READ_1K_10K POSIX_SIZE_READ_0_100 POSIX_SIZE_WRITE_100K_1M POSIX_MEM_NOT_ALIGNED POSIX_FILE_NOT_ALIGNED POSIX_SEEKS POSIX_OPENS",
+    "similarity_threshold": 0.05,
+    "model_type": "lightgbm",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/similarity_output_merged_100K.pt"
+}
+2025-05-23 01:29:09,280 - INFO - Using device: cuda
+2025-05-23 01:29:09,280 - INFO - Initialized I/O data processor for data/sample_100K.csv
+2025-05-23 01:29:09,280 - INFO - Loading data from data/sample_100K.csv
+2025-05-23 01:29:09,731 - INFO - Loaded data with shape (100000, 46)
+2025-05-23 01:29:09,731 - INFO - Preprocessing data
+2025-05-23 01:29:09,731 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-23 01:29:09,731 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-23 01:29:09,731 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-23 01:29:09,731 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-23 01:29:09,731 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-23 01:29:09,731 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-23 01:29:09,731 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-05-23 01:29:09,731 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-05-23 01:29:09,731 - INFO - Initialized multiplex graph constructor for 8 features
+2025-05-23 01:29:09,731 - INFO - Creating combined PyG data
+2025-05-23 01:29:09,731 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-23 01:29:09,731 - INFO - Creating PyTorch Geometric Data objects
+2025-05-23 01:29:09,731 - INFO - Constructing multiplex graphs for 8 features
+/var/spool/slurmd/job10110476/slurm_script: line 25: 727917 Killed                  $CONDA_ENV_PATH scripts/train.py --config_file "$CONFIG_FILE" --output_dir "$OUTPUT_DIR" --device cuda --model_type "$model"
+lightgbm model completed.
+Running catboost model...
+2025-05-23 01:29:41,800 - INFO - Parsed arguments:
+{
+    "data_path": "data/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment4/catboost",
+    "target_column": "tag",
+    "important_features": "POSIX_SEQ_WRITES POSIX_SIZE_READ_1K_10K POSIX_SIZE_READ_0_100 POSIX_SIZE_WRITE_100K_1M POSIX_MEM_NOT_ALIGNED POSIX_FILE_NOT_ALIGNED POSIX_SEEKS POSIX_OPENS",
+    "similarity_threshold": 0.05,
+    "model_type": "catboost",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/similarity_output_merged_100K.pt"
+}
+2025-05-23 01:29:41,812 - INFO - Using device: cuda
+2025-05-23 01:29:41,812 - INFO - Initialized I/O data processor for data/sample_100K.csv
+2025-05-23 01:29:41,812 - INFO - Loading data from data/sample_100K.csv
+2025-05-23 01:29:42,241 - INFO - Loaded data with shape (100000, 46)
+2025-05-23 01:29:42,241 - INFO - Preprocessing data
+2025-05-23 01:29:42,241 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-23 01:29:42,241 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-23 01:29:42,241 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-23 01:29:42,241 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-23 01:29:42,241 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-23 01:29:42,241 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-23 01:29:42,241 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-05-23 01:29:42,241 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-05-23 01:29:42,241 - INFO - Initialized multiplex graph constructor for 8 features
+2025-05-23 01:29:42,241 - INFO - Creating combined PyG data
+2025-05-23 01:29:42,241 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-23 01:29:42,241 - INFO - Creating PyTorch Geometric Data objects
+2025-05-23 01:29:42,241 - INFO - Constructing multiplex graphs for 8 features
+/var/spool/slurmd/job10110476/slurm_script: line 25: 738527 Killed                  $CONDA_ENV_PATH scripts/train.py --config_file "$CONFIG_FILE" --output_dir "$OUTPUT_DIR" --device cuda --model_type "$model"
+catboost model completed.
+Running xgboost model...
+2025-05-23 01:30:13,732 - INFO - Parsed arguments:
+{
+    "data_path": "data/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment4/xgboost",
+    "target_column": "tag",
+    "important_features": "POSIX_SEQ_WRITES POSIX_SIZE_READ_1K_10K POSIX_SIZE_READ_0_100 POSIX_SIZE_WRITE_100K_1M POSIX_MEM_NOT_ALIGNED POSIX_FILE_NOT_ALIGNED POSIX_SEEKS POSIX_OPENS",
+    "similarity_threshold": 0.05,
+    "model_type": "xgboost",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/similarity_output_merged_100K.pt"
+}
+2025-05-23 01:30:13,745 - INFO - Using device: cuda
+2025-05-23 01:30:13,745 - INFO - Initialized I/O data processor for data/sample_100K.csv
+2025-05-23 01:30:13,745 - INFO - Loading data from data/sample_100K.csv
+2025-05-23 01:30:14,170 - INFO - Loaded data with shape (100000, 46)
+2025-05-23 01:30:14,170 - INFO - Preprocessing data
+2025-05-23 01:30:14,170 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-23 01:30:14,170 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-23 01:30:14,170 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-23 01:30:14,170 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-23 01:30:14,170 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-23 01:30:14,170 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-23 01:30:14,170 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-05-23 01:30:14,170 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-05-23 01:30:14,170 - INFO - Initialized multiplex graph constructor for 8 features
+2025-05-23 01:30:14,170 - INFO - Creating combined PyG data
+2025-05-23 01:30:14,170 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-23 01:30:14,170 - INFO - Creating PyTorch Geometric Data objects
+2025-05-23 01:30:14,170 - INFO - Constructing multiplex graphs for 8 features
+/var/spool/slurmd/job10110476/slurm_script: line 25: 738612 Killed                  $CONDA_ENV_PATH scripts/train.py --config_file "$CONFIG_FILE" --output_dir "$OUTPUT_DIR" --device cuda --model_type "$model"
+xgboost model completed.
+Running mlp model...
+2025-05-23 01:30:45,136 - INFO - Parsed arguments:
+{
+    "data_path": "data/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment4/mlp",
+    "target_column": "tag",
+    "important_features": "POSIX_SEQ_WRITES POSIX_SIZE_READ_1K_10K POSIX_SIZE_READ_0_100 POSIX_SIZE_WRITE_100K_1M POSIX_MEM_NOT_ALIGNED POSIX_FILE_NOT_ALIGNED POSIX_SEEKS POSIX_OPENS",
+    "similarity_threshold": 0.05,
+    "model_type": "mlp",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/similarity_output_merged_100K.pt"
+}
+2025-05-23 01:30:45,147 - INFO - Using device: cuda
+2025-05-23 01:30:45,147 - INFO - Initialized I/O data processor for data/sample_100K.csv
+2025-05-23 01:30:45,147 - INFO - Loading data from data/sample_100K.csv
+2025-05-23 01:30:45,553 - INFO - Loaded data with shape (100000, 46)
+2025-05-23 01:30:45,553 - INFO - Preprocessing data
+2025-05-23 01:30:45,553 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-23 01:30:45,553 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-23 01:30:45,553 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-23 01:30:45,553 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-23 01:30:45,553 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-23 01:30:45,553 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-23 01:30:45,553 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-05-23 01:30:45,553 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-05-23 01:30:45,553 - INFO - Initialized multiplex graph constructor for 8 features
+2025-05-23 01:30:45,553 - INFO - Creating combined PyG data
+2025-05-23 01:30:45,553 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-23 01:30:45,553 - INFO - Creating PyTorch Geometric Data objects
+2025-05-23 01:30:45,553 - INFO - Constructing multiplex graphs for 8 features
+/var/spool/slurmd/job10110476/slurm_script: line 25: 749224 Killed                  $CONDA_ENV_PATH scripts/train.py --config_file "$CONFIG_FILE" --output_dir "$OUTPUT_DIR" --device cuda --model_type "$model"
+mlp model completed.
+Running tabnet model...
+2025-05-23 01:31:16,797 - INFO - Parsed arguments:
+{
+    "data_path": "data/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment4/tabnet",
+    "target_column": "tag",
+    "important_features": "POSIX_SEQ_WRITES POSIX_SIZE_READ_1K_10K POSIX_SIZE_READ_0_100 POSIX_SIZE_WRITE_100K_1M POSIX_MEM_NOT_ALIGNED POSIX_FILE_NOT_ALIGNED POSIX_SEEKS POSIX_OPENS",
+    "similarity_threshold": 0.05,
+    "model_type": "tabnet",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/similarity_output_merged_100K.pt"
+}
+2025-05-23 01:31:16,807 - INFO - Using device: cuda
+2025-05-23 01:31:16,808 - INFO - Initialized I/O data processor for data/sample_100K.csv
+2025-05-23 01:31:16,808 - INFO - Loading data from data/sample_100K.csv
+2025-05-23 01:31:17,212 - INFO - Loaded data with shape (100000, 46)
+2025-05-23 01:31:17,212 - INFO - Preprocessing data
+2025-05-23 01:31:17,212 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-23 01:31:17,212 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-23 01:31:17,212 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-23 01:31:17,212 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-23 01:31:17,212 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-23 01:31:17,212 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-23 01:31:17,212 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-05-23 01:31:17,212 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-05-23 01:31:17,212 - INFO - Initialized multiplex graph constructor for 8 features
+2025-05-23 01:31:17,212 - INFO - Creating combined PyG data
+2025-05-23 01:31:17,212 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-23 01:31:17,212 - INFO - Creating PyTorch Geometric Data objects
+2025-05-23 01:31:17,212 - INFO - Constructing multiplex graphs for 8 features
+/var/spool/slurmd/job10110476/slurm_script: line 25: 756657 Killed                  $CONDA_ENV_PATH scripts/train.py --config_file "$CONFIG_FILE" --output_dir "$OUTPUT_DIR" --device cuda --model_type "$model"
+tabnet model completed.
+Running combined model...
+2025-05-23 01:31:48,548 - INFO - Parsed arguments:
+{
+    "data_path": "data/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment4/combined",
+    "target_column": "tag",
+    "important_features": "POSIX_SEQ_WRITES POSIX_SIZE_READ_1K_10K POSIX_SIZE_READ_0_100 POSIX_SIZE_WRITE_100K_1M POSIX_MEM_NOT_ALIGNED POSIX_FILE_NOT_ALIGNED POSIX_SEEKS POSIX_OPENS",
+    "similarity_threshold": 0.05,
+    "model_type": "combined",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/similarity_output_merged_100K.pt"
+}
+2025-05-23 01:31:48,559 - INFO - Using device: cuda
+2025-05-23 01:31:48,559 - INFO - Initialized I/O data processor for data/sample_100K.csv
+2025-05-23 01:31:48,559 - INFO - Loading data from data/sample_100K.csv
+2025-05-23 01:31:48,944 - INFO - Loaded data with shape (100000, 46)
+2025-05-23 01:31:48,944 - INFO - Preprocessing data
+2025-05-23 01:31:48,944 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-23 01:31:48,944 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-23 01:31:48,944 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-23 01:31:48,944 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-23 01:31:48,944 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-23 01:31:48,944 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-23 01:31:48,944 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-05-23 01:31:48,944 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-05-23 01:31:48,944 - INFO - Initialized multiplex graph constructor for 8 features
+2025-05-23 01:31:48,944 - INFO - Creating combined PyG data
+2025-05-23 01:31:48,944 - INFO - Creating combined PyTorch Geometric Data object
+2025-05-23 01:31:48,944 - INFO - Creating PyTorch Geometric Data objects
+2025-05-23 01:31:48,944 - INFO - Constructing multiplex graphs for 8 features
+/var/spool/slurmd/job10110476/slurm_script: line 25: 759918 Killed                  $CONDA_ENV_PATH scripts/train.py --config_file "$CONFIG_FILE" --output_dir "$OUTPUT_DIR" --device cuda --model_type "$model"
+combined model completed.
+2025-05-23 01:32:09,591 - ERROR - No metrics found in results directory
+All jobs completed at Fri May 23 01:32:09 CDT 2025
+slurmstepd: error: Detected 7 oom_kill events in StepId=10110476.batch. Some of the step tasks have been OOM Killed.
