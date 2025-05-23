@@ -14,5 +14,5 @@ module load cuda
 
 python scripts/sample_dataset.py \
   --input_csv data/sample_train_total_normalized.csv \
-  --output_csv data/sample_10K.csv \
-  --n_rows 10000
+  --output_csv data/sample_100K.csv \
+  --n_rows 100000
