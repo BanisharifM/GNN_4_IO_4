@@ -6,7 +6,7 @@ from glob import glob
 def merge_similarity_dicts(input_dir, output_path):
     merged = {}
 
-    pt_files = sorted(glob(os.path.join(input_dir, "similarity_output_rank*.pt")))
+    pt_files = sorted(glob(os.path.join(input_dir, "similarity_output_total.pt.rank*.pt")))
     print(f"Found {len(pt_files)} partial similarity files.")
 
     for pt_file in pt_files:
@@ -28,5 +28,5 @@ if __name__ == "__main__":
 
 
 # python merge_similarity_dicts.py \
-#   --input_dir logs/training/partial_similarities \
-#   --output_path data/similarity_output_merged.pt
+#   --input_dir data/ \
+#   --output_path data/similarity_output_merged_100K.pt
