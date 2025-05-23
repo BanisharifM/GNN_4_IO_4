@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/compute_similarity.py", line 90, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/compute_similarity.py", line 70, in main
+    print(f"\ud83d\ude80 Using device: {device}")
+UnicodeEncodeError: 'utf-8' codec can't encode characters in position 0-1: surrogates not allowed

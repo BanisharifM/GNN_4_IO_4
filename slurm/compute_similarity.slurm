@@ -18,7 +18,7 @@ module load cuda
 # Arguments
 CSV_PATH="data/sample_train_total.csv"
 OUTPUT_PATH="data/similarity_output.pt"
-BATCH_SIZE=2000
+BATCH_SIZE=200000
 TOP_K=  # Leave empty or set value like 30
 
 # Run
