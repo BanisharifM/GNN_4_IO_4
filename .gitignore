@@ -181,5 +181,6 @@ data/sample_train_total.csv
 data/sample_train_total_normalized.csv
 data/sample_10K.csv
 data/sample_100K.csv
+data/*
 # logs/*
 catboost_info/*

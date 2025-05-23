@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH --job-name=GNN4_IO_4
 #SBATCH --account=bdau-delta-gpu    
-#SBATCH --partition=gpuA100x4-interactive
+#SBATCH --partition=gpuH200x8-interactive
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
-#SBATCH --gres=gpu:1
-#SBATCH --mem=8G
+#SBATCH --cpus-per-task=64
+#SBATCH --gres=gpu:4
+#SBATCH --mem=128G
 #SBATCH --time=01:00:00
 
 # === Setup environment ===
@@ -16,8 +16,8 @@ module load cuda
 
 # === Config ===
 CONDA_ENV_PATH="$HOME/.conda/envs/gnn4_env/bin/python"
-CONFIG_FILE="configs/experiment3.yml"
-EXPERIMENT_NAME="Experiment3"
+CONFIG_FILE="configs/experiment4.yml"
+EXPERIMENT_NAME="Experiment4"
 BASE_OUTPUT_DIR="logs/training/all/${EXPERIMENT_NAME}"
 mkdir -p "$BASE_OUTPUT_DIR"
 
