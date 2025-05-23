@@ -11,17 +11,14 @@ def setup(rank, world_size):
     os.environ['MASTER_ADDR'] = os.environ.get('MASTER_ADDR', 'localhost')
     os.environ['MASTER_PORT'] = os.environ.get('MASTER_PORT', '12355')
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
-
-def setup(rank, world_size):
-    dist.init_process_group("nccl", rank=rank, world_size=world_size)
-    torch.cuda.set_device(rank)
+    torch.cuda.set_device(rank % torch.cuda.device_count()) 
 
 def cleanup():
     dist.destroy_process_group()
 
 def compute_cosine_similarity_distributed(rank, world_size, args):
     setup(rank, world_size)
-    device = torch.device(f"cuda:{rank}")
+    device = torch.device(f"cuda:{rank % torch.cuda.device_count()}")
 
     df = pd.read_csv(args.input_csv)
     data = torch.tensor(df.values, dtype=torch.float32)
@@ -69,17 +66,10 @@ def main():
     parser.add_argument("--chunk_size", type=int, default=4000)
     parser.add_argument("--top_k", type=int, default=None)
     parser.add_argument("--world_size", type=int, required=True)
-    parser.add_argument("--rank", type=int, required=True) 
+    parser.add_argument("--rank", type=int, required=True)
     args = parser.parse_args()
 
-    world_size = args.world_size
-    processes = []
-    for rank in range(world_size):
-        p = Process(target=compute_cosine_similarity_distributed, args=(rank, world_size, args))
-        p.start()
-        processes.append(p)
-    for p in processes:
-        p.join()
+    compute_cosine_similarity_distributed(args.rank, args.world_size, args)
 
 if __name__ == "__main__":
     main()
