@@ -26,3 +26,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     sample_dataset(args.input_csv, args.output_csv, args.n_rows, args.seed)
+
+
+# python sample_dataset.py \
+#   --input_csv data/sample_train_total_normalized.csv \
+#   --output_csv data/sample_10K.csv \
+#   --n_rows 10000
+
