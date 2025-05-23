@@ -3,6 +3,7 @@ model_type: all
 data_path: data/sample_train_100.csv
 target_column: tag
 similarity_threshold: 0.05
+precomputed_similarity_path: data/similarity_output_100.pt
 
 important_features:
   - POSIX_SEQ_WRITES
@@ -14,13 +15,12 @@ important_features:
   - POSIX_SEEKS
   - POSIX_OPENS
 
-hyperparams:
-  hidden_dim: 64
-  num_layers: 2
-  dropout: 0.1
-  batch_size: 32
-  epochs: 100
-  lr: 0.001
-  weight_decay: 0.0001
-  patience: 10
-  seed: 42
+hidden_dim: 64
+num_layers: 2
+dropout: 0.1
+batch_size: 32
+epochs: 100
+lr: 0.001
+weight_decay: 0.0001
+patience: 10
+seed: 42
