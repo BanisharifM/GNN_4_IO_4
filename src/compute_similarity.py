@@ -6,6 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 import torch.distributed as dist
 from torch.multiprocessing import Process
+from torch.multiprocessing import spawn
 
 def setup(rank, world_size):
     if 'MASTER_ADDR' not in os.environ or 'MASTER_PORT' not in os.environ:
@@ -58,6 +59,9 @@ def compute_cosine_similarity_distributed(rank, world_size, args):
     print(f"[Rank {rank}] Saved partial result to {partial_file}")
     cleanup()
 
+def main_worker(rank, world_size, args):
+    compute_cosine_similarity_distributed(rank, world_size, args)
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_csv", type=str, required=True)
@@ -66,10 +70,10 @@ def main():
     parser.add_argument("--chunk_size", type=int, default=4000)
     parser.add_argument("--top_k", type=int, default=None)
     parser.add_argument("--world_size", type=int, required=True)
-    parser.add_argument("--rank", type=int, required=True)
     args = parser.parse_args()
 
-    compute_cosine_similarity_distributed(args.rank, args.world_size, args)
+    # Spawn processes (1 per GPU or CPU core)
+    spawn(main_worker, args=(args.world_size, args), nprocs=args.world_size, join=True)
 
 if __name__ == "__main__":
     main()
