@@ -1,0 +1,157 @@
+Running tabnet model...
+2025-05-26 12:24:46,015 - INFO - Parsed arguments:
+{
+    "data_path": "data/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment4/tabnet",
+    "target_column": "tag",
+    "important_features": "POSIX_SEQ_WRITES POSIX_SIZE_READ_1K_10K POSIX_SIZE_READ_0_100 POSIX_SIZE_WRITE_100K_1M POSIX_MEM_NOT_ALIGNED POSIX_FILE_NOT_ALIGNED POSIX_SEEKS POSIX_OPENS",
+    "similarity_threshold": 0.05,
+    "model_type": "tabnet",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/similarity_output_merged_100K.pt"
+}
+2025-05-26 12:24:46,023 - INFO - Using device: cuda
+2025-05-26 12:24:46,023 - INFO - Initialized I/O data processor for data/sample_100K.csv
+2025-05-26 12:24:46,023 - INFO - Loading data from data/sample_100K.csv
+2025-05-26 12:24:46,621 - INFO - Loaded data with shape (100000, 46)
+2025-05-26 12:24:46,621 - INFO - Preprocessing data
+2025-05-26 12:24:46,621 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-26 12:24:46,621 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-26 12:24:46,621 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-26 12:24:46,621 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-26 12:24:46,621 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-26 12:24:46,621 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-26 12:24:46,621 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-05-26 12:24:46,621 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-05-26 12:24:46,621 - INFO - Initialized multiplex graph constructor for 8 features
+2025-05-26 12:24:46,622 - INFO - Creating combined PyG data
+2025-05-26 12:24:46,622 - INFO - Loading precomputed similarity from data/similarity_output_merged_100K.pt
+2025-05-26 12:25:40,293 - INFO - Splitting data into train, validation, and test sets
+2025-05-26 12:25:40,483 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-05-26 12:25:40,487 - INFO - Saving processed data to logs/training/all/Experiment4/tabnet/processed_data
+2025-05-26 12:25:43,092 - INFO - Constructing multiplex graphs
+2025-05-26 12:25:43,092 - INFO - Loading precomputed similarity from data/similarity_output_merged_100K.pt
+2025-05-26 12:26:28,628 - INFO - Creating combined PyG data
+2025-05-26 12:26:28,628 - INFO - Loading precomputed similarity from data/similarity_output_merged_100K.pt
+2025-05-26 12:27:12,589 - INFO - Saved processed data to logs/training/all/Experiment4/tabnet/processed_data
+2025-05-26 12:27:12,601 - INFO - Initialized tabnet model
+/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:687: UserWarning: No early stopping will be performed, last training weights will be used.
+  warnings.warn(wrn_msg)
+2025-05-26 12:30:44,787 - INFO - TabNet model fitted with 45 features
+2025-05-26 12:30:44,985 - INFO - Evaluation metrics: {'mse': 0.0006983017083257437, 'rmse': 0.026425398924628245, 'mae': 0.01850597746670246, 'r2': 0.7068749666213989}
+2025-05-26 12:30:44,994 - INFO - Final metrics: {'mse': 0.0006983017083257437, 'rmse': 0.026425398924628245, 'mae': 0.01850597746670246, 'r2': 0.7068749666213989}
+2025-05-26 12:30:44,994 - INFO - Model and results saved to logs/training/all/Experiment4/tabnet
+2025-05-26 12:30:45,061 - INFO - Model saved to logs/training/all/Experiment4/tabnet/tabnet_model.joblib
+epoch 0  | loss: 1.94041 |  0:00:03s
+epoch 1  | loss: 0.16396 |  0:00:05s
+epoch 2  | loss: 0.07335 |  0:00:07s
+epoch 3  | loss: 0.03851 |  0:00:09s
+epoch 4  | loss: 0.02207 |  0:00:11s
+epoch 5  | loss: 0.01408 |  0:00:13s
+epoch 6  | loss: 0.01145 |  0:00:15s
+epoch 7  | loss: 0.00968 |  0:00:17s
+epoch 8  | loss: 0.00844 |  0:00:19s
+epoch 9  | loss: 0.00718 |  0:00:20s
+epoch 10 | loss: 0.00638 |  0:00:22s
+epoch 11 | loss: 0.00572 |  0:00:25s
+epoch 12 | loss: 0.00509 |  0:00:27s
+epoch 13 | loss: 0.00484 |  0:00:29s
+epoch 14 | loss: 0.00474 |  0:00:32s
+epoch 15 | loss: 0.00446 |  0:00:34s
+epoch 16 | loss: 0.00452 |  0:00:36s
+epoch 17 | loss: 0.0038  |  0:00:38s
+epoch 18 | loss: 0.00375 |  0:00:40s
+epoch 19 | loss: 0.00362 |  0:00:42s
+epoch 20 | loss: 0.00351 |  0:00:44s
+epoch 21 | loss: 0.00329 |  0:00:46s
+epoch 22 | loss: 0.00311 |  0:00:50s
+epoch 23 | loss: 0.00288 |  0:00:53s
+epoch 24 | loss: 0.00263 |  0:00:56s
+epoch 25 | loss: 0.00263 |  0:00:58s
+epoch 26 | loss: 0.00243 |  0:00:59s
+epoch 27 | loss: 0.00258 |  0:01:01s
+epoch 28 | loss: 0.00237 |  0:01:03s
+epoch 29 | loss: 0.00238 |  0:01:05s
+epoch 30 | loss: 0.00211 |  0:01:07s
+epoch 31 | loss: 0.00206 |  0:01:09s
+epoch 32 | loss: 0.00213 |  0:01:11s
+epoch 33 | loss: 0.00199 |  0:01:13s
+epoch 34 | loss: 0.00188 |  0:01:15s
+epoch 35 | loss: 0.00187 |  0:01:16s
+epoch 36 | loss: 0.00189 |  0:01:18s
+epoch 37 | loss: 0.00185 |  0:01:21s
+epoch 38 | loss: 0.00175 |  0:01:22s
+epoch 39 | loss: 0.00167 |  0:01:24s
+epoch 40 | loss: 0.0017  |  0:01:26s
+epoch 41 | loss: 0.00164 |  0:01:28s
+epoch 42 | loss: 0.00167 |  0:01:30s
+epoch 43 | loss: 0.0016  |  0:01:32s
+epoch 44 | loss: 0.00161 |  0:01:34s
+epoch 45 | loss: 0.00161 |  0:01:36s
+epoch 46 | loss: 0.00155 |  0:01:37s
+epoch 47 | loss: 0.00153 |  0:01:40s
+epoch 48 | loss: 0.00155 |  0:01:42s
+epoch 49 | loss: 0.00143 |  0:01:44s
+epoch 50 | loss: 0.00153 |  0:01:47s
+epoch 51 | loss: 0.00152 |  0:01:51s
+epoch 52 | loss: 0.00194 |  0:01:54s
+epoch 53 | loss: 0.00152 |  0:01:56s
+epoch 54 | loss: 0.00158 |  0:01:58s
+epoch 55 | loss: 0.00145 |  0:02:00s
+epoch 56 | loss: 0.00126 |  0:02:02s
+epoch 57 | loss: 0.00122 |  0:02:04s
+epoch 58 | loss: 0.00142 |  0:02:06s
+epoch 59 | loss: 0.00135 |  0:02:08s
+epoch 60 | loss: 0.00131 |  0:02:10s
+epoch 61 | loss: 0.00134 |  0:02:11s
+epoch 62 | loss: 0.00131 |  0:02:15s
+epoch 63 | loss: 0.00133 |  0:02:17s
+epoch 64 | loss: 0.00128 |  0:02:19s
+epoch 65 | loss: 0.00123 |  0:02:21s
+epoch 66 | loss: 0.00115 |  0:02:23s
+epoch 67 | loss: 0.00109 |  0:02:24s
+epoch 68 | loss: 0.00114 |  0:02:26s
+epoch 69 | loss: 0.00111 |  0:02:28s
+epoch 70 | loss: 0.00104 |  0:02:30s
+epoch 71 | loss: 0.00108 |  0:02:32s
+epoch 72 | loss: 0.00104 |  0:02:34s
+epoch 73 | loss: 0.00102 |  0:02:37s
+epoch 74 | loss: 0.00103 |  0:02:39s
+epoch 75 | loss: 0.00102 |  0:02:41s
+epoch 76 | loss: 0.00101 |  0:02:43s
+epoch 77 | loss: 0.00096 |  0:02:44s
+epoch 78 | loss: 0.00101 |  0:02:46s
+epoch 79 | loss: 0.00109 |  0:02:50s
+epoch 80 | loss: 0.00099 |  0:02:53s
+epoch 81 | loss: 0.00123 |  0:02:56s
+epoch 82 | loss: 0.001   |  0:02:58s
+epoch 83 | loss: 0.00097 |  0:03:00s
+epoch 84 | loss: 0.001   |  0:03:02s
+epoch 85 | loss: 0.00093 |  0:03:03s
+epoch 86 | loss: 0.00113 |  0:03:05s
+epoch 87 | loss: 0.00109 |  0:03:07s
+epoch 88 | loss: 0.00097 |  0:03:09s
+epoch 89 | loss: 0.00091 |  0:03:11s
+epoch 90 | loss: 0.00088 |  0:03:13s
+epoch 91 | loss: 0.00089 |  0:03:15s
+epoch 92 | loss: 0.00094 |  0:03:17s
+epoch 93 | loss: 0.00089 |  0:03:19s
+epoch 94 | loss: 0.00096 |  0:03:20s
+epoch 95 | loss: 0.00091 |  0:03:22s
+epoch 96 | loss: 0.00094 |  0:03:24s
+epoch 97 | loss: 0.00096 |  0:03:26s
+epoch 98 | loss: 0.00094 |  0:03:28s
+epoch 99 | loss: 0.00098 |  0:03:30s
+tabnet model completed.

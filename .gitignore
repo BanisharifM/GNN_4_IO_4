@@ -177,7 +177,7 @@ __pycache__/
 env/
 
 
-data/sample_train_total.csv
-data/sample_train_total_normalized.csv
-# logs/*
+data/*
+*.pt
 catboost_info/*
+# logs/*

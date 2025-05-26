@@ -466,7 +466,8 @@ class IODataProcessor:
         important_features: List[str] = None,
         similarity_thresholds: Dict[str, float] = None,
         similarity_metric: str = "cosine",
-        max_edges_per_node: Optional[int] = None
+        max_edges_per_node: Optional[int] = None,
+        precomputed_similarity_path: Optional[str] = None
     ):
         """
         Initialize I/O data processor.
@@ -483,6 +484,8 @@ class IODataProcessor:
         self.similarity_thresholds = similarity_thresholds
         self.similarity_metric = similarity_metric
         self.max_edges_per_node = max_edges_per_node
+
+        self.precomputed_similarity_path = precomputed_similarity_path
         
         self.data = None
         self.scaler = None
@@ -538,6 +541,23 @@ class IODataProcessor:
         """
         logger.info("Constructing multiplex graphs")
         
+        if self.precomputed_similarity_path and os.path.exists(self.precomputed_similarity_path):
+            logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
+            sim_dict = torch.load(self.precomputed_similarity_path)
+
+            edge_index = []
+            edge_attr = []
+
+            for src, neighbors in sim_dict.items():
+                for dst, sim in neighbors:
+                    edge_index.append([src, dst])
+                    edge_attr.append([sim])
+
+            edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
+            edge_attr = torch.tensor(edge_attr, dtype=torch.float)
+
+            return {"combined": (edge_index, edge_attr)}
+        
         if self.data is None:
             self.load_data()
         
@@ -558,37 +578,46 @@ class IODataProcessor:
         return multiplex_graphs
     
     def create_combined_pyg_data(
-        self, 
+        self,
         target_column: Optional[str] = None
     ) -> Data:
         """
         Create combined PyTorch Geometric Data object.
-        
+
         Args:
             target_column (str, optional): Target column for prediction
-            
+
         Returns:
             Data: Combined PyG Data object
         """
         logger.info("Creating combined PyG data")
-        
+
         if self.data is None:
             self.load_data()
-        
-        if self.graph_constructor is None:
-            if self.important_features is None:
-                raise ValueError("important_features must be provided")
-            
-            self.graph_constructor = MultiplexGraphConstructor(
-                important_features=self.important_features,
-                similarity_thresholds=self.similarity_thresholds,
-                similarity_metric=self.similarity_metric,
-                max_edges_per_node=self.max_edges_per_node
-            )
-        
-        # Create combined PyG data
-        return self.graph_constructor.create_combined_pyg_data(self.data, target_column)
-    
+
+        if not self.precomputed_similarity_path or not os.path.exists(self.precomputed_similarity_path):
+            raise FileNotFoundError(f"Precomputed similarity file not found at: {self.precomputed_similarity_path}")
+
+        logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
+        sim_dict = torch.load(self.precomputed_similarity_path)
+
+        edge_index = []
+        edge_attr = []
+
+        for src, neighbors in sim_dict.items():
+            for dst, sim in neighbors:
+                edge_index.append([src, dst])
+                edge_attr.append([sim])
+
+        edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
+        edge_attr = torch.tensor(edge_attr, dtype=torch.float)
+
+        x = torch.tensor(self.data.drop(columns=[target_column]).values, dtype=torch.float)
+        y = torch.tensor(self.data[target_column].values, dtype=torch.float)
+
+        return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
+
+
     def train_val_test_split(
         self, 
         data: Data,

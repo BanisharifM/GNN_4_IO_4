@@ -1,0 +1,15 @@
+2025-05-26 12:48:23,505 - INFO - Loaded metrics for catboost: {'mse': 0.00011812680738033972, 'rmse': 0.010868615706719036, 'mae': 0.005651529015162931, 'r2': 0.9504140944041799}
+2025-05-26 12:48:23,506 - INFO - Loaded metrics for combined: {'mse': 5.1235127709854905e-05, 'rmse': 0.007157871730469533, 'mae': 0.0038557851193706, 'r2': 0.9786829684390286}
+2025-05-26 12:48:23,506 - INFO - Loaded metrics for lightgbm: {'mse': 0.00010251345309648767, 'rmse': 0.010124892744937483, 'mae': 0.005038886044565449, 'r2': 0.9569680877670957}
+2025-05-26 12:48:23,507 - INFO - Loaded metrics for mlp: {'mse': 0.00016301813593599945, 'rmse': 0.012767855573117964, 'mae': 0.007080026436597109, 'r2': 0.9315701127052307}
+2025-05-26 12:48:23,507 - INFO - Loaded metrics for tabgnn: {'mse': 0.0008636033162474632, 'rmse': 0.02938712841104866, 'mae': 0.01873527280986309, 'r2': 0.6374865770339966}
+2025-05-26 12:48:23,508 - INFO - Loaded metrics for tabnet: {'mse': 0.0006983017083257437, 'rmse': 0.026425398924628245, 'mae': 0.01850597746670246, 'r2': 0.7068749666213989}
+2025-05-26 12:48:23,508 - INFO - Loaded metrics for xgboost: {'mse': 9.786496229935437e-05, 'rmse': 0.009892672151615779, 'mae': 0.0048816814087331295, 'r2': 0.9589194059371948}
+2025-05-26 12:48:23,525 - INFO - Comparison report saved to logs/training/all/Experiment4/comparison_report_Experiment4.json
+2025-05-26 12:48:23,525 - INFO - Markdown summary saved to logs/training/all/Experiment4/comparison_report_Experiment4.md
+2025-05-26 12:48:23,694 - INFO - Saved RMSE plot to logs/training/all/Experiment4/model_comparison_Experiment4_rmse.png
+2025-05-26 12:48:23,835 - INFO - Saved MAE plot to logs/training/all/Experiment4/model_comparison_Experiment4_mae.png
+2025-05-26 12:48:23,963 - INFO - Saved R2 plot to logs/training/all/Experiment4/model_comparison_Experiment4_r2.png
+2025-05-26 12:48:23,963 - INFO - Best model: combined
+2025-05-26 12:48:23,963 - INFO - Best metrics: {'mse': 5.1235127709854905e-05, 'rmse': 0.007157871730469533, 'mae': 0.0038557851193706, 'r2': 0.9786829684390286, 'improvement': 29.30422167633807}
+All jobs completed at Mon May 26 12:48:24 CDT 2025
