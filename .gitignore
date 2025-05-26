@@ -178,5 +178,6 @@ env/
 
 
 data/*
-# logs/*
+*.pt
 catboost_info/*
+# logs/*
