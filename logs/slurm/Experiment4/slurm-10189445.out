@@ -1,0 +1,53 @@
+Running xgboost model...
+2025-05-26 12:24:04,175 - INFO - Parsed arguments:
+{
+    "data_path": "data/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment4/xgboost",
+    "target_column": "tag",
+    "important_features": "POSIX_SEQ_WRITES POSIX_SIZE_READ_1K_10K POSIX_SIZE_READ_0_100 POSIX_SIZE_WRITE_100K_1M POSIX_MEM_NOT_ALIGNED POSIX_FILE_NOT_ALIGNED POSIX_SEEKS POSIX_OPENS",
+    "similarity_threshold": 0.05,
+    "model_type": "xgboost",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/similarity_output_merged_100K.pt"
+}
+2025-05-26 12:24:04,179 - INFO - Using device: cuda
+2025-05-26 12:24:04,179 - INFO - Initialized I/O data processor for data/sample_100K.csv
+2025-05-26 12:24:04,179 - INFO - Loading data from data/sample_100K.csv
+2025-05-26 12:24:04,547 - INFO - Loaded data with shape (100000, 46)
+2025-05-26 12:24:04,547 - INFO - Preprocessing data
+2025-05-26 12:24:04,547 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-26 12:24:04,547 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-26 12:24:04,547 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-26 12:24:04,547 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-26 12:24:04,547 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-26 12:24:04,547 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-26 12:24:04,547 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-05-26 12:24:04,547 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-05-26 12:24:04,547 - INFO - Initialized multiplex graph constructor for 8 features
+2025-05-26 12:24:04,547 - INFO - Creating combined PyG data
+2025-05-26 12:24:04,548 - INFO - Loading precomputed similarity from data/similarity_output_merged_100K.pt
+2025-05-26 12:25:02,955 - INFO - Splitting data into train, validation, and test sets
+2025-05-26 12:25:03,107 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-05-26 12:25:03,112 - INFO - Saving processed data to logs/training/all/Experiment4/xgboost/processed_data
+2025-05-26 12:25:05,768 - INFO - Constructing multiplex graphs
+2025-05-26 12:25:05,769 - INFO - Loading precomputed similarity from data/similarity_output_merged_100K.pt
+2025-05-26 12:25:51,636 - INFO - Creating combined PyG data
+2025-05-26 12:25:51,637 - INFO - Loading precomputed similarity from data/similarity_output_merged_100K.pt
+2025-05-26 12:26:38,937 - INFO - Saved processed data to logs/training/all/Experiment4/xgboost/processed_data
+2025-05-26 12:26:38,951 - INFO - Initialized xgboost model
+2025-05-26 12:26:43,125 - INFO - XGBoost model fitted with 45 features
+2025-05-26 12:26:43,173 - INFO - Evaluation metrics: {'mse': 9.786496229935437e-05, 'rmse': 0.009892672151615779, 'mae': 0.0048816814087331295, 'r2': 0.9589194059371948}
+2025-05-26 12:26:43,176 - INFO - Final metrics: {'mse': 9.786496229935437e-05, 'rmse': 0.009892672151615779, 'mae': 0.0048816814087331295, 'r2': 0.9589194059371948}
+2025-05-26 12:26:43,176 - INFO - Model and results saved to logs/training/all/Experiment4/xgboost
+2025-05-26 12:26:43,206 - INFO - Model saved to logs/training/all/Experiment4/xgboost/xgboost_model.joblib
+xgboost model completed.

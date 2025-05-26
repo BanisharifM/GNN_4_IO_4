@@ -1,0 +1,81 @@
+Running tabgnn model...
+2025-05-26 12:18:15,385 - INFO - Parsed arguments:
+{
+    "data_path": "data/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment4/tabgnn",
+    "target_column": "tag",
+    "important_features": "POSIX_SEQ_WRITES POSIX_SIZE_READ_1K_10K POSIX_SIZE_READ_0_100 POSIX_SIZE_WRITE_100K_1M POSIX_MEM_NOT_ALIGNED POSIX_FILE_NOT_ALIGNED POSIX_SEEKS POSIX_OPENS",
+    "similarity_threshold": 0.05,
+    "model_type": "tabgnn",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/similarity_output_merged_100K.pt"
+}
+2025-05-26 12:18:15,392 - INFO - Using device: cuda
+2025-05-26 12:18:15,392 - INFO - Initialized I/O data processor for data/sample_100K.csv
+2025-05-26 12:18:15,392 - INFO - Loading data from data/sample_100K.csv
+2025-05-26 12:18:16,031 - INFO - Loaded data with shape (100000, 46)
+2025-05-26 12:18:16,031 - INFO - Preprocessing data
+2025-05-26 12:18:16,031 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-26 12:18:16,031 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-26 12:18:16,031 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-26 12:18:16,031 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-26 12:18:16,031 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-26 12:18:16,032 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-26 12:18:16,032 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-05-26 12:18:16,032 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-05-26 12:18:16,032 - INFO - Initialized multiplex graph constructor for 8 features
+2025-05-26 12:18:16,032 - INFO - Creating combined PyG data
+2025-05-26 12:18:16,032 - INFO - Loading precomputed similarity from data/similarity_output_merged_100K.pt
+2025-05-26 12:19:11,645 - INFO - Splitting data into train, validation, and test sets
+2025-05-26 12:19:11,696 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-05-26 12:19:11,700 - INFO - Saving processed data to logs/training/all/Experiment4/tabgnn/processed_data
+2025-05-26 12:19:14,316 - INFO - Constructing multiplex graphs
+2025-05-26 12:19:14,317 - INFO - Loading precomputed similarity from data/similarity_output_merged_100K.pt
+2025-05-26 12:20:00,115 - INFO - Creating combined PyG data
+2025-05-26 12:20:00,116 - INFO - Loading precomputed similarity from data/similarity_output_merged_100K.pt
+2025-05-26 12:20:44,462 - INFO - Saved processed data to logs/training/all/Experiment4/tabgnn/processed_data
+2025-05-26 12:20:44,878 - INFO - Initialized GCN model with 2 layers
+2025-05-26 12:20:44,879 - INFO - Initialized TabGNN regressor with 1 graph types
+2025-05-26 12:20:45,987 - INFO - Epoch 1/100: Train Loss: 0.0171, Val Loss: 0.0083, Test Loss: 0.0078
+2025-05-26 12:20:46,308 - INFO - Epoch 2/100: Train Loss: 0.0085, Val Loss: 0.0051, Test Loss: 0.0050
+2025-05-26 12:20:46,612 - INFO - Epoch 3/100: Train Loss: 0.0054, Val Loss: 0.0043, Test Loss: 0.0043
+2025-05-26 12:20:46,917 - INFO - Epoch 4/100: Train Loss: 0.0047, Val Loss: 0.0041, Test Loss: 0.0040
+2025-05-26 12:20:47,221 - INFO - Epoch 5/100: Train Loss: 0.0043, Val Loss: 0.0033, Test Loss: 0.0033
+2025-05-26 12:20:47,526 - INFO - Epoch 6/100: Train Loss: 0.0036, Val Loss: 0.0026, Test Loss: 0.0027
+2025-05-26 12:20:47,830 - INFO - Epoch 7/100: Train Loss: 0.0031, Val Loss: 0.0024, Test Loss: 0.0024
+2025-05-26 12:20:48,135 - INFO - Epoch 8/100: Train Loss: 0.0029, Val Loss: 0.0024, Test Loss: 0.0023
+2025-05-26 12:20:48,439 - INFO - Epoch 9/100: Train Loss: 0.0030, Val Loss: 0.0021, Test Loss: 0.0021
+2025-05-26 12:20:48,744 - INFO - Epoch 10/100: Train Loss: 0.0027, Val Loss: 0.0017, Test Loss: 0.0017
+2025-05-26 12:20:49,049 - INFO - Epoch 11/100: Train Loss: 0.0023, Val Loss: 0.0015, Test Loss: 0.0016
+2025-05-26 12:20:49,352 - INFO - Epoch 12/100: Train Loss: 0.0020, Val Loss: 0.0015, Test Loss: 0.0015
+2025-05-26 12:20:49,657 - INFO - Epoch 13/100: Train Loss: 0.0018, Val Loss: 0.0015, Test Loss: 0.0015
+2025-05-26 12:20:49,961 - INFO - Epoch 14/100: Train Loss: 0.0018, Val Loss: 0.0014, Test Loss: 0.0013
+2025-05-26 12:20:50,266 - INFO - Epoch 15/100: Train Loss: 0.0016, Val Loss: 0.0011, Test Loss: 0.0011
+2025-05-26 12:20:50,570 - INFO - Epoch 16/100: Train Loss: 0.0014, Val Loss: 0.0009, Test Loss: 0.0009
+2025-05-26 12:20:50,875 - INFO - Epoch 17/100: Train Loss: 0.0013, Val Loss: 0.0008, Test Loss: 0.0008
+2025-05-26 12:20:51,178 - INFO - Epoch 18/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-05-26 12:20:51,483 - INFO - Epoch 19/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-05-26 12:20:51,788 - INFO - Epoch 20/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-05-26 12:20:52,093 - INFO - Epoch 21/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-05-26 12:20:52,397 - INFO - Epoch 22/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-05-26 12:20:52,701 - INFO - Epoch 23/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-05-26 12:20:53,006 - INFO - Epoch 24/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-05-26 12:20:53,310 - INFO - Epoch 25/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-05-26 12:20:53,615 - INFO - Epoch 26/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-05-26 12:20:53,920 - INFO - Epoch 27/100: Train Loss: 0.0011, Val Loss: 0.0009, Test Loss: 0.0009
+2025-05-26 12:20:53,920 - INFO - Early stopping at epoch 27
+2025-05-26 12:20:53,925 - INFO - Model checkpoint saved to logs/training/all/Experiment4/tabgnn/tabgnn_model.pt
+2025-05-26 12:20:54,222 - INFO - Final metrics: {'mse': 0.0008636033162474632, 'rmse': 0.02938712841104866, 'mae': 0.01873527280986309, 'r2': 0.6374865770339966}
+2025-05-26 12:20:54,222 - INFO - Model and results saved to logs/training/all/Experiment4/tabgnn
+Epoch 00023: reducing learning rate of group 0 to 5.0000e-04.
+tabgnn model completed.

@@ -1,0 +1,53 @@
+Running catboost model...
+2025-05-26 12:23:46,817 - INFO - Parsed arguments:
+{
+    "data_path": "data/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment4/catboost",
+    "target_column": "tag",
+    "important_features": "POSIX_SEQ_WRITES POSIX_SIZE_READ_1K_10K POSIX_SIZE_READ_0_100 POSIX_SIZE_WRITE_100K_1M POSIX_MEM_NOT_ALIGNED POSIX_FILE_NOT_ALIGNED POSIX_SEEKS POSIX_OPENS",
+    "similarity_threshold": 0.05,
+    "model_type": "catboost",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/similarity_output_merged_100K.pt"
+}
+2025-05-26 12:23:46,825 - INFO - Using device: cuda
+2025-05-26 12:23:46,825 - INFO - Initialized I/O data processor for data/sample_100K.csv
+2025-05-26 12:23:46,825 - INFO - Loading data from data/sample_100K.csv
+2025-05-26 12:23:47,445 - INFO - Loaded data with shape (100000, 46)
+2025-05-26 12:23:47,445 - INFO - Preprocessing data
+2025-05-26 12:23:47,445 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-05-26 12:23:47,445 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-05-26 12:23:47,445 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-05-26 12:23:47,445 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-05-26 12:23:47,446 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-05-26 12:23:47,446 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-05-26 12:23:47,446 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-05-26 12:23:47,446 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-05-26 12:23:47,446 - INFO - Initialized multiplex graph constructor for 8 features
+2025-05-26 12:23:47,446 - INFO - Creating combined PyG data
+2025-05-26 12:23:47,446 - INFO - Loading precomputed similarity from data/similarity_output_merged_100K.pt
+2025-05-26 12:24:41,619 - INFO - Splitting data into train, validation, and test sets
+2025-05-26 12:24:41,804 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-05-26 12:24:41,808 - INFO - Saving processed data to logs/training/all/Experiment4/catboost/processed_data
+2025-05-26 12:24:44,440 - INFO - Constructing multiplex graphs
+2025-05-26 12:24:44,441 - INFO - Loading precomputed similarity from data/similarity_output_merged_100K.pt
+2025-05-26 12:25:29,234 - INFO - Creating combined PyG data
+2025-05-26 12:25:29,235 - INFO - Loading precomputed similarity from data/similarity_output_merged_100K.pt
+2025-05-26 12:26:13,147 - INFO - Saved processed data to logs/training/all/Experiment4/catboost/processed_data
+2025-05-26 12:26:13,162 - INFO - Initialized catboost model
+2025-05-26 12:26:17,710 - INFO - CatBoost model fitted with 45 features
+2025-05-26 12:26:17,727 - INFO - Evaluation metrics: {'mse': 0.00011812680738033972, 'rmse': 0.010868615706719036, 'mae': 0.005651529015162931, 'r2': 0.9504140944041799}
+2025-05-26 12:26:17,730 - INFO - Final metrics: {'mse': 0.00011812680738033972, 'rmse': 0.010868615706719036, 'mae': 0.005651529015162931, 'r2': 0.9504140944041799}
+2025-05-26 12:26:17,730 - INFO - Model and results saved to logs/training/all/Experiment4/catboost
+2025-05-26 12:26:17,739 - INFO - Model saved to logs/training/all/Experiment4/catboost/catboost_model.joblib
+catboost model completed.

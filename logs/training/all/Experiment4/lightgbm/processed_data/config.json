@@ -1,0 +1,25 @@
+{
+    "data_path": "data/sample_100K.csv",
+    "important_features": [
+        "POSIX_SEQ_WRITES",
+        "POSIX_SIZE_READ_1K_10K",
+        "POSIX_SIZE_READ_0_100",
+        "POSIX_SIZE_WRITE_100K_1M",
+        "POSIX_MEM_NOT_ALIGNED",
+        "POSIX_FILE_NOT_ALIGNED",
+        "POSIX_SEEKS",
+        "POSIX_OPENS"
+    ],
+    "similarity_thresholds": {
+        "POSIX_SEQ_WRITES": 0.05,
+        "POSIX_SIZE_READ_1K_10K": 0.05,
+        "POSIX_SIZE_READ_0_100": 0.05,
+        "POSIX_SIZE_WRITE_100K_1M": 0.05,
+        "POSIX_MEM_NOT_ALIGNED": 0.05,
+        "POSIX_FILE_NOT_ALIGNED": 0.05,
+        "POSIX_SEEKS": 0.05,
+        "POSIX_OPENS": 0.05
+    },
+    "similarity_metric": "cosine",
+    "max_edges_per_node": null
+}

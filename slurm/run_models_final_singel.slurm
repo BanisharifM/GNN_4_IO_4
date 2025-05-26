@@ -22,25 +22,25 @@ BASE_OUTPUT_DIR="logs/training/all/${EXPERIMENT_NAME}"
 mkdir -p "$BASE_OUTPUT_DIR"
 
 # === Run all models manually (skip 'all' keyword in YAML) ===
-for model in tabgnn; do
-    OUTPUT_DIR="${BASE_OUTPUT_DIR}/${model}"
-    mkdir -p "$OUTPUT_DIR"
+# for model in combined; do
+#     OUTPUT_DIR="${BASE_OUTPUT_DIR}/${model}"
+#     mkdir -p "$OUTPUT_DIR"
     
-    echo "Running $model model..."
-    $CONDA_ENV_PATH scripts/train.py \
-        --config_file "$CONFIG_FILE" \
-        --output_dir "$OUTPUT_DIR" \
-        --device cuda \
-        --model_type "$model"
+#     echo "Running $model model..."
+#     $CONDA_ENV_PATH scripts/train.py \
+#         --config_file "$CONFIG_FILE" \
+#         --output_dir "$OUTPUT_DIR" \
+#         --device cuda \
+#         --model_type "$model"
 
-    echo "$model model completed."
-done
+#     echo "$model model completed."
+# done
 
 # === Optionally run comparison script ===
-# $CONDA_ENV_PATH scripts/compare_models.py \
-#     --results_dir "logs/training" \
-#     --experiment_name "${EXPERIMENT_NAME}" \
-#     --output_file "logs/training/comparison_report_${EXPERIMENT_NAME}.json" \
-#     --plot_file "logs/training/model_comparison_${EXPERIMENT_NAME}.png"
+$CONDA_ENV_PATH scripts/compare_models.py \
+    --results_dir "logs/training" \
+    --experiment_name "${EXPERIMENT_NAME}" \
+    --output_file "logs/training/all/${EXPERIMENT_NAME}/comparison_report_${EXPERIMENT_NAME}.json" \
+    --plot_file "logs/training/all/${EXPERIMENT_NAME}/model_comparison_${EXPERIMENT_NAME}.png"
 
-# echo "All jobs completed at $(date)"
+echo "All jobs completed at $(date)"

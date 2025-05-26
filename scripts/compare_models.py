@@ -44,12 +44,20 @@ def load_metrics(results_dir: str, experiment_name: str) -> Dict[str, Dict[str, 
         Dict[str, Dict[str, float]]: Dictionary mapping model names to metrics
     """
     metrics = {}
-    model_dirs = glob.glob(os.path.join(results_dir, "*", experiment_name))
+
+    # New structure: logs/training/all/Experiment4/<model_name>
+    experiment_root = os.path.join(results_dir, "all", experiment_name)
+    if not os.path.exists(experiment_root):
+        logger.error(f"Experiment folder not found: {experiment_root}")
+        return {}
+
+    model_dirs = [os.path.join(experiment_root, d) for d in os.listdir(experiment_root)
+                  if os.path.isdir(os.path.join(experiment_root, d))]
 
     for model_dir in model_dirs:
-        model_name = os.path.basename(os.path.dirname(model_dir))
+        model_name = os.path.basename(model_dir) 
         if model_name == "all":
-            continue  # Skip fake "all" model
+            continue
 
         metrics_file = os.path.join(model_dir, "metrics.json")
         if os.path.exists(metrics_file):
