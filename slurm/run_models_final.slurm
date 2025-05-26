@@ -16,8 +16,8 @@ module load cuda
 
 # === Config ===
 CONDA_ENV_PATH="$HOME/.conda/envs/gnn4_env/bin/python"
-CONFIG_FILE="configs/experiment4.yml"
-EXPERIMENT_NAME="Experiment4"
+CONFIG_FILE="configs/experiment5.yml"
+EXPERIMENT_NAME="Experiment5"
 BASE_OUTPUT_DIR="logs/training/all/${EXPERIMENT_NAME}"
 mkdir -p "$BASE_OUTPUT_DIR"
 

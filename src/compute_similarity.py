@@ -21,27 +21,31 @@ def compute_cosine_similarity_distributed(rank, world_size, args):
     setup(rank, world_size)
     device = torch.device(f"cuda:{rank % torch.cuda.device_count()}")
 
+    # Load and normalize data
     df = pd.read_csv(args.input_csv)
-    data = torch.tensor(df.values, dtype=torch.float32)
+    data = torch.tensor(df.values, dtype=torch.float32).to(device)
     data = torch.nn.functional.normalize(data, p=2, dim=1)
-    data = data.to(device)
 
     num_rows = data.size(0)
-    batch_size = args.batch_size
     chunk_size = args.chunk_size
     top_k = args.top_k
-    similarity_dict = {}
 
-    # Split the data for this rank
+    # Output directory for per-row files
+    row_output_dir = f"{args.output_path}_rows_rank{rank}"
+    os.makedirs(row_output_dir, exist_ok=True)
+
+    # Distribute work among ranks
     local_indices = list(range(rank, num_rows, world_size))
 
     for i in tqdm(local_indices, desc=f"Rank {rank} computing", position=rank):
-        row = data[i].unsqueeze(0)  # 1 x D
+        row = data[i].unsqueeze(0)  # shape: [1, D]
         similarities = []
+
         for j in range(0, num_rows, chunk_size):
-            chunk = data[j:j+chunk_size]
-            sims = torch.matmul(row, chunk.T).squeeze(0)  # 1 x chunk -> chunk
+            chunk = data[j:j + chunk_size]
+            sims = torch.matmul(row, chunk.T).squeeze(0)
             dst_indices = torch.arange(j, j + chunk.size(0), device=device)
+
             if top_k:
                 vals, indices = torch.topk(sims, min(top_k + 1, sims.size(0)))
                 filtered = [(int(dst_indices[idx]), float(vals[k]))
@@ -51,13 +55,17 @@ def compute_cosine_similarity_distributed(rank, world_size, args):
                 similarities.extend([(int(dst_indices[k]), float(sims[k]))
                                      for k in range(sims.size(0)) if dst_indices[k] != i])
 
-        similarity_dict[i] = similarities
+        # Save just this row's result
+        row_file = os.path.join(row_output_dir, f"{i:07d}.pt")
+        torch.save({i: similarities}, row_file)
 
-    # Save partial result
-    partial_file = f"{args.output_path}.rank{rank}.pt"
-    torch.save(similarity_dict, partial_file)
-    print(f"[Rank {rank}] Saved partial result to {partial_file}")
+        # Free memory
+        del row, similarities, sims
+        torch.cuda.empty_cache()
+
+    print(f"[Rank {rank}] Finished writing rows to {row_output_dir}")
     cleanup()
+
 
 def main_worker(rank, world_size, args):
     compute_cosine_similarity_distributed(rank, world_size, args)

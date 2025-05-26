@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=compute_similarity
+#SBATCH --job-name=compute_similarity_1M
 #SBATCH --account=bdau-delta-gpu
 #SBATCH --partition=gpuH200x8
 #SBATCH --nodes=1                     
@@ -8,8 +8,8 @@
 #SBATCH --cpus-per-task=64
 #SBATCH --mem=128G
 #SBATCH --time=48:00:00
-#SBATCH --output=logs/slurm/compute_similarity_%j.out
-#SBATCH --error=logs/slurm/compute_similarity_%j.err
+#SBATCH --output=logs/slurm/compute_similarity_1M_%j.out
+#SBATCH --error=logs/slurm/compute_similarity_1M_%j.err
 
 # === Load environment ===
 module load cuda
@@ -20,8 +20,8 @@ export MASTER_ADDR=localhost
 export MASTER_PORT=$((10000 + RANDOM % 20000)) 
 export WORLD_SIZE=4  
 
-CSV_PATH="data/sample_1M.csv"
-OUTPUT_PATH="data/similarity_output_1M.pt"
+CSV_PATH="data/1M/sample_1M.csv"
+OUTPUT_PATH="data/10M/similarity_output_1M.pt"
 BATCH_SIZE=10408
 CHUNK_SIZE=10408
 TOP_K=30
