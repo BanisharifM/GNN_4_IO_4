@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=compute_similarity_1M
 #SBATCH --account=bdau-delta-gpu
-#SBATCH --partition=gpuH200x8
+#SBATCH --partition=gpuA100x4
 #SBATCH --nodes=1                     
 #SBATCH --ntasks=1                   
 #SBATCH --gres=gpu:4                
