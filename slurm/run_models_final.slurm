@@ -8,6 +8,8 @@
 #SBATCH --gres=gpu:2
 #SBATCH --mem=128G
 #SBATCH --time=01:00:00
+#SBATCH --output=logs/slurm/Experiment6/run_all_models_10K_%j.out
+#SBATCH --error=logs/slurm/Experiment6/run_all_models_10K_%j.err
 
 # === Setup environment ===
 module load cuda
@@ -16,8 +18,8 @@ module load cuda
 
 # === Config ===
 CONDA_ENV_PATH="$HOME/.conda/envs/gnn4_env/bin/python"
-CONFIG_FILE="configs/experiment5.yml"
-EXPERIMENT_NAME="Experiment5"
+CONFIG_FILE="configs/experiment6.yml"
+EXPERIMENT_NAME="Experiment6"
 BASE_OUTPUT_DIR="logs/training/all/${EXPERIMENT_NAME}"
 mkdir -p "$BASE_OUTPUT_DIR"
 
