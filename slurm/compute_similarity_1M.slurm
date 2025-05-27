@@ -1,15 +1,15 @@
 #!/bin/bash
-#SBATCH --job-name=compute_similarity_10K
+#SBATCH --job-name=compute_similarity_1M
 #SBATCH --account=bdau-delta-gpu
-#SBATCH --partition=gpuA100x4-interactive
+#SBATCH --partition=gpuH200x8
 #SBATCH --nodes=1                     
 #SBATCH --ntasks=1                   
-#SBATCH --gres=gpu:2                
-#SBATCH --cpus-per-task=16
+#SBATCH --gres=gpu:4                
+#SBATCH --cpus-per-task=64
 #SBATCH --mem=128G
-#SBATCH --time=01:00:00
-#SBATCH --output=logs/slurm/compute_similarity_10K_%j.out
-#SBATCH --error=logs/slurm/compute_similarity_10K_%j.err
+#SBATCH --time=48:00:00
+#SBATCH --output=logs/slurm/compute_similarity_1M_%j.out
+#SBATCH --error=logs/slurm/compute_similarity_1M_%j.err
 
 # === Load environment ===
 module load cuda
@@ -18,10 +18,10 @@ source activate gnn4_env
 # === Set distributed environment variables ===
 export MASTER_ADDR=localhost
 export MASTER_PORT=$((10000 + RANDOM % 20000)) 
-export WORLD_SIZE=2  
+export WORLD_SIZE=4  
 
-CSV_PATH="data/10K/sample_10K.csv"
-OUTPUT_PATH="data/10K/similarity_output_10K.pt"
+CSV_PATH="data/1M/sample_1M.csv"
+OUTPUT_PATH="/projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/"
 BATCH_SIZE=10408
 CHUNK_SIZE=10408
 TOP_K=30
