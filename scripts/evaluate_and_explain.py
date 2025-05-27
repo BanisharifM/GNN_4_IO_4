@@ -15,7 +15,7 @@ from src.data import IODataProcessor
 from src.models.gnn import TabGNNRegressor
 from src.models.tabular import LightGBMModel, TabGNNTabularModel
 
-def load_config(config_path="configs/experiment6.yml"):
+def load_config(config_path="configs/experiment7.yml"):
     with open(config_path, "r") as f:
         return yaml.safe_load(f)
 
@@ -65,8 +65,8 @@ def plot_embedding_correlation(embedding_df, raw_df, top_embedding, output_path)
     plt.close()
 
 def main():
-    config = load_config("configs/experiment6.yml")
-    base_output = "logs/training/all/Experiment6/combined"
+    config = load_config("configs/experiment7.yml")
+    base_output = "logs/training/all/Experiment7/combined"
     shap_dir = os.path.join(base_output, "shap_analysis")
     plot_dir = os.path.join(shap_dir, "plots")
 
