@@ -7,6 +7,7 @@ from tqdm import tqdm
 import torch.distributed as dist
 from torch.multiprocessing import Process
 from torch.multiprocessing import spawn
+import time
 
 def setup(rank, world_size):
     if 'MASTER_ADDR' not in os.environ or 'MASTER_PORT' not in os.environ:
@@ -37,7 +38,7 @@ def compute_cosine_similarity_distributed(rank, world_size, args):
     # Distribute work among ranks
     local_indices = list(range(rank, num_rows, world_size))
 
-    for i in tqdm(local_indices, desc=f"Rank {rank} computing", position=rank):
+    for idx, i in enumerate(tqdm(local_indices, desc=f"Rank {rank} computing", position=rank)):
         row = data[i].unsqueeze(0)  # shape: [1, D]
         similarities = []
 
@@ -55,9 +56,21 @@ def compute_cosine_similarity_distributed(rank, world_size, args):
                 similarities.extend([(int(dst_indices[k]), float(sims[k]))
                                      for k in range(sims.size(0)) if dst_indices[k] != i])
 
-        # Save just this row's result
+        # Confirm output directory exists
+        os.makedirs(row_output_dir, exist_ok=True)
         row_file = os.path.join(row_output_dir, f"{i:07d}.pt")
-        torch.save({i: similarities}, row_file)
+
+        # Save result with try/except
+        try:
+            torch.save({i: similarities}, row_file)
+        except Exception as e:
+            print(f"[Rank {rank}] Failed to save file {row_file}: {e}")
+            with open(f"{row_output_dir}/failures_rank{rank}.log", "a") as logf:
+                logf.write(f"{i:07d} failed: {e}\n")  
+
+        # Throttle to avoid FS overload every 100 files
+        if idx % 100 == 0:
+            time.sleep(0.1)
 
         # Free memory
         del row, similarities, sims
