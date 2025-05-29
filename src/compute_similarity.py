@@ -37,14 +37,19 @@ def compute_cosine_similarity_distributed(rank, world_size, args):
     row_output_dir = f"{args.output_path}_rows_rank{rank}"
     os.makedirs(row_output_dir, exist_ok=True)
 
+    # Scan the directory once to get completed row indices
+    completed_files = {
+        int(f.split(".")[0]) for f in os.listdir(row_output_dir)
+        if f.endswith(".pt") and f.split(".")[0].isdigit()
+    }
+
     # Distribute work among ranks
     local_indices = list(range(rank, num_rows, world_size))
+    remaining_indices = [i for i in local_indices if i not in completed_files]
 
-    for idx, i in enumerate(tqdm(local_indices, desc=f"Rank {rank} computing", position=rank)):
-        row_file = os.path.join(row_output_dir, f"{i:07d}.pt")
-        if os.path.exists(row_file):
-            continue  # Skip already computed
+    print(f"[Rank {rank}] Total: {len(local_indices)} | Remaining: {len(remaining_indices)}")
 
+    for idx, i in enumerate(tqdm(remaining_indices, desc=f"Rank {rank} computing", position=rank)):
         row = data[i].unsqueeze(0)  # shape: [1, D]
         similarities = []
 
@@ -62,6 +67,8 @@ def compute_cosine_similarity_distributed(rank, world_size, args):
                 similarities.extend([(int(dst_indices[k]), float(sims[k]))
                                      for k in range(sims.size(0)) if dst_indices[k] != i])
 
+        row_file = os.path.join(row_output_dir, f"{i:07d}.pt")
+
         try:
             torch.save({i: similarities}, row_file)
         except Exception as e:
@@ -69,11 +76,9 @@ def compute_cosine_similarity_distributed(rank, world_size, args):
             with open(f"{row_output_dir}/failures_rank{rank}.log", "a") as logf:
                 logf.write(f"{i:07d} failed: {e}\n")
 
-        # Throttle FS usage
         if idx % 100 == 0:
             time.sleep(0.1)
 
-        # Free memory
         del row, similarities, sims
         torch.cuda.empty_cache()
 
