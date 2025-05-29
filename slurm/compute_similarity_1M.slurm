@@ -5,7 +5,7 @@
 #SBATCH --nodes=1                     
 #SBATCH --ntasks=1                   
 #SBATCH --gres=gpu:4                
-#SBATCH --cpus-per-task=64
+#SBATCH --cpus-per-task=32
 #SBATCH --mem=128G
 #SBATCH --time=48:00:00
 #SBATCH --output=logs/slurm/compute_similarity_1M_%j.out
