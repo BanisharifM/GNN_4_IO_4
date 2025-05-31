@@ -7,6 +7,7 @@ from tqdm import tqdm
 import torch.distributed as dist
 from torch.multiprocessing import spawn
 import time
+import math
 
 
 def setup(rank, world_size):
@@ -32,57 +33,70 @@ def compute_cosine_similarity_distributed(rank, world_size, args):
     num_rows = data.size(0)
     chunk_size = args.chunk_size
     top_k = args.top_k
+    save_batch_size = args.save_batch_size
 
-    # Output directory for per-row files
+    # Output directory
     row_output_dir = f"{args.output_path}_rows_rank{rank}"
     os.makedirs(row_output_dir, exist_ok=True)
 
-    # Scan the directory once to get completed row indices
-    completed_files = {
+    # Find completed batches
+    completed_batches = {
         int(f.split(".")[0]) for f in os.listdir(row_output_dir)
         if f.endswith(".pt") and f.split(".")[0].isdigit()
     }
 
     # Distribute work among ranks
     local_indices = list(range(rank, num_rows, world_size))
-    remaining_indices = [i for i in local_indices if i not in completed_files]
+    total_batches = math.ceil(len(local_indices) / save_batch_size)
 
-    print(f"[Rank {rank}] Total: {len(local_indices)} | Remaining: {len(remaining_indices)}")
+    print(f"[Rank {rank}] Total rows: {len(local_indices)}, Batches: {total_batches}")
 
-    for idx, i in enumerate(tqdm(remaining_indices, desc=f"Rank {rank} computing", position=rank)):
-        row = data[i].unsqueeze(0)  # shape: [1, D]
-        similarities = []
+    for batch_idx in range(total_batches):
+        start = batch_idx * save_batch_size
+        end = min(start + save_batch_size, len(local_indices))
+        batch_rows = local_indices[start:end]
+        batch_file = os.path.join(row_output_dir, f"{start:07d}.pt")
 
-        for j in range(0, num_rows, chunk_size):
-            chunk = data[j:j + chunk_size]
-            sims = torch.matmul(row, chunk.T).squeeze(0)
-            dst_indices = torch.arange(j, j + chunk.size(0), device=device)
+        if os.path.exists(batch_file):
+            continue
 
-            if top_k:
-                vals, indices = torch.topk(sims, min(top_k + 1, sims.size(0)))
-                filtered = [(int(dst_indices[idx]), float(vals[k]))
-                            for k, idx in enumerate(indices) if dst_indices[idx] != i]
-                similarities.extend(filtered[:top_k])
-            else:
-                similarities.extend([(int(dst_indices[k]), float(sims[k]))
-                                     for k in range(sims.size(0)) if dst_indices[k] != i])
+        batch_results = {}
+        for i in batch_rows:
+            row = data[i].unsqueeze(0)
+            similarities = []
 
-        row_file = os.path.join(row_output_dir, f"{i:07d}.pt")
+            for j in range(0, num_rows, chunk_size):
+                chunk = data[j:j + chunk_size]
+                sims = torch.matmul(row, chunk.T).squeeze(0)
+                dst_indices = torch.arange(j, j + chunk.size(0), device=device)
+
+                if top_k:
+                    vals, indices = torch.topk(sims, min(top_k + 1, sims.size(0)))
+                    filtered = [(int(dst_indices[idx]), float(vals[k]))
+                                for k, idx in enumerate(indices) if dst_indices[idx] != i]
+                    similarities.extend(filtered[:top_k])
+                else:
+                    similarities.extend([(int(dst_indices[k]), float(sims[k]))
+                                         for k in range(sims.size(0)) if dst_indices[k] != i])
+
+            batch_results[i] = similarities
+            del row, similarities, sims
+            torch.cuda.empty_cache()
 
         try:
-            torch.save({i: similarities}, row_file)
+            torch.save(batch_results, batch_file)
         except Exception as e:
-            print(f"[Rank {rank}] Failed to save file {row_file}: {e}")
-            with open(f"{row_output_dir}/failures_rank{rank}.log", "a") as logf:
-                logf.write(f"{i:07d} failed: {e}\n")
+            print(f"[Rank {rank}] Failed to save batch {batch_file}: {e}")
+            try:
+                with open(f"{row_output_dir}/failures_rank{rank}.log", "a") as logf:
+                    logf.write(f"Batch {start:07d} failed: {e}\n")
+            except:
+                pass
 
-        if idx % 100 == 0:
+        if batch_idx % 10 == 0:
             time.sleep(0.1)
 
-        del row, similarities, sims
-        torch.cuda.empty_cache()
-
-    print(f"[Rank {rank}] Finished writing rows to {row_output_dir}")
+    print(f"[Rank {rank}] Finished writing batches to {row_output_dir}")
     cleanup()
 
 
@@ -98,6 +112,7 @@ def main():
     parser.add_argument("--chunk_size", type=int, default=4000)
     parser.add_argument("--top_k", type=int, default=None)
     parser.add_argument("--world_size", type=int, required=True)
+    parser.add_argument("--save_batch_size", type=int, default=1000)
     args = parser.parse_args()
 
     spawn(main_worker, args=(args.world_size, args), nprocs=args.world_size, join=True)

@@ -1,0 +1,48 @@
+/var/spool/slurmd/job10245240/slurm_script: line 16: activate: No such file or directory
+
+Rank 1 computing:   0%|          | 0/47871 [00:00<?, ?it/s][A
+
+
+Rank 3 computing:   0%|          | 0/47836 [00:00<?, ?it/s][A[A[ARank 0 computing:   0%|          | 0/44278 [00:00<?, ?it/s]
+
+Rank 2 computing:   0%|          | 0/36053 [00:00<?, ?it/s][A[ARank 1 computing:   0%|          | 0/47871 [00:00<?, ?it/s]
+Rank 3 computing:   0%|          | 0/47836 [00:00<?, ?it/s]
+Rank 2 computing:   0%|          | 0/36053 [00:00<?, ?it/s]
+Rank 0 computing:   0%|          | 0/44278 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/compute_similarity.py", line 107, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/compute_similarity.py", line 103, in main
+    spawn(main_worker, args=(args.world_size, args), nprocs=args.world_size, join=True)
+  File "/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/torch/multiprocessing/spawn.py", line 239, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method='spawn')
+  File "/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/torch/multiprocessing/spawn.py", line 197, in start_processes
+    while not context.join():
+  File "/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/torch/multiprocessing/spawn.py", line 160, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 3 terminated with the following error:
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/compute_similarity.py", line 73, in compute_cosine_similarity_distributed
+    torch.save({i: similarities}, row_file)
+  File "/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/torch/serialization.py", line 440, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+  File "/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/torch/serialization.py", line 315, in _open_zipfile_writer
+    return container(name_or_buffer)
+  File "/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/torch/serialization.py", line 288, in __init__
+    super().__init__(torch._C.PyTorchFileWriter(str(name)))
+RuntimeError: File /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank3/0808659.pt cannot be opened.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/torch/multiprocessing/spawn.py", line 69, in _wrap
+    fn(i, *args)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/compute_similarity.py", line 90, in main_worker
+    compute_cosine_similarity_distributed(rank, world_size, args)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/compute_similarity.py", line 76, in compute_cosine_similarity_distributed
+    with open(f"{row_output_dir}/failures_rank{rank}.log", "a") as logf:
+OSError: [Errno 122] Disk quota exceeded: '/projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank3/failures_rank3.log'
+
+srun: error: gpue02: task 0: Exited with exit code 1

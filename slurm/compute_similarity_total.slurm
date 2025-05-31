@@ -5,7 +5,7 @@
 #SBATCH --nodes=1                     
 #SBATCH --ntasks=1                   
 #SBATCH --gres=gpu:4                
-#SBATCH --cpus-per-task=64
+#SBATCH --cpus-per-task=32
 #SBATCH --mem=128G
 #SBATCH --time=48:00:00
 #SBATCH --output=logs/slurm/compute_similarity_total_%j.out
@@ -25,6 +25,7 @@ OUTPUT_PATH="/projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/total/"
 BATCH_SIZE=10408
 CHUNK_SIZE=10408
 TOP_K=30
+SAVE_BATCH_SIZE=1000
 
 srun python src/compute_similarity.py \
   --input_csv "$CSV_PATH" \
@@ -32,4 +33,5 @@ srun python src/compute_similarity.py \
   --batch_size $BATCH_SIZE \
   --chunk_size $CHUNK_SIZE \
   --top_k $TOP_K \
-  --world_size $WORLD_SIZE
+  --world_size $WORLD_SIZE \
+  --save_batch_size $SAVE_BATCH_SIZE

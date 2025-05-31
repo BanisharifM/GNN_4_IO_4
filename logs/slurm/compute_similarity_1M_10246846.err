@@ -1,0 +1,7 @@
+usage: compute_similarity.py [-h] --input_csv INPUT_CSV --output_path
+                             OUTPUT_PATH [--batch_size BATCH_SIZE]
+                             [--chunk_size CHUNK_SIZE] [--top_k TOP_K]
+                             --world_size WORLD_SIZE
+                             [--save_batch_size SAVE_BATCH_SIZE]
+compute_similarity.py: error: argument --save_batch_size: expected one argument
+srun: error: gpue06: task 0: Exited with exit code 2
