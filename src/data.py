@@ -16,6 +16,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import pickle
 import json
+from tqdm import tqdm
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -824,7 +825,7 @@ class IODataProcessor:
                 key=lambda f: int(os.path.splitext(f)[0])
             )
 
-            for pt_file in pt_files:
+            for pt_file in tqdm(pt_files, desc=f"Processing {os.path.basename(dir_path)}"):
                 edge_index = []
                 edge_attr = []
                 batch_path = os.path.join(dir_path, pt_file)

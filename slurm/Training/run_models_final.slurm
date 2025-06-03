@@ -4,9 +4,9 @@
 #SBATCH --partition=gpuH200x8
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=32
 #SBATCH --gres=gpu:4
-#SBATCH --mem=512G
+#SBATCH --mem=900G
 #SBATCH --time=48:00:00
 #SBATCH --output=logs/slurm/Experiment8/run_all_models_1M_%j.out
 #SBATCH --error=logs/slurm/Experiment8/run_all_models_1M_%j.err
