@@ -1,58 +1,60 @@
 import torch
-import argparse
 import os
+import argparse
 from glob import glob
 from tqdm import tqdm
 
-def merge_similarity_dicts(input_dir, output_path):
-    merged = {}
 
-    pt_files = sorted(glob(os.path.join(input_dir, "similarity_output_total.pt.rank*.pt")))
-    print(f"Found {len(pt_files)} partial similarity files.")
+def merge_distributed_row_batches_streaming(input_dir_prefix, world_size, output_dir):
+    os.makedirs(output_dir, exist_ok=True)
+    temp_batch_size = 100_000  # number of entries per partial file to save
+    buffer = {}
+    buffer_count = 0
+    file_index = 0
 
-    for pt_file in pt_files:
-        partial = torch.load(pt_file)
-        merged.update(partial)  # Assumes no key overlap
-        print(f"Merged {pt_file} with {len(partial)} entries.")
-
-    torch.save(merged, output_path)
-    print(f"Final merged similarity saved to: {output_path}")
-    print(f"Total rows: {len(merged)}")
-
-def merge_all_rank_rows(base_path_prefix, world_size, output_path):
-    merged = {}
     for rank in range(world_size):
-        folder = f"{base_path_prefix}_rows_rank{rank}"
-        row_files = sorted(glob(os.path.join(folder, "*.pt")))
-        for f in tqdm(row_files, desc=f"Merging rank {rank}"):
-            row_result = torch.load(f)
-            merged.update(row_result)
+        rank_dir = f"{input_dir_prefix}_rows_rank{rank}"
+        if not os.path.isdir(rank_dir):
+            print(f" Rank directory not found: {rank_dir}")
+            continue
 
-    torch.save(merged, output_path)
-    print(f"✅ Merged all rows to {output_path} with {len(merged)} entries.")
+        pt_files = sorted(glob(os.path.join(rank_dir, "*.pt")))
+        print(f"📂 [Rank {rank}] Found {len(pt_files)} batch files in {rank_dir}")
+
+        for pt_file in tqdm(pt_files, desc=f"Merging rank {rank}"):
+            try:
+                partial = torch.load(pt_file)
+                buffer.update(partial)
+                buffer_count += len(partial)
+                del partial
+
+                if buffer_count >= temp_batch_size:
+                    save_path = os.path.join(output_dir, f"merged_{file_index:05d}.pt")
+                    torch.save(buffer, save_path)
+                    print(f"Saved batch to {save_path} with {buffer_count} entries")
+                    buffer = {}
+                    buffer_count = 0
+                    file_index += 1
+
+            except Exception as e:
+                print(f"Failed to load {pt_file}: {e}")
+
+    # Save remaining
+    if buffer_count > 0:
+        save_path = os.path.join(output_dir, f"merged_{file_index:05d}.pt")
+        torch.save(buffer, save_path)
+        print(f" Saved final batch to {save_path} with {buffer_count} entries")
+
+    print(f"Streaming merge completed into directory: {output_dir}")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", type=str, choices=["rank_files", "row_files"], required=True,
-                        help="Merge mode: 'rank_files' for .pt.rank*.pt files, 'row_files' for row-level folders")
-    parser.add_argument("--input_dir", type=str, required=True, help="Parent directory for similarity files")
-    parser.add_argument("--output_path", type=str, required=True, help="Path to save the merged .pt file")
-    parser.add_argument("--world_size", type=int, default=4, help="Number of ranks (only used for row_files)")
+    parser.add_argument("--input_dir_prefix", type=str, required=True,
+                        help="Prefix of input folders like 'similarity_output' (expects _rows_rank0, _rows_rank1, ...)")
+    parser.add_argument("--world_size", type=int, required=True, help="Total number of ranks used in the job")
+    parser.add_argument("--output_dir", type=str, required=True, help="Output directory to store merged batches")
     args = parser.parse_args()
 
-    if args.mode == "rank_files":
-        merge_similarity_dicts(args.input_dir, args.output_path)
-    elif args.mode == "row_files":
-        merge_all_rank_rows(os.path.join(args.input_dir, os.path.basename(args.output_path)), args.world_size, args.output_path)
-
-
-# python merge_similarity_dicts.py \
-#   --input_dir data/ \
-#   --output_path data/similarity_output_merged_100K.pt
-
-# python merge_similarity_dicts.py \
-#   --mode row_files \
-#   --input_dir data/10K \
-#   --output_path data/10K/similarity_output_10K.pt \
-#   --world_size 2
+    merge_distributed_row_batches_streaming(args.input_dir_prefix, args.world_size, args.output_dir)
 

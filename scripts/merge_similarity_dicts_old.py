@@ -29,7 +29,7 @@ def merge_all_rank_rows(base_path_prefix, world_size, output_path):
             merged.update(row_result)
 
     torch.save(merged, output_path)
-    print(f"✅ Merged all rows to {output_path} with {len(merged)} entries.")
+    print(f" Merged all rows to {output_path} with {len(merged)} entries.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
