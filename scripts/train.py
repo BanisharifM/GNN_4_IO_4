@@ -397,7 +397,8 @@ def train_on_batch(
     logger.info(f"[Batch {batch_id}] Training on {data_batch.num_nodes} samples")
 
     # Split train/val/test masks for the batch
-    data_batch = IODataProcessor.train_val_test_split(data_batch, random_state=args.seed)
+    data_processor = IODataProcessor(args.data_path, args.target_column)
+    data_batch = data_processor.train_val_test_split(data_batch, random_state=args.seed)
 
     # Train GNN on the batch
     model, history = train_tabgnn(data_batch, args, device)
