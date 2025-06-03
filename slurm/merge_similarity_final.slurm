@@ -6,7 +6,7 @@
 #SBATCH --ntasks=1                   
 #SBATCH --gres=gpu:1                
 #SBATCH --cpus-per-task=32
-#SBATCH --mem=128G
+#SBATCH --mem=256G
 #SBATCH --time=01:00:00
 #SBATCH --output=logs/slurm/merge_simni_final_%j.out
 #SBATCH --error=logs/slurm/merge_simi_final_%j.err

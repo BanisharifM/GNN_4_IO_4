@@ -1,0 +1,2 @@
+Merging final batches:   0%|          | 0/10 [00:00<?, ?it/s]Merging final batches:  10%|█         | 1/10 [04:48<43:18, 288.76s/it]Merging final batches:  20%|██        | 2/10 [13:31<56:52, 426.53s/it]slurmstepd: error: Detected 1 oom_kill event in StepId=10321786.0. Some of the step tasks have been OOM Killed.
+srun: error: gpue06: task 0: Out Of Memory
