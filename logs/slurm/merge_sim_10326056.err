@@ -1,0 +1,6 @@
+usage: merge_similarity_dicts_final_1M_single.py [-h] --input_dir_prefix
+                                                 INPUT_DIR_PREFIX --world_size
+                                                 WORLD_SIZE --output_path
+                                                 OUTPUT_PATH
+merge_similarity_dicts_final_1M_single.py: error: the following arguments are required: --output_path
+srun: error: gpue07: task 0: Exited with exit code 2
