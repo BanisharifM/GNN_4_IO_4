@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH --job-name=merge_simi_final_1M
 #SBATCH --account=bdau-delta-gpu
-#SBATCH --partition=gpuH200x8-interactive
+#SBATCH --partition=gpuH200x8
 #SBATCH --nodes=1                     
 #SBATCH --ntasks=1                   
 #SBATCH --gres=gpu:1                
-#SBATCH --cpus-per-task=32
-#SBATCH --mem=256G
-#SBATCH --time=01:00:00
+#SBATCH --cpus-per-task=64
+#SBATCH --mem=900G
+#SBATCH --time=24:00:00
 #SBATCH --output=logs/slurm/merge_simni_final_%j.out
 #SBATCH --error=logs/slurm/merge_simi_final_%j.err
 

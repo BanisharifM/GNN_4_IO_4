@@ -22,6 +22,7 @@ import sys
 import json
 from datetime import datetime
 import yaml
+from tqdm import tqdm
 
 # Add parent directory to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -386,6 +387,60 @@ def plot_training_history(
     plt.savefig(output_path)
     plt.close()
 
+def train_on_batch(
+    data_batch: Data,
+    args: argparse.Namespace,
+    device: torch.device,
+    batch_id: int,
+    output_dir: str
+):
+    logger.info(f"[Batch {batch_id}] Training on {data_batch.num_nodes} samples")
+
+    # Split train/val/test masks for the batch
+    data_batch = IODataProcessor.train_val_test_split(data_batch, random_state=args.seed)
+
+    # Train GNN on the batch
+    model, history = train_tabgnn(data_batch, args, device)
+
+    # Evaluate on test set
+    model.eval()
+    with torch.no_grad():
+        out = model(data_batch.x, [data_batch.edge_index], batch=None)
+        y_pred = out[data_batch.test_mask].squeeze().cpu().numpy()
+        y_true = data_batch.y[data_batch.test_mask].cpu().numpy()
+
+        from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+        mse = mean_squared_error(y_true, y_pred)
+        rmse = np.sqrt(mse)
+        mae = mean_absolute_error(y_true, y_pred)
+        r2 = r2_score(y_true, y_pred)
+
+        metrics = {
+            "batch": batch_id,
+            "mse": mse,
+            "rmse": rmse,
+            "mae": mae,
+            "r2": r2,
+        }
+
+    # Save results
+    batch_dir = os.path.join(output_dir, f"batch_{batch_id:03d}")
+    os.makedirs(batch_dir, exist_ok=True)
+
+    model.save_checkpoint(
+        checkpoint_dir=batch_dir,
+        epoch=args.epochs,
+        optimizer=None,
+        train_loss=history["train_loss"][-1],
+        val_loss=history["val_loss"][-1],
+        filename="tabgnn_model.pt"
+    )
+
+    with open(os.path.join(batch_dir, "metrics.json"), "w") as f:
+        json.dump(metrics, f, indent=4)
+
+    logger.info(f"[Batch {batch_id}] Done - RMSE: {rmse:.4f}, R2: {r2:.4f}")
+
 def main():
     """Main function."""
     # Parse arguments
@@ -433,7 +488,19 @@ def main():
     data_processor.preprocess_data()
     
     # Create combined PyG data
-    data = data_processor.create_combined_pyg_data(target_column=args.target_column)
+    # for batch_id, data_batch in enumerate(data_processor.generate_pyg_data_batches(target_column=args.target_column)):
+    #     train_on_batch(data_batch, args, device, batch_id, args.output_dir)
+    TOTAL_ROWS = 1_000_000  # You said you know this
+    BATCH_SIZE = 1000       # If each `.pt` file = 1000 rows
+    total_batches = TOTAL_ROWS // BATCH_SIZE
+
+    for batch_id, data_batch in tqdm(
+        enumerate(data_processor.generate_pyg_data_batches(target_column=args.target_column)),
+        total=total_batches,
+        desc="Training batches",
+        dynamic_ncols=True
+    ):
+        train_on_batch(data_batch, args, device, batch_id, args.output_dir)
     
     # Split data into train, validation, and test sets
     data = data_processor.train_val_test_split(data, random_state=args.seed)

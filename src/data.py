@@ -804,3 +804,47 @@ class IODataProcessor:
         }
 
         return multiplex_graphs
+
+    def generate_pyg_data_batches(self, target_column: Optional[str] = None):
+        """
+        Generator that yields PyG Data objects from batched similarity files.
+
+        Yields:
+            torch_geometric.data.Data
+        """
+        if self.data is None:
+            self.load_data()
+
+        x_all = torch.tensor(self.data.drop(columns=[target_column]).values, dtype=torch.float)
+        y_all = torch.tensor(self.data[target_column].values, dtype=torch.float)
+
+        for dir_path in self.similarity_dir_paths:
+            pt_files = sorted(
+                [f for f in os.listdir(dir_path) if f.endswith('.pt')],
+                key=lambda f: int(os.path.splitext(f)[0])
+            )
+
+            for pt_file in pt_files:
+                edge_index = []
+                edge_attr = []
+                batch_path = os.path.join(dir_path, pt_file)
+                sim_dict = torch.load(batch_path)
+
+                for src, neighbors in sim_dict.items():
+                    for dst, sim in neighbors:
+                        edge_index.append([src, dst])
+                        edge_attr.append([sim])
+
+                if edge_index:
+                    edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
+                    edge_attr = torch.tensor(edge_attr, dtype=torch.float)
+                else:
+                    edge_index = torch.zeros((2, 0), dtype=torch.long)
+                    edge_attr = torch.zeros((0, 1), dtype=torch.float)
+
+                # Subset x and y to this batch
+                batch_indices = list(sim_dict.keys())
+                x = x_all[batch_indices]
+                y = y_all[batch_indices]
+
+                yield Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
