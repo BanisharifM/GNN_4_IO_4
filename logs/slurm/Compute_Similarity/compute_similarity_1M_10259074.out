@@ -1,0 +1,8 @@
+[Rank 3] Total rows: 250000, Batches: 250
+[Rank 3] Finished writing batches to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1MM/_rows_rank3
+[Rank 1] Total rows: 250000, Batches: 250
+[Rank 1] Finished writing batches to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1MM/_rows_rank1
+[Rank 0] Total rows: 250000, Batches: 250
+[Rank 0] Finished writing batches to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1MM/_rows_rank0
+[Rank 2] Total rows: 250000, Batches: 250
+[Rank 2] Finished writing batches to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1MM/_rows_rank2

@@ -1,0 +1,15 @@
+📂 [Rank 0] Found 250 batch files in /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank0
+💾 Saved batch to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_batches/merged_00000.pt with 100000 entries
+💾 Saved batch to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_batches/merged_00001.pt with 100000 entries
+📂 [Rank 1] Found 250 batch files in /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank1
+💾 Saved batch to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_batches/merged_00002.pt with 100000 entries
+💾 Saved batch to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_batches/merged_00003.pt with 100000 entries
+💾 Saved batch to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_batches/merged_00004.pt with 100000 entries
+📂 [Rank 2] Found 250 batch files in /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank2
+💾 Saved batch to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_batches/merged_00005.pt with 100000 entries
+💾 Saved batch to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_batches/merged_00006.pt with 100000 entries
+📂 [Rank 3] Found 250 batch files in /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank3
+💾 Saved batch to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_batches/merged_00007.pt with 100000 entries
+💾 Saved batch to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_batches/merged_00008.pt with 100000 entries
+💾 Saved batch to /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_batches/merged_00009.pt with 100000 entries
+✅ Streaming merge completed into directory: /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_batches

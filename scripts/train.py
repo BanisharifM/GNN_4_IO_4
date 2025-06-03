@@ -393,8 +393,16 @@ def main():
     logger.info("Parsed arguments:\n" + json.dumps(vars(args), indent=4))
     
     # Parse important_features string to list
+    # if args.important_features:
+    #     args.important_features = args.important_features.strip().split()
+
+    # Automatically use all features except the target if important_features is not specified
+    df_preview = pd.read_csv(args.data_path, nrows=1)
+    all_columns = list(df_preview.columns)
     if args.important_features:
         args.important_features = args.important_features.strip().split()
+    else:
+        args.important_features = [col for col in all_columns if col != args.target_column]
 
     # Set random seed
     set_seed(args.seed)

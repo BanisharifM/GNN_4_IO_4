@@ -1,0 +1,8 @@
+[Rank 1] Total: 250000 | Remaining: 47871
+[Rank 3] Total: 250000 | Remaining: 47836
+[Rank 0] Total: 250000 | Remaining: 44278
+[Rank 2] Total: 250000 | Remaining: 36053
+[Rank 2] Failed to save file /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank2/0855790.pt: File /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank2/0855790.pt cannot be opened.
+[Rank 1] Failed to save file /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank1/0808517.pt: File /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank1/0808517.pt cannot be opened.
+[Rank 3] Failed to save file /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank3/0808659.pt: File /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank3/0808659.pt cannot be opened.
+[Rank 0] Failed to save file /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank0/0822888.pt: File /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank0/0822888.pt cannot be opened.

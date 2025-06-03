@@ -1,0 +1,14 @@
+data_path: data/1M/sample_1M.csv
+target_column: tag
+similarity_threshold: 0.05
+precomputed_similarity_path: /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_similarity_final_1M.pt 
+
+hidden_dim: 64
+num_layers: 2
+dropout: 0.1
+batch_size: 32
+epochs: 100
+lr: 0.001
+weight_decay: 0.0001
+patience: 10
+seed: 42
