@@ -58,14 +58,11 @@ def parse_args():
         # Flatten YAML config into a list of CLI args
         for key, value in config.items():
             if isinstance(value, list):
-                for v in value:
-                    remaining_args.extend([f'--{key}', v])
-                continue  # prevent extending again below
-            elif isinstance(value, bool):
-                value = str(value).lower()
+                remaining_args.append(f'--{key}')
+                remaining_args.extend(map(str, value))
             else:
-                value = str(value)
-            remaining_args.extend([f'--{key}', value])
+                remaining_args.extend([f'--{key}', str(value).lower() if isinstance(value, bool) else str(value)])
+        print("Remaining args:", remaining_args)
 
     # Parse the complete argument list (defaults + config overrides + CLI)
     final_parser = argparse.ArgumentParser(description="Train TabGNN models for I/O performance prediction")
