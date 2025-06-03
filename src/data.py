@@ -461,13 +461,14 @@ class IODataProcessor:
     """
     
     def __init__(
-        self, 
+        self,
         data_path: str,
         important_features: List[str] = None,
         similarity_thresholds: Dict[str, float] = None,
         similarity_metric: str = "cosine",
         max_edges_per_node: Optional[int] = None,
-        precomputed_similarity_path: Optional[str] = None
+        precomputed_similarity_path: Optional[str] = None,
+        similarity_dir_paths: Optional[List[str]] = None
     ):
         """
         Initialize I/O data processor.
@@ -486,6 +487,7 @@ class IODataProcessor:
         self.max_edges_per_node = max_edges_per_node
 
         self.precomputed_similarity_path = precomputed_similarity_path
+        self.similarity_dir_paths = similarity_dir_paths
         
         self.data = None
         self.scaler = None
@@ -577,37 +579,38 @@ class IODataProcessor:
         
         return multiplex_graphs
     
-    def create_combined_pyg_data(
-        self,
-        target_column: Optional[str] = None
-    ) -> Data:
-        """
-        Create combined PyTorch Geometric Data object.
-
-        Args:
-            target_column (str, optional): Target column for prediction
-
-        Returns:
-            Data: Combined PyG Data object
-        """
+    def create_combined_pyg_data(self, target_column: Optional[str] = None) -> Data:
         logger.info("Creating combined PyG data")
 
         if self.data is None:
             self.load_data()
 
-        if not self.precomputed_similarity_path or not os.path.exists(self.precomputed_similarity_path):
-            raise FileNotFoundError(f"Precomputed similarity file not found at: {self.precomputed_similarity_path}")
-
-        logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
-        sim_dict = torch.load(self.precomputed_similarity_path)
-
         edge_index = []
         edge_attr = []
 
-        for src, neighbors in sim_dict.items():
-            for dst, sim in neighbors:
-                edge_index.append([src, dst])
-                edge_attr.append([sim])
+        if self.similarity_dir_paths:
+            logger.info(f"Loading similarity data from directories: {self.similarity_dir_paths}")
+            for dir_path in self.similarity_dir_paths:
+                pt_files = sorted([
+                    os.path.join(dir_path, f) for f in os.listdir(dir_path)
+                    if f.endswith(".pt")
+                ], key=lambda x: int(os.path.splitext(os.path.basename(x))[0]))
+
+                for pt_file in pt_files:
+                    sim_dict = torch.load(pt_file)
+                    for src, neighbors in sim_dict.items():
+                        for dst, sim in neighbors:
+                            edge_index.append([src, dst])
+                            edge_attr.append([sim])
+        elif self.precomputed_similarity_path and os.path.exists(self.precomputed_similarity_path):
+            logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
+            sim_dict = torch.load(self.precomputed_similarity_path)
+            for src, neighbors in sim_dict.items():
+                for dst, sim in neighbors:
+                    edge_index.append([src, dst])
+                    edge_attr.append([sim])
+        else:
+            raise FileNotFoundError("No valid similarity source found.")
 
         edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
         edge_attr = torch.tensor(edge_attr, dtype=torch.float)
@@ -616,7 +619,6 @@ class IODataProcessor:
         y = torch.tensor(self.data[target_column].values, dtype=torch.float)
 
         return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
-
 
     def train_val_test_split(
         self, 
@@ -716,7 +718,8 @@ class IODataProcessor:
             "important_features": self.important_features,
             "similarity_thresholds": self.similarity_thresholds,
             "similarity_metric": self.similarity_metric,
-            "max_edges_per_node": self.max_edges_per_node
+            "max_edges_per_node": self.max_edges_per_node,
+            "similarity_dir_paths": self.similarity_dir_paths,
         }
         
         with open(os.path.join(output_dir, "config.json"), "w") as f:
@@ -747,7 +750,8 @@ class IODataProcessor:
             important_features=config["important_features"],
             similarity_thresholds=config["similarity_thresholds"],
             similarity_metric=config["similarity_metric"],
-            max_edges_per_node=config["max_edges_per_node"]
+            max_edges_per_node=config["max_edges_per_node"],
+            similarity_dir_paths=config.get("similarity_dir_paths")
         )
         
         # Load data

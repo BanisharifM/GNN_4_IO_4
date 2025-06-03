@@ -31,7 +31,8 @@ for model in lightgbm; do
         --config_file "$CONFIG_FILE" \
         --output_dir "$OUTPUT_DIR" \
         --device cuda \
-        --model_type "$model"
+        --model_type "$model" \
+        --similarity_dir_paths /.../_rows_rank0 /.../_rows_rank1 /.../_rows_rank2 /.../_rows_rank3
 
     echo "$model model completed."
 done

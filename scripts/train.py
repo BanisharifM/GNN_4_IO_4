@@ -58,7 +58,9 @@ def parse_args():
         # Flatten YAML config into a list of CLI args
         for key, value in config.items():
             if isinstance(value, list):
-                value = ' '.join(map(str, value))
+                for v in value:
+                    remaining_args.extend([f'--{key}', v])
+                continue  # prevent extending again below
             elif isinstance(value, bool):
                 value = str(value).lower()
             else:
@@ -87,6 +89,8 @@ def parse_args():
     final_parser.add_argument("--seed", type=int, default=42)
     final_parser.add_argument("--device", type=str, default=None)
     final_parser.add_argument("--precomputed_similarity_path", type=str, default=None)
+    final_parser.add_argument("--similarity_dir_paths", nargs='+', type=str, default=None,
+                          help="List of directories with precomputed similarity .pt files")
 
     return final_parser.parse_args(remaining_args)
 
@@ -422,8 +426,11 @@ def main():
         data_path=args.data_path,
         important_features=args.important_features,
         similarity_thresholds={f: args.similarity_threshold for f in args.important_features} if args.important_features else None,
-        precomputed_similarity_path=args.precomputed_similarity_path
+        precomputed_similarity_path=args.precomputed_similarity_path,
+        similarity_dir_paths=args.similarity_dir_paths
+
     )
+    logger.info(f"Using similarity_dir_paths: {args.similarity_dir_paths}")
     
     # Load and preprocess data
     data_processor.load_data()

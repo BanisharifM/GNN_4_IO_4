@@ -12,3 +12,9 @@ lr: 0.001
 weight_decay: 0.0001
 patience: 10
 seed: 42
+
+similarity_dir_paths:
+  - /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank0
+  - /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank1
+  - /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank2
+  - /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/_rows_rank3
