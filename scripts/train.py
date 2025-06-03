@@ -426,7 +426,6 @@ def main():
         data_path=args.data_path,
         important_features=args.important_features,
         similarity_thresholds={f: args.similarity_threshold for f in args.important_features} if args.important_features else None,
-        precomputed_similarity_path=args.precomputed_similarity_path,
         similarity_dir_paths=args.similarity_dir_paths
 
     )

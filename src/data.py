@@ -534,51 +534,23 @@ class IODataProcessor:
         
         return self.data
     
-    def construct_multiplex_graphs(self) -> Dict[str, Tuple[torch.Tensor, torch.Tensor]]:
+    def construct_multiplex_graphs(self):
         """
-        Construct multiplex graphs.
-        
-        Returns:
-            Dict[str, Tuple[torch.Tensor, torch.Tensor]]: Dictionary mapping graph names to (edge_index, edge_attr) tuples
+        Construct multiplex graphs using either:
+        1. A directory of batched similarity edges (preferred for large data)
+        2. A single precomputed .pt file (if available)
         """
-        logger.info("Constructing multiplex graphs")
-        
-        if self.precomputed_similarity_path and os.path.exists(self.precomputed_similarity_path):
+        if self.similarity_dir_paths:
+            logger.info(f"Using batched similarity dirs: {self.similarity_dir_paths}")
+            sim_dict = self.load_similarity_edges_from_dirs()  # this must be implemented
+        elif self.precomputed_similarity_path and os.path.exists(self.precomputed_similarity_path):
             logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
             sim_dict = torch.load(self.precomputed_similarity_path)
-
-            edge_index = []
-            edge_attr = []
-
-            for src, neighbors in sim_dict.items():
-                for dst, sim in neighbors:
-                    edge_index.append([src, dst])
-                    edge_attr.append([sim])
-
-            edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
-            edge_attr = torch.tensor(edge_attr, dtype=torch.float)
-
-            return {"combined": (edge_index, edge_attr)}
+        else:
+            raise ValueError("No valid similarity data source provided.")
         
-        if self.data is None:
-            self.load_data()
-        
-        if self.graph_constructor is None:
-            if self.important_features is None:
-                raise ValueError("important_features must be provided")
-            
-            self.graph_constructor = MultiplexGraphConstructor(
-                important_features=self.important_features,
-                similarity_thresholds=self.similarity_thresholds,
-                similarity_metric=self.similarity_metric,
-                max_edges_per_node=self.max_edges_per_node
-            )
-        
-        # Construct multiplex graphs
-        multiplex_graphs = self.graph_constructor.construct_graphs(self.data)
-        
-        return multiplex_graphs
-    
+        return self._build_multiplex_graphs_from_similarity(sim_dict)
+
     def create_combined_pyg_data(self, target_column: Optional[str] = None) -> Data:
         logger.info("Creating combined PyG data")
 
