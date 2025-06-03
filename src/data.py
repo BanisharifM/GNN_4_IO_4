@@ -751,3 +751,56 @@ class IODataProcessor:
                         sim_dict[src] = []
                     sim_dict[src].extend(neighbors)
         return sim_dict
+
+    def _build_multiplex_graphs_from_similarity(self, sim_dict):
+        """
+        Build edge_index and edge_attr dictionaries from similarity dict.
+        """
+        multiplex_graphs = {}
+        for feature in self.important_features:
+            edge_index = []
+            edge_attr = []
+
+            for src, neighbors in sim_dict.get(feature, {}).items():
+                for dst, sim in neighbors:
+                    edge_index.append([src, dst])
+                    edge_attr.append([sim])
+
+            if edge_index:
+                edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
+                edge_attr = torch.tensor(edge_attr, dtype=torch.float)
+            else:
+                edge_index = torch.zeros((2, 0), dtype=torch.long)
+                edge_attr = torch.zeros((0, 1), dtype=torch.float)
+
+            multiplex_graphs[feature] = (edge_index, edge_attr)
+
+        return multiplex_graphs
+
+    def _build_multiplex_graphs_from_similarity(self, sim_dict):
+        """
+        Build multiplex graphs assuming sim_dict is a flat {src: [(dst, sim), ...]} dictionary.
+        Creates the same graph for all features.
+        """
+        edge_index = []
+        edge_attr = []
+
+        for src, neighbors in sim_dict.items():
+            for dst, sim in neighbors:
+                edge_index.append([src, dst])
+                edge_attr.append([sim])
+
+        if edge_index:
+            edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
+            edge_attr = torch.tensor(edge_attr, dtype=torch.float)
+        else:
+            edge_index = torch.zeros((2, 0), dtype=torch.long)
+            edge_attr = torch.zeros((0, 1), dtype=torch.float)
+
+        # Share this graph across all features
+        multiplex_graphs = {
+            feature: (edge_index, edge_attr)
+            for feature in self.important_features
+        }
+
+        return multiplex_graphs
