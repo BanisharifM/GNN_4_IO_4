@@ -735,3 +735,19 @@ class IODataProcessor:
         logger.info(f"Loaded processed data from {input_dir}")
         
         return processor, combined_data
+        
+    def load_similarity_edges_from_dirs(self) -> Dict[int, List[Tuple[int, float]]]:
+        sim_dict = {}
+        for dir_path in self.similarity_dir_paths:
+            pt_files = sorted(
+                [f for f in os.listdir(dir_path) if f.endswith('.pt')],
+                key=lambda f: int(os.path.splitext(f)[0])
+            )
+            for pt_file in pt_files:
+                batch_path = os.path.join(dir_path, pt_file)
+                batch_dict = torch.load(batch_path)
+                for src, neighbors in batch_dict.items():
+                    if src not in sim_dict:
+                        sim_dict[src] = []
+                    sim_dict[src].extend(neighbors)
+        return sim_dict
