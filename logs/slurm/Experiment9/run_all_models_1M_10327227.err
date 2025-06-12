@@ -72,3 +72,305 @@
 2025-06-03 11:11:50,452 - INFO - Initialized multiplex graph constructor for 45 features
 2025-06-03 11:11:50,452 - INFO - Creating combined PyG data
 2025-06-03 11:11:50,573 - INFO - Loading precomputed similarity from /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_similarity_final_1M.pt
+/var/spool/slurmd/job10327227/slurm_script: line 27: 1808489 Killed                  $CONDA_ENV_PATH scripts/train.py --config_file "$CONFIG_FILE" --output_dir "$OUTPUT_DIR" --device cuda --model_type "$model"
+2025-06-03 13:00:19,262 - INFO - Parsed arguments:
+{
+    "data_path": "data/1M/sample_1M.csv",
+    "output_dir": "logs/training/all/Experiment9/lightgbm",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "lightgbm",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "/projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_similarity_final_1M.pt"
+}
+2025-06-03 13:00:19,282 - INFO - Using device: cuda
+2025-06-03 13:00:19,282 - INFO - Initialized I/O data processor for data/1M/sample_1M.csv
+2025-06-03 13:00:19,282 - INFO - Loading data from data/1M/sample_1M.csv
+2025-06-03 13:00:22,937 - INFO - Loaded data with shape (1000000, 46)
+2025-06-03 13:00:22,937 - INFO - Preprocessing data
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for nprocs
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_SIZE
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_WIDTH
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_FILENOS
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_ALIGNMENT
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_ALIGNMENT
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_READS
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_WRITES
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_STATS
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_READ
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_WRITTEN
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_READS
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_WRITES
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_READS
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_RW_SWITCHES
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100_1K
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100K_1M
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100_1K
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_1K_10K
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_STRIDE
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_STRIDE
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_STRIDE
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_STRIDE
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_COUNT
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_COUNT
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_COUNT
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_COUNT
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_ACCESS
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_ACCESS
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_ACCESS
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_ACCESS
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_COUNT
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_COUNT
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_COUNT
+2025-06-03 13:00:22,937 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_COUNT
+2025-06-03 13:00:22,937 - INFO - Initialized multiplex graph constructor for 45 features
+2025-06-03 13:00:22,937 - INFO - Creating combined PyG data
+2025-06-03 13:00:23,095 - INFO - Loading precomputed similarity from /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_similarity_final_1M.pt
+/var/spool/slurmd/job10327227/slurm_script: line 27: 2990944 Killed                  $CONDA_ENV_PATH scripts/train.py --config_file "$CONFIG_FILE" --output_dir "$OUTPUT_DIR" --device cuda --model_type "$model"
+2025-06-03 14:57:41,654 - INFO - Parsed arguments:
+{
+    "data_path": "data/1M/sample_1M.csv",
+    "output_dir": "logs/training/all/Experiment9/catboost",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "catboost",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "/projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_similarity_final_1M.pt"
+}
+2025-06-03 14:57:41,675 - INFO - Using device: cuda
+2025-06-03 14:57:41,675 - INFO - Initialized I/O data processor for data/1M/sample_1M.csv
+2025-06-03 14:57:41,675 - INFO - Loading data from data/1M/sample_1M.csv
+2025-06-03 14:57:45,828 - INFO - Loaded data with shape (1000000, 46)
+2025-06-03 14:57:45,828 - INFO - Preprocessing data
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for nprocs
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_SIZE
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_WIDTH
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_FILENOS
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_ALIGNMENT
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_ALIGNMENT
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_READS
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_WRITES
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_STATS
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_READ
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_WRITTEN
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_READS
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_WRITES
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_READS
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_RW_SWITCHES
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100_1K
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100K_1M
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100_1K
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_1K_10K
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_STRIDE
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_STRIDE
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_STRIDE
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_STRIDE
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_COUNT
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_COUNT
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_COUNT
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_COUNT
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_ACCESS
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_ACCESS
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_ACCESS
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_ACCESS
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_COUNT
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_COUNT
+2025-06-03 14:57:45,828 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_COUNT
+2025-06-03 14:57:45,829 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_COUNT
+2025-06-03 14:57:45,829 - INFO - Initialized multiplex graph constructor for 45 features
+2025-06-03 14:57:45,829 - INFO - Creating combined PyG data
+2025-06-03 14:57:46,147 - INFO - Loading precomputed similarity from /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_similarity_final_1M.pt
+/var/spool/slurmd/job10327227/slurm_script: line 27: 68076 Killed                  $CONDA_ENV_PATH scripts/train.py --config_file "$CONFIG_FILE" --output_dir "$OUTPUT_DIR" --device cuda --model_type "$model"
+2025-06-03 16:56:04,410 - INFO - Parsed arguments:
+{
+    "data_path": "data/1M/sample_1M.csv",
+    "output_dir": "logs/training/all/Experiment9/xgboost",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "xgboost",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "/projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_similarity_final_1M.pt"
+}
+2025-06-03 16:56:04,427 - INFO - Using device: cuda
+2025-06-03 16:56:04,427 - INFO - Initialized I/O data processor for data/1M/sample_1M.csv
+2025-06-03 16:56:04,427 - INFO - Loading data from data/1M/sample_1M.csv
+2025-06-03 16:56:07,943 - INFO - Loaded data with shape (1000000, 46)
+2025-06-03 16:56:07,943 - INFO - Preprocessing data
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for nprocs
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_SIZE
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_WIDTH
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_FILENOS
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_ALIGNMENT
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_ALIGNMENT
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_READS
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_WRITES
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_STATS
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_READ
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_WRITTEN
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_READS
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_WRITES
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_READS
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_RW_SWITCHES
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100_1K
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100K_1M
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100_1K
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_1K_10K
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_STRIDE
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_STRIDE
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_STRIDE
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_STRIDE
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_COUNT
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_COUNT
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_COUNT
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_COUNT
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_ACCESS
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_ACCESS
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_ACCESS
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_ACCESS
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_COUNT
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_COUNT
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_COUNT
+2025-06-03 16:56:07,943 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_COUNT
+2025-06-03 16:56:07,943 - INFO - Initialized multiplex graph constructor for 45 features
+2025-06-03 16:56:07,943 - INFO - Creating combined PyG data
+2025-06-03 16:56:08,078 - INFO - Loading precomputed similarity from /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_similarity_final_1M.pt
+/var/spool/slurmd/job10327227/slurm_script: line 27: 1348761 Killed                  $CONDA_ENV_PATH scripts/train.py --config_file "$CONFIG_FILE" --output_dir "$OUTPUT_DIR" --device cuda --model_type "$model"
+2025-06-03 18:57:03,859 - INFO - Parsed arguments:
+{
+    "data_path": "data/1M/sample_1M.csv",
+    "output_dir": "logs/training/all/Experiment9/mlp",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "mlp",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "/projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_similarity_final_1M.pt"
+}
+2025-06-03 18:57:03,880 - INFO - Using device: cuda
+2025-06-03 18:57:03,880 - INFO - Initialized I/O data processor for data/1M/sample_1M.csv
+2025-06-03 18:57:03,880 - INFO - Loading data from data/1M/sample_1M.csv
+2025-06-03 18:57:07,447 - INFO - Loaded data with shape (1000000, 46)
+2025-06-03 18:57:07,447 - INFO - Preprocessing data
+2025-06-03 18:57:07,447 - INFO - Initialized feature similarity graph constructor for nprocs
+2025-06-03 18:57:07,447 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-06-03 18:57:07,447 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_SIZE
+2025-06-03 18:57:07,447 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_WIDTH
+2025-06-03 18:57:07,447 - INFO - Initialized feature similarity graph constructor for POSIX_FILENOS
+2025-06-03 18:57:07,447 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_ALIGNMENT
+2025-06-03 18:57:07,447 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_ALIGNMENT
+2025-06-03 18:57:07,447 - INFO - Initialized feature similarity graph constructor for POSIX_READS
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_WRITES
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_STATS
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_READ
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_WRITTEN
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_READS
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_WRITES
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_READS
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_RW_SWITCHES
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100_1K
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100K_1M
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100_1K
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_1K_10K
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_STRIDE
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_STRIDE
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_STRIDE
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_STRIDE
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_COUNT
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_COUNT
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_COUNT
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_COUNT
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_ACCESS
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_ACCESS
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_ACCESS
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_ACCESS
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_COUNT
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_COUNT
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_COUNT
+2025-06-03 18:57:07,448 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_COUNT
+2025-06-03 18:57:07,448 - INFO - Initialized multiplex graph constructor for 45 features
+2025-06-03 18:57:07,448 - INFO - Creating combined PyG data
+2025-06-03 18:57:07,643 - INFO - Loading precomputed similarity from /projects/bdau/mbanisharifdehkordi/gnn_data/GNN_4_IO_4/data/1M/merged_similarity_final_1M.pt
+slurmstepd: error: *** JOB 10327227 ON gpue04 CANCELLED AT 2025-06-03T20:25:34 ***
+slurmstepd: error: Detected 4 oom_kill events in StepId=10327227.batch. Some of the step tasks have been OOM Killed.
