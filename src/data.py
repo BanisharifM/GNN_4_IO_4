@@ -596,7 +596,28 @@ class IODataProcessor:
             self.load_data()
 
         if not self.precomputed_similarity_path or not os.path.exists(self.precomputed_similarity_path):
-            raise FileNotFoundError(f"Precomputed similarity file not found at: {self.precomputed_similarity_path}")
+            logger.warning("No precomputed similarity file provided or file not found. Creating empty graph.")
+            edge_index = torch.zeros((2, 0), dtype=torch.long)
+            edge_attr = torch.zeros((0, 1), dtype=torch.float)
+            
+            x = torch.tensor(self.data.drop(columns=[target_column]).values, dtype=torch.float)
+            y = torch.tensor(self.data[target_column].values, dtype=torch.float)
+
+            return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
+        else:
+            logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
+            sim_dict = torch.load(self.precomputed_similarity_path)
+
+            edge_index = []
+            edge_attr = []
+
+            for src, neighbors in sim_dict.items():
+                for dst, sim in neighbors:
+                    edge_index.append([src, dst])
+                    edge_attr.append([sim])
+
+            edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
+            edge_attr = torch.tensor(edge_attr, dtype=torch.float)
 
         logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
         sim_dict = torch.load(self.precomputed_similarity_path)
