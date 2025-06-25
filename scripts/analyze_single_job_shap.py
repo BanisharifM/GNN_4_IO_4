@@ -36,7 +36,27 @@ def main():
         similarity_thresholds=None,
         precomputed_similarity_path=None
     )
+    # Step 1: Load raw data
     data_processor.load_data()
+
+    # Step 2: Apply log10 + L2 normalization
+    print("🔹 Applying log10 + L2 normalization...")
+    df = data_processor.data
+    features = df.drop(columns=[config["target_column"]])
+    
+    # Apply log10(x + 1) transformation
+    features_log = np.log10(features + 1.0)
+    
+    # Convert to tensor and normalize
+    data_tensor = torch.tensor(features_log.values, dtype=torch.float32)
+    normalized_tensor = torch.nn.functional.normalize(data_tensor, p=2, dim=1)
+    
+    # Reconstruct DataFrame
+    normalized_df = pd.DataFrame(normalized_tensor.numpy(), columns=features.columns)
+    normalized_df[config["target_column"]] = df[config["target_column"]].values
+    data_processor.data = normalized_df
+
+    # Step 3: Continue preprocessing
     data_processor.preprocess_data()
     data = data_processor.create_combined_pyg_data(target_column=config["target_column"])
 
@@ -100,9 +120,9 @@ def main():
     }])
 
     # Save to CSV
-    out_path = os.path.join(OUTPUT_DIR, "single_prediction_with_shap.csv")
+    out_path = os.path.join(OUTPUT_DIR, "single_prediction_with_shap_log10_l2.csv")
     shap_row.to_csv(out_path, index=False)
-    print(f"\nSaved SHAP CSV: {out_path}")
+    print(f"\n✅ Saved SHAP CSV: {out_path}")
 
 if __name__ == "__main__":
     main()
