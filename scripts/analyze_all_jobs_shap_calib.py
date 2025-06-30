@@ -17,12 +17,12 @@ from src.models.tabular import TabGNNTabularModel
 
 # === Configurable paths ===
 CONFIG_PATH         = "configs/experiment7.yml"
-INPUT_CSV           = "/u/mbanisharifdehkordi/Github/IOR_Benchmark/data/darshan_csv_log_L2/darshan_parsed_output_6-29-V3_norm_log_L2.csv"
+INPUT_CSV           = "/u/mbanisharifdehkordi/Github/IOR_Benchmark/data/darshan_csv_log_L2/darshan_parsed_output_6-29-V5_norm_log_L2.csv"
 GNN_MODEL_PATH      = "logs/training/all/Experiment7/combined/tabgnn_part.pt"
 TAB_MODEL_PATH      = "logs/training/all/Experiment7/combined/tabular_part.joblib"
-CALIB_COEFFS_CSV    = "scripts/data_analyze/calibration_coeffs.csv"
+CALIB_COEFFS_CSV    = "scripts/data_analyze/calibration_coeffs_V5.csv"
 OUTPUT_CSV_DIR      = "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/shap"
-OUTPUT_CSV_PATH     = os.path.join(OUTPUT_CSV_DIR, "darshan_parsed_output_6-29-V3_norm_log_scaled_with_shap_calib.csv")
+OUTPUT_CSV_PATH     = os.path.join(OUTPUT_CSV_DIR, "darshan_parsed_output_6-29-V5_norm_log_scaled_with_shap_calib.csv")
 
 def load_config(path):
     with open(path, "r") as f:
@@ -36,6 +36,13 @@ def main():
     df = pd.read_csv(INPUT_CSV)
     print(f"🔹 Loaded {len(df)} rows from {INPUT_CSV}")
 
+    # Extract and temporarily hold test_id if present
+    if "test_id" in df.columns:
+        test_id_column = df["test_id"].copy()
+        df = df.drop(columns=["test_id"])
+    else:
+        test_id_column = None
+
     # 1a) Load calibration coefficients
     cb = pd.read_csv(CALIB_COEFFS_CSV).iloc[0]
     a, b = cb["a"], cb["b"]
@@ -48,7 +55,7 @@ def main():
         similarity_thresholds=None,
         precomputed_similarity_path=None
     )
-    dp.data = df  # override so it uses our pre-normalized frame
+    dp.data = df
     dp.preprocess_data()
     data = dp.create_combined_pyg_data(target_column=cfg["target_column"])
 
@@ -96,7 +103,6 @@ def main():
 
     # 8) True labels and errors
     y_true = data.y.cpu().numpy().flatten()
-    err_raw   = y_pred_raw  - y_true
     err_calib = y_pred_calib - y_true
 
     print("🔹 Predictions (raw & calibrated) done.")
@@ -118,11 +124,9 @@ def main():
     rows = []
     for i in range(len(df)):
         row = {
-            "y_true":        float(y_true[i]),
-            "y_pred_raw":    float(y_pred_raw[i]),
-            "error_raw":     float(err_raw[i]),
-            "y_pred_calib":  float(y_pred_calib[i]),
-            "error_calib":   float(err_calib[i]),
+            "y_true":    float(y_true[i]),
+            "y_pred":    float(y_pred_calib[i]),
+            "error":     float(err_calib[i]),
         }
         # add SHAP for this sample
         for j, feat in enumerate(all_feats):
@@ -130,6 +134,11 @@ def main():
         rows.append(row)
 
     out_df = pd.DataFrame(rows)
+
+    # Add back test_id column if it was present
+    if test_id_column is not None:
+        out_df["test_id"] = test_id_column.values
+
     out_df.to_csv(OUTPUT_CSV_PATH, index=False)
     print(f"✅ Saved SHAP + calibrated predictions to {OUTPUT_CSV_PATH}")
 

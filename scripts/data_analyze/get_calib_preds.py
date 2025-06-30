@@ -16,10 +16,10 @@ from src.models.tabular import TabGNNTabularModel
 # === Configurable paths ===
 CONFIG_PATH     = "configs/experiment7.yml"
 INPUT_CSV       = "/u/mbanisharifdehkordi/Github/IOR_Benchmark/data/" \
-                  "darshan_csv_log_L2/darshan_parsed_output_6-29-V3_norm_log_L2.csv"
+                  "darshan_csv_log_L2/darshan_parsed_output_6-29-V5_norm_log_L2.csv"
 GNN_CKPT_PATH   = "logs/training/all/Experiment7/combined/tabgnn_part.pt"
 TAB_CKPT_PATH   = "logs/training/all/Experiment7/combined/tabular_part.joblib"
-OUTPUT_CSV_PATH = "scripts/data_analyze/calibration.csv"
+OUTPUT_CSV_PATH = "scripts/data_analyze/calibration_V5.csv"
 
 def load_config(path):
     with open(path, "r") as f:
@@ -43,6 +43,8 @@ def main():
     )
     proc.data = df  # override so it uses our pre-normalized DataFrame
     proc.preprocess_data()
+    if "test_id" in proc.data.columns:
+        proc.data = proc.data.drop(columns=["test_id"])
     data = proc.create_combined_pyg_data(target_column=cfg["target_column"])
 
     # 4) instantiate & load GNN
