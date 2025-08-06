@@ -52,29 +52,57 @@ class TabularModelBase:
         
         logger.info(f"Initialized {model_type} model")
     
+    def _to_numpy_mask(self, m):
+        if m is None:
+            return None
+        if isinstance(m, torch.Tensor):
+            m = m.detach().cpu().numpy()
+        m = np.asarray(m).astype(bool)
+        return m
+
+    def _flatten1d(self, a):
+        a = np.asarray(a)
+        return a.reshape(-1)
+
     def fit(
-        self, 
-        X: np.ndarray, 
-        y: np.ndarray,
-        feature_names: Optional[List[str]] = None,
-        scale_features: bool = True,
+        self,
+        x,
+        edge_indices,
+        y,
+        batch=None,
+        train_mask=None,
         **kwargs
-    ) -> 'TabularModelBase':
+    ):
         """
-        Fit the model to the data.
-        
-        Args:
-            X (np.ndarray): Input features
-            y (np.ndarray): Target values
-            feature_names (List[str], optional): Names of features
-            scale_features (bool): Whether to scale features
-            **kwargs: Additional arguments for the specific model
-            
-        Returns:
-            TabularModelBase: Self
+        Fit the combined model (train only on train_mask rows).
         """
-        raise NotImplementedError("Subclasses must implement fit method")
-    
+        # 1) GNN embeddings for all rows (message passing can use full graph)
+        embeddings = self.extract_embeddings(x, edge_indices, batch)
+
+        # 2) Convert to numpy
+        if isinstance(x, torch.Tensor):
+            x = x.detach().cpu().numpy()
+        if isinstance(y, torch.Tensor):
+            y = y.detach().cpu().numpy()
+
+        # 3) Build combined features [raw || emb] or [emb]
+        combined_features = self.combine_features(x, embeddings)
+
+        # 4) Slice by train_mask (to avoid leakage)
+        m = self._to_numpy_mask(train_mask)
+        if m is not None:
+            X_train = combined_features[m]
+            y_train = y[m]
+        else:
+            X_train = combined_features
+            y_train = y
+
+        # 5) Fit the tabular model on TRAIN ONLY
+        self.tabular_model.fit(X_train, y_train, **kwargs)
+
+        logger.info(f"TabGNN tabular model fitted with {X_train.shape[1]} features on {X_train.shape[0]} rows")
+        return self
+
     def predict(
         self, 
         X: np.ndarray
@@ -152,39 +180,39 @@ class TabularModelBase:
         return instance
     
     def evaluate(
-        self, 
-        X: np.ndarray, 
-        y: np.ndarray
+        self,
+        x,
+        edge_indices,
+        y,
+        batch=None,
+        eval_mask=None
     ) -> Dict[str, float]:
         """
-        Evaluate the model on test data.
-        
-        Args:
-            X (np.ndarray): Input features
-            y (np.ndarray): Target values
-            
-        Returns:
-            Dict[str, float]: Dictionary of evaluation metrics
+        Evaluate the combined model (metrics computed only on eval_mask rows).
         """
-        # Make predictions
-        y_pred = self.predict(X)
-        
-        # Calculate metrics
-        mse = mean_squared_error(y, y_pred)
+        # Convert to numpy
+        if isinstance(y, torch.Tensor):
+            y = y.detach().cpu().numpy()
+
+        # Predict on ALL rows, then slice
+        y_pred = self.predict(x, edge_indices, batch)
+
+        # Make sure both are 1D for sklearn metrics
+        y_pred = self._flatten1d(y_pred)
+        y_true = self._flatten1d(y)
+
+        m = self._to_numpy_mask(eval_mask)
+        if m is not None:
+            y_pred = y_pred[m]
+            y_true = y_true[m]
+
+        mse = mean_squared_error(y_true, y_pred)
         rmse = np.sqrt(mse)
-        mae = mean_absolute_error(y, y_pred)
-        r2 = r2_score(y, y_pred)
-        
-        # Return metrics
-        metrics = {
-            'mse': mse,
-            'rmse': rmse,
-            'mae': mae,
-            'r2': r2
-        }
-        
+        mae = mean_absolute_error(y_true, y_pred)
+        r2 = r2_score(y_true, y_pred)
+        metrics = {'mse': mse, 'rmse': rmse, 'mae': mae, 'r2': r2}
+
         logger.info(f"Evaluation metrics: {metrics}")
-        
         return metrics
 
 class LightGBMModel(TabularModelBase):

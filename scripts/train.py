@@ -342,22 +342,21 @@ def train_combined_model(
     )
     
     # Move data to device
-    data = data.to(device)
-    
-    # Fit combined model
     combined_model.fit(
-        data.x, 
+        data.x,
         [data.edge_index],
         data.y,
-        batch=None
+        batch=None,
+        train_mask=data.train_mask,
     )
     
     # Evaluate model
     metrics = combined_model.evaluate(
-        data.x, 
+        data.x,
         [data.edge_index],
         data.y,
-        batch=None
+        batch=None,
+        eval_mask=data.test_mask,     # <<< metrics only on TEST
     )
     
     return combined_model, metrics
