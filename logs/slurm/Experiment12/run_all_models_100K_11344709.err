@@ -1,0 +1,64 @@
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 540, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 391, in main
+    args = parse_args()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 55, in parse_args
+    with open(args.config_file, 'r') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'configs/Experiment12.yml'
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 540, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 391, in main
+    args = parse_args()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 55, in parse_args
+    with open(args.config_file, 'r') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'configs/Experiment12.yml'
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 540, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 391, in main
+    args = parse_args()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 55, in parse_args
+    with open(args.config_file, 'r') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'configs/Experiment12.yml'
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 540, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 391, in main
+    args = parse_args()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 55, in parse_args
+    with open(args.config_file, 'r') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'configs/Experiment12.yml'
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 540, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 391, in main
+    args = parse_args()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 55, in parse_args
+    with open(args.config_file, 'r') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'configs/Experiment12.yml'
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 540, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 391, in main
+    args = parse_args()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 55, in parse_args
+    with open(args.config_file, 'r') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'configs/Experiment12.yml'
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 540, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 391, in main
+    args = parse_args()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 55, in parse_args
+    with open(args.config_file, 'r') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'configs/Experiment12.yml'
+2025-08-05 22:16:28,480 - WARNING - No metrics file found in logs/training/all/Experiment12/catboost
+2025-08-05 22:16:28,481 - WARNING - No metrics file found in logs/training/all/Experiment12/combined
+2025-08-05 22:16:28,482 - WARNING - No metrics file found in logs/training/all/Experiment12/lightgbm
+2025-08-05 22:16:28,482 - WARNING - No metrics file found in logs/training/all/Experiment12/mlp
+2025-08-05 22:16:28,483 - WARNING - No metrics file found in logs/training/all/Experiment12/tabgnn
+2025-08-05 22:16:28,484 - WARNING - No metrics file found in logs/training/all/Experiment12/tabnet
+2025-08-05 22:16:28,485 - WARNING - No metrics file found in logs/training/all/Experiment12/xgboost
+2025-08-05 22:16:28,485 - ERROR - No metrics found in results directory

@@ -1,15 +1,15 @@
 #!/bin/bash
 #SBATCH --job-name=GNN4_IO_4
 #SBATCH --account=bdau-delta-gpu    
-#SBATCH --partition=gpuH200x8
+#SBATCH --partition=gpuH200x8-interactive
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=64
 #SBATCH --gres=gpu:4
-#SBATCH --mem=900G
-#SBATCH --time=48:00:00
-#SBATCH --output=logs/slurm/Experiment9/run_all_models_1M_%j.out
-#SBATCH --error=logs/slurm/Experiment9/run_all_models_1M_%j.err
+#SBATCH --mem=128G
+#SBATCH --time=01:00:00
+#SBATCH --output=logs/slurm/Experiment13/run_all_models_100K_%j.out
+#SBATCH --error=logs/slurm/Experiment13/run_all_models_100K_%j.err
 
 # === Setup environment ===
 module load cuda
@@ -18,8 +18,8 @@ module load cuda
 
 # === Config ===
 CONDA_ENV_PATH="$HOME/.conda/envs/gnn4_env/bin/python"
-CONFIG_FILE="configs/experiment9.yml"
-EXPERIMENT_NAME="Experiment9"
+CONFIG_FILE="configs/experiment13.yml"
+EXPERIMENT_NAME="Experiment13"
 BASE_OUTPUT_DIR="logs/training/all/${EXPERIMENT_NAME}"
 mkdir -p "$BASE_OUTPUT_DIR"
 
