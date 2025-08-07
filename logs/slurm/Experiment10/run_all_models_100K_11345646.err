@@ -639,3 +639,257 @@ TypeError: evaluate() missing 1 required positional argument: 'y'
 2025-08-06 00:38:26,467 - INFO - Initialized multiplex graph constructor for 45 features
 2025-08-06 00:38:26,467 - INFO - Creating combined PyG data
 2025-08-06 00:38:26,468 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:39:15,084 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:39:59,045 - INFO - Splitting data into train, validation, and test sets
+2025-08-06 00:39:59,091 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-06 00:39:59,096 - INFO - Saving processed data to logs/training/all/Experiment10/tabnet/processed_data
+2025-08-06 00:40:00,913 - INFO - Constructing multiplex graphs
+2025-08-06 00:40:00,914 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:40:39,472 - INFO - Creating combined PyG data
+2025-08-06 00:40:39,472 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:41:18,571 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:42:08,968 - INFO - Saved processed data to logs/training/all/Experiment10/tabnet/processed_data
+2025-08-06 00:42:08,982 - INFO - Initialized tabnet model
+/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:687: UserWarning: No early stopping will be performed, last training weights will be used.
+  warnings.warn(wrn_msg)
+2025-08-06 00:44:35,714 - INFO - TabNet model fitted with 45 features
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 539, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 521, in main
+    model, metrics = train_tabular_model(data, args, args.model_type)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 308, in train_tabular_model
+    metrics = model.evaluate(X_test, y_test)
+TypeError: evaluate() missing 1 required positional argument: 'y'
+2025-08-06 00:44:42,398 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment10/combined",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "combined",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-06 00:44:42,406 - INFO - Using device: cuda
+2025-08-06 00:44:42,406 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-06 00:44:42,406 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-06 00:44:42,717 - INFO - Loaded data with shape (100000, 46)
+2025-08-06 00:44:42,717 - INFO - Preprocessing data
+2025-08-06 00:44:42,717 - INFO - Initialized feature similarity graph constructor for nprocs
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_SIZE
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_WIDTH
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_FILENOS
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_ALIGNMENT
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_ALIGNMENT
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_READS
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_WRITES
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_STATS
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_READ
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_WRITTEN
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_READS
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_WRITES
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_READS
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_RW_SWITCHES
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100_1K
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100K_1M
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100_1K
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_1K_10K
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_STRIDE
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_STRIDE
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_STRIDE
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_STRIDE
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_COUNT
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_COUNT
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_COUNT
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_COUNT
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_ACCESS
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_ACCESS
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_ACCESS
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_ACCESS
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_COUNT
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_COUNT
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_COUNT
+2025-08-06 00:44:42,718 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_COUNT
+2025-08-06 00:44:42,718 - INFO - Initialized multiplex graph constructor for 45 features
+2025-08-06 00:44:42,718 - INFO - Creating combined PyG data
+2025-08-06 00:44:42,719 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:45:32,621 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:46:17,366 - INFO - Splitting data into train, validation, and test sets
+2025-08-06 00:46:17,463 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-06 00:46:17,471 - INFO - Saving processed data to logs/training/all/Experiment10/combined/processed_data
+2025-08-06 00:46:19,276 - INFO - Constructing multiplex graphs
+2025-08-06 00:46:19,277 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:46:57,096 - INFO - Creating combined PyG data
+2025-08-06 00:46:57,096 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:47:36,417 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:48:27,082 - INFO - Saved processed data to logs/training/all/Experiment10/combined/processed_data
+2025-08-06 00:48:27,462 - INFO - Initialized GCN model with 2 layers
+2025-08-06 00:48:27,462 - INFO - Initialized TabGNN regressor with 1 graph types
+2025-08-06 00:48:27,788 - INFO - Epoch 1/100: Train Loss: 0.0163, Val Loss: 0.0082, Test Loss: 0.0078
+2025-08-06 00:48:27,949 - INFO - Epoch 2/100: Train Loss: 0.0083, Val Loss: 0.0050, Test Loss: 0.0050
+2025-08-06 00:48:28,108 - INFO - Epoch 3/100: Train Loss: 0.0055, Val Loss: 0.0043, Test Loss: 0.0043
+2025-08-06 00:48:28,267 - INFO - Epoch 4/100: Train Loss: 0.0047, Val Loss: 0.0041, Test Loss: 0.0040
+2025-08-06 00:48:28,426 - INFO - Epoch 5/100: Train Loss: 0.0043, Val Loss: 0.0033, Test Loss: 0.0033
+2025-08-06 00:48:28,585 - INFO - Epoch 6/100: Train Loss: 0.0036, Val Loss: 0.0026, Test Loss: 0.0026
+2025-08-06 00:48:28,744 - INFO - Epoch 7/100: Train Loss: 0.0030, Val Loss: 0.0025, Test Loss: 0.0025
+2025-08-06 00:48:28,903 - INFO - Epoch 8/100: Train Loss: 0.0031, Val Loss: 0.0024, Test Loss: 0.0024
+2025-08-06 00:48:29,062 - INFO - Epoch 9/100: Train Loss: 0.0030, Val Loss: 0.0021, Test Loss: 0.0021
+2025-08-06 00:48:29,222 - INFO - Epoch 10/100: Train Loss: 0.0025, Val Loss: 0.0017, Test Loss: 0.0017
+2025-08-06 00:48:29,381 - INFO - Epoch 11/100: Train Loss: 0.0023, Val Loss: 0.0015, Test Loss: 0.0016
+2025-08-06 00:48:29,540 - INFO - Epoch 12/100: Train Loss: 0.0020, Val Loss: 0.0015, Test Loss: 0.0015
+2025-08-06 00:48:29,698 - INFO - Epoch 13/100: Train Loss: 0.0019, Val Loss: 0.0014, Test Loss: 0.0014
+2025-08-06 00:48:29,858 - INFO - Epoch 14/100: Train Loss: 0.0017, Val Loss: 0.0013, Test Loss: 0.0012
+2025-08-06 00:48:30,016 - INFO - Epoch 15/100: Train Loss: 0.0015, Val Loss: 0.0011, Test Loss: 0.0011
+2025-08-06 00:48:30,175 - INFO - Epoch 16/100: Train Loss: 0.0015, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:48:30,334 - INFO - Epoch 17/100: Train Loss: 0.0013, Val Loss: 0.0008, Test Loss: 0.0008
+2025-08-06 00:48:30,493 - INFO - Epoch 18/100: Train Loss: 0.0013, Val Loss: 0.0008, Test Loss: 0.0009
+2025-08-06 00:48:30,652 - INFO - Epoch 19/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:48:30,811 - INFO - Epoch 20/100: Train Loss: 0.0014, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:48:30,970 - INFO - Epoch 21/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:48:31,128 - INFO - Epoch 22/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:48:31,287 - INFO - Epoch 23/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:48:31,446 - INFO - Epoch 24/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:48:31,605 - INFO - Epoch 25/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:48:31,764 - INFO - Epoch 26/100: Train Loss: 0.0012, Val Loss: 0.0008, Test Loss: 0.0008
+2025-08-06 00:48:31,922 - INFO - Epoch 27/100: Train Loss: 0.0011, Val Loss: 0.0008, Test Loss: 0.0008
+2025-08-06 00:48:32,081 - INFO - Epoch 28/100: Train Loss: 0.0011, Val Loss: 0.0008, Test Loss: 0.0008
+2025-08-06 00:48:32,240 - INFO - Epoch 29/100: Train Loss: 0.0011, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:32,399 - INFO - Epoch 30/100: Train Loss: 0.0011, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:32,558 - INFO - Epoch 31/100: Train Loss: 0.0010, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:32,717 - INFO - Epoch 32/100: Train Loss: 0.0010, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:32,876 - INFO - Epoch 33/100: Train Loss: 0.0010, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:33,035 - INFO - Epoch 34/100: Train Loss: 0.0010, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:33,193 - INFO - Epoch 35/100: Train Loss: 0.0010, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:33,352 - INFO - Epoch 36/100: Train Loss: 0.0010, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:33,511 - INFO - Epoch 37/100: Train Loss: 0.0010, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:33,670 - INFO - Epoch 38/100: Train Loss: 0.0010, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:33,829 - INFO - Epoch 39/100: Train Loss: 0.0010, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:33,987 - INFO - Epoch 40/100: Train Loss: 0.0009, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:34,146 - INFO - Epoch 41/100: Train Loss: 0.0009, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:34,305 - INFO - Epoch 42/100: Train Loss: 0.0009, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:34,464 - INFO - Epoch 43/100: Train Loss: 0.0009, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:34,623 - INFO - Epoch 44/100: Train Loss: 0.0009, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:34,782 - INFO - Epoch 45/100: Train Loss: 0.0009, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:34,940 - INFO - Epoch 46/100: Train Loss: 0.0009, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:35,099 - INFO - Epoch 47/100: Train Loss: 0.0009, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:35,258 - INFO - Epoch 48/100: Train Loss: 0.0009, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:35,417 - INFO - Epoch 49/100: Train Loss: 0.0009, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:35,576 - INFO - Epoch 50/100: Train Loss: 0.0009, Val Loss: 0.0007, Test Loss: 0.0007
+2025-08-06 00:48:35,735 - INFO - Epoch 51/100: Train Loss: 0.0009, Val Loss: 0.0006, Test Loss: 0.0007
+2025-08-06 00:48:35,894 - INFO - Epoch 52/100: Train Loss: 0.0009, Val Loss: 0.0006, Test Loss: 0.0007
+2025-08-06 00:48:36,052 - INFO - Epoch 53/100: Train Loss: 0.0009, Val Loss: 0.0006, Test Loss: 0.0007
+2025-08-06 00:48:36,211 - INFO - Epoch 54/100: Train Loss: 0.0009, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:36,370 - INFO - Epoch 55/100: Train Loss: 0.0009, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:36,529 - INFO - Epoch 56/100: Train Loss: 0.0009, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:36,688 - INFO - Epoch 57/100: Train Loss: 0.0009, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:36,847 - INFO - Epoch 58/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:37,006 - INFO - Epoch 59/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:37,165 - INFO - Epoch 60/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:37,324 - INFO - Epoch 61/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:37,483 - INFO - Epoch 62/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:37,642 - INFO - Epoch 63/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:37,801 - INFO - Epoch 64/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:37,959 - INFO - Epoch 65/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:38,118 - INFO - Epoch 66/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:38,277 - INFO - Epoch 67/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:38,436 - INFO - Epoch 68/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:38,595 - INFO - Epoch 69/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:38,754 - INFO - Epoch 70/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:38,913 - INFO - Epoch 71/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:39,072 - INFO - Epoch 72/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:39,230 - INFO - Epoch 73/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:39,389 - INFO - Epoch 74/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:39,548 - INFO - Epoch 75/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:39,707 - INFO - Epoch 76/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:39,866 - INFO - Epoch 77/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:40,025 - INFO - Epoch 78/100: Train Loss: 0.0008, Val Loss: 0.0006, Test Loss: 0.0006
+2025-08-06 00:48:40,184 - INFO - Epoch 79/100: Train Loss: 0.0008, Val Loss: 0.0005, Test Loss: 0.0006
+2025-08-06 00:48:40,343 - INFO - Epoch 80/100: Train Loss: 0.0008, Val Loss: 0.0005, Test Loss: 0.0006
+2025-08-06 00:48:40,502 - INFO - Epoch 81/100: Train Loss: 0.0008, Val Loss: 0.0005, Test Loss: 0.0006
+2025-08-06 00:48:40,660 - INFO - Epoch 82/100: Train Loss: 0.0008, Val Loss: 0.0005, Test Loss: 0.0006
+2025-08-06 00:48:40,819 - INFO - Epoch 83/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0006
+2025-08-06 00:48:40,978 - INFO - Epoch 84/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0006
+2025-08-06 00:48:41,137 - INFO - Epoch 85/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:41,296 - INFO - Epoch 86/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:41,455 - INFO - Epoch 87/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:41,614 - INFO - Epoch 88/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:41,773 - INFO - Epoch 89/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:41,932 - INFO - Epoch 90/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:42,091 - INFO - Epoch 91/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:42,250 - INFO - Epoch 92/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:42,409 - INFO - Epoch 93/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:42,568 - INFO - Epoch 94/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:42,727 - INFO - Epoch 95/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:42,885 - INFO - Epoch 96/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:43,044 - INFO - Epoch 97/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:43,203 - INFO - Epoch 98/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:43,362 - INFO - Epoch 99/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:43,521 - INFO - Epoch 100/100: Train Loss: 0.0007, Val Loss: 0.0005, Test Loss: 0.0005
+2025-08-06 00:48:43,521 - INFO - Initialized lightgbm model
+2025-08-06 00:48:43,521 - INFO - Initialized TabGNN tabular model with lightgbm base model
+/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 539, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 504, in main
+    model, metrics = train_combined_model(data, args, device)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 345, in train_combined_model
+    combined_model.fit(
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 979, in fit
+    self.tabular_model.fit(combined_features, y, **kwargs)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 313, in fit
+    self.model.fit(X, y)
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/sklearn.py", line 1189, in fit
+    super().fit(
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/sklearn.py", line 955, in fit
+    self._Booster = train(
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/engine.py", line 282, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/basic.py", line 3637, in __init__
+    train_set.construct()
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/basic.py", line 2576, in construct
+    self._lazy_init(
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/basic.py", line 2144, in _lazy_init
+    params_str = _param_dict_to_str(params)
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/basic.py", line 537, in _param_dict_to_str
+    raise TypeError(f"Unknown type of parameter:{key}, got:{type(val).__name__}")
+TypeError: Unknown type of parameter:train_mask, got:Tensor
+2025-08-06 00:48:45,503 - WARNING - No metrics file found in logs/training/all/Experiment10/catboost
+2025-08-06 00:48:45,503 - WARNING - No metrics file found in logs/training/all/Experiment10/combined
+2025-08-06 00:48:45,504 - WARNING - No metrics file found in logs/training/all/Experiment10/lightgbm
+2025-08-06 00:48:45,504 - WARNING - No metrics file found in logs/training/all/Experiment10/mlp
+2025-08-06 00:48:45,505 - INFO - Loaded metrics for tabgnn: {'mse': 0.0005023403209634125, 'rmse': 0.022412949849660854, 'mae': 0.013538260012865067, 'r2': 0.7891333699226379}
+2025-08-06 00:48:45,506 - WARNING - No metrics file found in logs/training/all/Experiment10/tabnet
+2025-08-06 00:48:45,506 - WARNING - No metrics file found in logs/training/all/Experiment10/xgboost
+2025-08-06 00:48:45,522 - INFO - Comparison report saved to logs/training/all/Experiment10/comparison_report_Experiment10.json
+2025-08-06 00:48:45,522 - INFO - Markdown summary saved to logs/training/all/Experiment10/comparison_report_Experiment10.md
+2025-08-06 00:48:45,617 - INFO - Saved RMSE plot to logs/training/all/Experiment10/model_comparison_Experiment10_rmse.png
+2025-08-06 00:48:45,694 - INFO - Saved MAE plot to logs/training/all/Experiment10/model_comparison_Experiment10_mae.png
+2025-08-06 00:48:45,774 - INFO - Saved R2 plot to logs/training/all/Experiment10/model_comparison_Experiment10_r2.png
+2025-08-06 00:48:45,774 - INFO - Best model: tabgnn
+2025-08-06 00:48:45,774 - INFO - Best metrics: {'mse': 0.0005023403209634125, 'rmse': 0.022412949849660854, 'mae': 0.013538260012865067, 'r2': 0.7891333699226379}

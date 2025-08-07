@@ -1,0 +1,122 @@
+Running tabgnn model...
+Epoch 00023: reducing learning rate of group 0 to 5.0000e-04.
+tabgnn model completed.
+Running lightgbm model...
+[LightGBM] [Info] Auto-choosing col-wise multi-threading, the overhead of testing was 0.002631 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 11472
+[LightGBM] [Info] Number of data points in the train set: 69999, number of used features: 45
+[LightGBM] [Info] Start training from score 0.038042
+lightgbm model completed.
+Running catboost model...
+catboost model completed.
+Running xgboost model...
+xgboost model completed.
+Running mlp model...
+mlp model completed.
+Running tabnet model...
+epoch 0  | loss: 1.94041 |  0:00:02s
+epoch 1  | loss: 0.16396 |  0:00:04s
+epoch 2  | loss: 0.07335 |  0:00:06s
+epoch 3  | loss: 0.03851 |  0:00:08s
+epoch 4  | loss: 0.02207 |  0:00:10s
+epoch 5  | loss: 0.01408 |  0:00:12s
+epoch 6  | loss: 0.01145 |  0:00:14s
+epoch 7  | loss: 0.00968 |  0:00:16s
+epoch 8  | loss: 0.00844 |  0:00:18s
+epoch 9  | loss: 0.00718 |  0:00:20s
+epoch 10 | loss: 0.00638 |  0:00:22s
+epoch 11 | loss: 0.00572 |  0:00:24s
+epoch 12 | loss: 0.00509 |  0:00:26s
+epoch 13 | loss: 0.00484 |  0:00:28s
+epoch 14 | loss: 0.00474 |  0:00:30s
+epoch 15 | loss: 0.00446 |  0:00:32s
+epoch 16 | loss: 0.00452 |  0:00:34s
+epoch 17 | loss: 0.0038  |  0:00:36s
+epoch 18 | loss: 0.00375 |  0:00:38s
+epoch 19 | loss: 0.00362 |  0:00:40s
+epoch 20 | loss: 0.00351 |  0:00:42s
+epoch 21 | loss: 0.00329 |  0:00:44s
+epoch 22 | loss: 0.00311 |  0:00:46s
+epoch 23 | loss: 0.00288 |  0:00:48s
+epoch 24 | loss: 0.00263 |  0:00:50s
+epoch 25 | loss: 0.00263 |  0:00:52s
+epoch 26 | loss: 0.00243 |  0:00:54s
+epoch 27 | loss: 0.00258 |  0:00:56s
+epoch 28 | loss: 0.00237 |  0:00:58s
+epoch 29 | loss: 0.00238 |  0:01:00s
+epoch 30 | loss: 0.00211 |  0:01:02s
+epoch 31 | loss: 0.00206 |  0:01:04s
+epoch 32 | loss: 0.00213 |  0:01:06s
+epoch 33 | loss: 0.00199 |  0:01:08s
+epoch 34 | loss: 0.00188 |  0:01:10s
+epoch 35 | loss: 0.00187 |  0:01:12s
+epoch 36 | loss: 0.00189 |  0:01:14s
+epoch 37 | loss: 0.00185 |  0:01:16s
+epoch 38 | loss: 0.00175 |  0:01:18s
+epoch 39 | loss: 0.00167 |  0:01:19s
+epoch 40 | loss: 0.0017  |  0:01:21s
+epoch 41 | loss: 0.00164 |  0:01:23s
+epoch 42 | loss: 0.00167 |  0:01:25s
+epoch 43 | loss: 0.0016  |  0:01:27s
+epoch 44 | loss: 0.00161 |  0:01:29s
+epoch 45 | loss: 0.00161 |  0:01:31s
+epoch 46 | loss: 0.00155 |  0:01:33s
+epoch 47 | loss: 0.00153 |  0:01:35s
+epoch 48 | loss: 0.00155 |  0:01:37s
+epoch 49 | loss: 0.00143 |  0:01:39s
+epoch 50 | loss: 0.00153 |  0:01:41s
+epoch 51 | loss: 0.00152 |  0:01:43s
+epoch 52 | loss: 0.00194 |  0:01:45s
+epoch 53 | loss: 0.00152 |  0:01:47s
+epoch 54 | loss: 0.00158 |  0:01:49s
+epoch 55 | loss: 0.00145 |  0:01:51s
+epoch 56 | loss: 0.00126 |  0:01:53s
+epoch 57 | loss: 0.00122 |  0:01:54s
+epoch 58 | loss: 0.00142 |  0:01:56s
+epoch 59 | loss: 0.00135 |  0:01:58s
+epoch 60 | loss: 0.00131 |  0:02:00s
+epoch 61 | loss: 0.00134 |  0:02:02s
+epoch 62 | loss: 0.00131 |  0:02:04s
+epoch 63 | loss: 0.00133 |  0:02:06s
+epoch 64 | loss: 0.00128 |  0:02:07s
+epoch 65 | loss: 0.00123 |  0:02:09s
+epoch 66 | loss: 0.00115 |  0:02:11s
+epoch 67 | loss: 0.00109 |  0:02:13s
+epoch 68 | loss: 0.00114 |  0:02:15s
+epoch 69 | loss: 0.00111 |  0:02:17s
+epoch 70 | loss: 0.00104 |  0:02:19s
+epoch 71 | loss: 0.00108 |  0:02:21s
+epoch 72 | loss: 0.00104 |  0:02:22s
+epoch 73 | loss: 0.00102 |  0:02:24s
+epoch 74 | loss: 0.00103 |  0:02:26s
+epoch 75 | loss: 0.00102 |  0:02:28s
+epoch 76 | loss: 0.00101 |  0:02:30s
+epoch 77 | loss: 0.00096 |  0:02:32s
+epoch 78 | loss: 0.00101 |  0:02:34s
+epoch 79 | loss: 0.00109 |  0:02:35s
+epoch 80 | loss: 0.00099 |  0:02:37s
+epoch 81 | loss: 0.00123 |  0:02:39s
+epoch 82 | loss: 0.001   |  0:02:41s
+epoch 83 | loss: 0.00097 |  0:02:43s
+epoch 84 | loss: 0.001   |  0:02:45s
+epoch 85 | loss: 0.00093 |  0:02:47s
+epoch 86 | loss: 0.00113 |  0:02:48s
+epoch 87 | loss: 0.00109 |  0:02:50s
+epoch 88 | loss: 0.00097 |  0:02:52s
+epoch 89 | loss: 0.00091 |  0:02:54s
+epoch 90 | loss: 0.00088 |  0:02:56s
+epoch 91 | loss: 0.00089 |  0:02:58s
+epoch 92 | loss: 0.00094 |  0:03:00s
+epoch 93 | loss: 0.00089 |  0:03:02s
+epoch 94 | loss: 0.00096 |  0:03:03s
+epoch 95 | loss: 0.00091 |  0:03:05s
+epoch 96 | loss: 0.00094 |  0:03:07s
+epoch 97 | loss: 0.00096 |  0:03:09s
+epoch 98 | loss: 0.00094 |  0:03:11s
+epoch 99 | loss: 0.00098 |  0:03:13s
+tabnet model completed.
+Running combined model...
+Epoch 00023: reducing learning rate of group 0 to 5.0000e-04.
+combined model completed.
+All jobs completed at Wed Aug  6 01:14:21 CDT 2025

@@ -1,0 +1,733 @@
+2025-08-06 00:43:40,240 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment11/tabgnn",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "tabgnn",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-06 00:43:40,258 - INFO - Using device: cuda
+2025-08-06 00:43:40,258 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-06 00:43:40,258 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-06 00:43:40,635 - INFO - Loaded data with shape (100000, 46)
+2025-08-06 00:43:40,635 - INFO - Preprocessing data
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for nprocs
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_SIZE
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_WIDTH
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for POSIX_FILENOS
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_ALIGNMENT
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_ALIGNMENT
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for POSIX_READS
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for POSIX_WRITES
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for POSIX_STATS
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_READ
+2025-08-06 00:43:40,635 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_WRITTEN
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_READS
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_WRITES
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_READS
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_RW_SWITCHES
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100_1K
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100K_1M
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100_1K
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_1K_10K
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_STRIDE
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_STRIDE
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_STRIDE
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_STRIDE
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_COUNT
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_COUNT
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_COUNT
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_COUNT
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_ACCESS
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_ACCESS
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_ACCESS
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_ACCESS
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_COUNT
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_COUNT
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_COUNT
+2025-08-06 00:43:40,636 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_COUNT
+2025-08-06 00:43:40,636 - INFO - Initialized multiplex graph constructor for 45 features
+2025-08-06 00:43:40,636 - INFO - Creating combined PyG data
+2025-08-06 00:43:40,637 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:44:34,002 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:45:21,962 - INFO - Splitting data into train, validation, and test sets
+2025-08-06 00:45:22,018 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-06 00:45:22,021 - INFO - Saving processed data to logs/training/all/Experiment11/tabgnn/processed_data
+2025-08-06 00:45:24,568 - INFO - Constructing multiplex graphs
+2025-08-06 00:45:24,569 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:46:07,040 - INFO - Creating combined PyG data
+2025-08-06 00:46:07,041 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:46:50,267 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:47:45,087 - INFO - Saved processed data to logs/training/all/Experiment11/tabgnn/processed_data
+2025-08-06 00:47:45,531 - INFO - Initialized GCN model with 2 layers
+2025-08-06 00:47:45,532 - INFO - Initialized TabGNN regressor with 1 graph types
+2025-08-06 00:47:46,461 - INFO - Epoch 1/100: Train Loss: 0.0171, Val Loss: 0.0083, Test Loss: 0.0078
+2025-08-06 00:47:46,782 - INFO - Epoch 2/100: Train Loss: 0.0085, Val Loss: 0.0051, Test Loss: 0.0050
+2025-08-06 00:47:47,087 - INFO - Epoch 3/100: Train Loss: 0.0054, Val Loss: 0.0043, Test Loss: 0.0043
+2025-08-06 00:47:47,392 - INFO - Epoch 4/100: Train Loss: 0.0047, Val Loss: 0.0041, Test Loss: 0.0040
+2025-08-06 00:47:47,697 - INFO - Epoch 5/100: Train Loss: 0.0043, Val Loss: 0.0033, Test Loss: 0.0033
+2025-08-06 00:47:48,001 - INFO - Epoch 6/100: Train Loss: 0.0036, Val Loss: 0.0026, Test Loss: 0.0027
+2025-08-06 00:47:48,306 - INFO - Epoch 7/100: Train Loss: 0.0031, Val Loss: 0.0024, Test Loss: 0.0024
+2025-08-06 00:47:48,610 - INFO - Epoch 8/100: Train Loss: 0.0029, Val Loss: 0.0024, Test Loss: 0.0023
+2025-08-06 00:47:48,915 - INFO - Epoch 9/100: Train Loss: 0.0030, Val Loss: 0.0021, Test Loss: 0.0021
+2025-08-06 00:47:49,222 - INFO - Epoch 10/100: Train Loss: 0.0027, Val Loss: 0.0017, Test Loss: 0.0017
+2025-08-06 00:47:49,527 - INFO - Epoch 11/100: Train Loss: 0.0023, Val Loss: 0.0015, Test Loss: 0.0016
+2025-08-06 00:47:49,831 - INFO - Epoch 12/100: Train Loss: 0.0020, Val Loss: 0.0015, Test Loss: 0.0015
+2025-08-06 00:47:50,136 - INFO - Epoch 13/100: Train Loss: 0.0018, Val Loss: 0.0015, Test Loss: 0.0015
+2025-08-06 00:47:50,441 - INFO - Epoch 14/100: Train Loss: 0.0018, Val Loss: 0.0014, Test Loss: 0.0013
+2025-08-06 00:47:50,745 - INFO - Epoch 15/100: Train Loss: 0.0016, Val Loss: 0.0011, Test Loss: 0.0011
+2025-08-06 00:47:51,050 - INFO - Epoch 16/100: Train Loss: 0.0014, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:47:51,356 - INFO - Epoch 17/100: Train Loss: 0.0013, Val Loss: 0.0008, Test Loss: 0.0008
+2025-08-06 00:47:51,661 - INFO - Epoch 18/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:47:51,965 - INFO - Epoch 19/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:47:52,270 - INFO - Epoch 20/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:47:52,574 - INFO - Epoch 21/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:47:52,879 - INFO - Epoch 22/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:47:53,184 - INFO - Epoch 23/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:47:53,489 - INFO - Epoch 24/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:47:53,794 - INFO - Epoch 25/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:47:54,098 - INFO - Epoch 26/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:47:54,402 - INFO - Epoch 27/100: Train Loss: 0.0011, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 00:47:54,402 - INFO - Early stopping at epoch 27
+2025-08-06 00:47:54,408 - INFO - Model checkpoint saved to logs/training/all/Experiment11/tabgnn/tabgnn_model.pt
+2025-08-06 00:47:54,700 - INFO - Final metrics: {'mse': 0.000863603490870446, 'rmse': 0.029387131382127892, 'mae': 0.01873527094721794, 'r2': 0.6374865174293518}
+2025-08-06 00:47:54,700 - INFO - Model and results saved to logs/training/all/Experiment11/tabgnn
+2025-08-06 00:48:01,346 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment11/lightgbm",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "lightgbm",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-06 00:48:01,353 - INFO - Using device: cuda
+2025-08-06 00:48:01,353 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-06 00:48:01,353 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-06 00:48:01,687 - INFO - Loaded data with shape (100000, 46)
+2025-08-06 00:48:01,687 - INFO - Preprocessing data
+2025-08-06 00:48:01,687 - INFO - Initialized feature similarity graph constructor for nprocs
+2025-08-06 00:48:01,687 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-08-06 00:48:01,687 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_SIZE
+2025-08-06 00:48:01,687 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_WIDTH
+2025-08-06 00:48:01,687 - INFO - Initialized feature similarity graph constructor for POSIX_FILENOS
+2025-08-06 00:48:01,687 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_ALIGNMENT
+2025-08-06 00:48:01,687 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_ALIGNMENT
+2025-08-06 00:48:01,687 - INFO - Initialized feature similarity graph constructor for POSIX_READS
+2025-08-06 00:48:01,687 - INFO - Initialized feature similarity graph constructor for POSIX_WRITES
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_STATS
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_READ
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_WRITTEN
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_READS
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_WRITES
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_READS
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_RW_SWITCHES
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100_1K
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100K_1M
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100_1K
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_1K_10K
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_STRIDE
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_STRIDE
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_STRIDE
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_STRIDE
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_COUNT
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_COUNT
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_COUNT
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_COUNT
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_ACCESS
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_ACCESS
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_ACCESS
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_ACCESS
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_COUNT
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_COUNT
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_COUNT
+2025-08-06 00:48:01,688 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_COUNT
+2025-08-06 00:48:01,688 - INFO - Initialized multiplex graph constructor for 45 features
+2025-08-06 00:48:01,688 - INFO - Creating combined PyG data
+2025-08-06 00:48:01,688 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:48:53,986 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:49:41,333 - INFO - Splitting data into train, validation, and test sets
+2025-08-06 00:49:41,339 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-06 00:49:41,342 - INFO - Saving processed data to logs/training/all/Experiment11/lightgbm/processed_data
+2025-08-06 00:49:43,883 - INFO - Constructing multiplex graphs
+2025-08-06 00:49:43,884 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:50:25,852 - INFO - Creating combined PyG data
+2025-08-06 00:50:25,852 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:51:08,426 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:52:02,922 - INFO - Saved processed data to logs/training/all/Experiment11/lightgbm/processed_data
+2025-08-06 00:52:02,939 - INFO - Initialized lightgbm model
+/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+2025-08-06 00:52:05,058 - INFO - LightGBM model fitted with 45 features
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 539, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 521, in main
+    model, metrics = train_tabular_model(data, args, args.model_type)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 308, in train_tabular_model
+    metrics = model.evaluate(X_test, y_test)
+TypeError: evaluate() missing 1 required positional argument: 'y'
+2025-08-06 00:52:11,092 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment11/catboost",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "catboost",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-06 00:52:11,098 - INFO - Using device: cuda
+2025-08-06 00:52:11,098 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-06 00:52:11,098 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-06 00:52:11,442 - INFO - Loaded data with shape (100000, 46)
+2025-08-06 00:52:11,442 - INFO - Preprocessing data
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for nprocs
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_SIZE
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_WIDTH
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_FILENOS
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_ALIGNMENT
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_ALIGNMENT
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_READS
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_WRITES
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_STATS
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_READ
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_WRITTEN
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_READS
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_WRITES
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_READS
+2025-08-06 00:52:11,442 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_RW_SWITCHES
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100_1K
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100K_1M
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100_1K
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_1K_10K
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_STRIDE
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_STRIDE
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_STRIDE
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_STRIDE
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_COUNT
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_COUNT
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_COUNT
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_COUNT
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_ACCESS
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_ACCESS
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_ACCESS
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_ACCESS
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_COUNT
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_COUNT
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_COUNT
+2025-08-06 00:52:11,443 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_COUNT
+2025-08-06 00:52:11,443 - INFO - Initialized multiplex graph constructor for 45 features
+2025-08-06 00:52:11,443 - INFO - Creating combined PyG data
+2025-08-06 00:52:11,443 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:53:40,743 - INFO - Splitting data into train, validation, and test sets
+2025-08-06 00:53:40,750 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-06 00:53:40,753 - INFO - Saving processed data to logs/training/all/Experiment11/catboost/processed_data
+2025-08-06 00:53:43,322 - INFO - Constructing multiplex graphs
+2025-08-06 00:53:43,322 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:54:26,514 - INFO - Creating combined PyG data
+2025-08-06 00:54:26,514 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:55:46,331 - INFO - Saved processed data to logs/training/all/Experiment11/catboost/processed_data
+2025-08-06 00:55:46,343 - INFO - Initialized catboost model
+2025-08-06 00:55:50,436 - INFO - CatBoost model fitted with 45 features
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 539, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 521, in main
+    model, metrics = train_tabular_model(data, args, args.model_type)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 308, in train_tabular_model
+    metrics = model.evaluate(X_test, y_test)
+TypeError: evaluate() missing 1 required positional argument: 'y'
+2025-08-06 00:55:56,268 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment11/xgboost",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "xgboost",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-06 00:55:56,275 - INFO - Using device: cuda
+2025-08-06 00:55:56,275 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-06 00:55:56,275 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-06 00:55:56,607 - INFO - Loaded data with shape (100000, 46)
+2025-08-06 00:55:56,607 - INFO - Preprocessing data
+2025-08-06 00:55:56,607 - INFO - Initialized feature similarity graph constructor for nprocs
+2025-08-06 00:55:56,607 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-08-06 00:55:56,607 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_SIZE
+2025-08-06 00:55:56,607 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_WIDTH
+2025-08-06 00:55:56,607 - INFO - Initialized feature similarity graph constructor for POSIX_FILENOS
+2025-08-06 00:55:56,607 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_ALIGNMENT
+2025-08-06 00:55:56,607 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_ALIGNMENT
+2025-08-06 00:55:56,607 - INFO - Initialized feature similarity graph constructor for POSIX_READS
+2025-08-06 00:55:56,607 - INFO - Initialized feature similarity graph constructor for POSIX_WRITES
+2025-08-06 00:55:56,607 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-08-06 00:55:56,607 - INFO - Initialized feature similarity graph constructor for POSIX_STATS
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_READ
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_WRITTEN
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_READS
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_WRITES
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_READS
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_RW_SWITCHES
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100_1K
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100K_1M
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100_1K
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_1K_10K
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_STRIDE
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_STRIDE
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_STRIDE
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_STRIDE
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_COUNT
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_COUNT
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_COUNT
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_COUNT
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_ACCESS
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_ACCESS
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_ACCESS
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_ACCESS
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_COUNT
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_COUNT
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_COUNT
+2025-08-06 00:55:56,608 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_COUNT
+2025-08-06 00:55:56,608 - INFO - Initialized multiplex graph constructor for 45 features
+2025-08-06 00:55:56,608 - INFO - Creating combined PyG data
+2025-08-06 00:55:56,608 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:57:26,791 - INFO - Splitting data into train, validation, and test sets
+2025-08-06 00:57:26,798 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-06 00:57:26,800 - INFO - Saving processed data to logs/training/all/Experiment11/xgboost/processed_data
+2025-08-06 00:57:29,398 - INFO - Constructing multiplex graphs
+2025-08-06 00:57:29,399 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:58:13,023 - INFO - Creating combined PyG data
+2025-08-06 00:58:13,023 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 00:59:32,196 - INFO - Saved processed data to logs/training/all/Experiment11/xgboost/processed_data
+2025-08-06 00:59:32,207 - INFO - Initialized xgboost model
+2025-08-06 00:59:35,214 - INFO - XGBoost model fitted with 45 features
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 539, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 521, in main
+    model, metrics = train_tabular_model(data, args, args.model_type)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 308, in train_tabular_model
+    metrics = model.evaluate(X_test, y_test)
+TypeError: evaluate() missing 1 required positional argument: 'y'
+2025-08-06 00:59:41,720 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment11/mlp",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "mlp",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-06 00:59:41,727 - INFO - Using device: cuda
+2025-08-06 00:59:41,727 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-06 00:59:41,727 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-06 00:59:42,072 - INFO - Loaded data with shape (100000, 46)
+2025-08-06 00:59:42,072 - INFO - Preprocessing data
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for nprocs
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_SIZE
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_WIDTH
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_FILENOS
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_ALIGNMENT
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_ALIGNMENT
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_READS
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_WRITES
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_STATS
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_READ
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_WRITTEN
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_READS
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_WRITES
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_READS
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_RW_SWITCHES
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-08-06 00:59:42,072 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100_1K
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100K_1M
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100_1K
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_1K_10K
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_STRIDE
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_STRIDE
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_STRIDE
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_STRIDE
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_COUNT
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_COUNT
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_COUNT
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_COUNT
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_ACCESS
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_ACCESS
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_ACCESS
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_ACCESS
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_COUNT
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_COUNT
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_COUNT
+2025-08-06 00:59:42,073 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_COUNT
+2025-08-06 00:59:42,073 - INFO - Initialized multiplex graph constructor for 45 features
+2025-08-06 00:59:42,073 - INFO - Creating combined PyG data
+2025-08-06 00:59:42,073 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 01:01:11,865 - INFO - Splitting data into train, validation, and test sets
+2025-08-06 01:01:11,872 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-06 01:01:11,875 - INFO - Saving processed data to logs/training/all/Experiment11/mlp/processed_data
+2025-08-06 01:01:14,462 - INFO - Constructing multiplex graphs
+2025-08-06 01:01:14,463 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 01:01:57,477 - INFO - Creating combined PyG data
+2025-08-06 01:01:57,477 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 01:03:17,748 - INFO - Saved processed data to logs/training/all/Experiment11/mlp/processed_data
+2025-08-06 01:03:17,759 - INFO - Initialized mlp model
+2025-08-06 01:03:29,162 - INFO - MLP model fitted with 45 features
+2025-08-06 01:03:29,175 - INFO - Evaluation metrics: {'mse': 0.00016301813593599945, 'rmse': 0.012767855573117964, 'mae': 0.007080026436597109, 'r2': 0.9315701127052307}
+2025-08-06 01:03:29,178 - INFO - Final metrics: {'mse': 0.00016301813593599945, 'rmse': 0.012767855573117964, 'mae': 0.007080026436597109, 'r2': 0.9315701127052307}
+2025-08-06 01:03:29,178 - INFO - Model and results saved to logs/training/all/Experiment11/mlp
+2025-08-06 01:03:29,183 - INFO - Model saved to logs/training/all/Experiment11/mlp/mlp_model.joblib
+2025-08-06 01:03:35,012 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment11/tabnet",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "tabnet",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-06 01:03:35,018 - INFO - Using device: cuda
+2025-08-06 01:03:35,018 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-06 01:03:35,018 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-06 01:03:35,362 - INFO - Loaded data with shape (100000, 46)
+2025-08-06 01:03:35,362 - INFO - Preprocessing data
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for nprocs
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_SIZE
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_WIDTH
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_FILENOS
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_ALIGNMENT
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_ALIGNMENT
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_READS
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_WRITES
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_STATS
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_READ
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_WRITTEN
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_READS
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_WRITES
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_READS
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_RW_SWITCHES
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100_1K
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100K_1M
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100_1K
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_1K_10K
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_STRIDE
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_STRIDE
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_STRIDE
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_STRIDE
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_COUNT
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_COUNT
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_COUNT
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_COUNT
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_ACCESS
+2025-08-06 01:03:35,362 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_ACCESS
+2025-08-06 01:03:35,363 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_ACCESS
+2025-08-06 01:03:35,363 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_ACCESS
+2025-08-06 01:03:35,363 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_COUNT
+2025-08-06 01:03:35,363 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_COUNT
+2025-08-06 01:03:35,363 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_COUNT
+2025-08-06 01:03:35,363 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_COUNT
+2025-08-06 01:03:35,363 - INFO - Initialized multiplex graph constructor for 45 features
+2025-08-06 01:03:35,363 - INFO - Creating combined PyG data
+2025-08-06 01:03:35,363 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 01:05:05,630 - INFO - Splitting data into train, validation, and test sets
+2025-08-06 01:05:05,637 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-06 01:05:05,641 - INFO - Saving processed data to logs/training/all/Experiment11/tabnet/processed_data
+2025-08-06 01:05:08,210 - INFO - Constructing multiplex graphs
+2025-08-06 01:05:08,211 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 01:05:51,428 - INFO - Creating combined PyG data
+2025-08-06 01:05:51,429 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 01:07:10,419 - INFO - Saved processed data to logs/training/all/Experiment11/tabnet/processed_data
+2025-08-06 01:07:10,430 - INFO - Initialized tabnet model
+/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:687: UserWarning: No early stopping will be performed, last training weights will be used.
+  warnings.warn(wrn_msg)
+2025-08-06 01:10:25,260 - INFO - TabNet model fitted with 45 features
+2025-08-06 01:10:25,451 - INFO - Evaluation metrics: {'mse': 0.0006983017083257437, 'rmse': 0.026425398924628245, 'mae': 0.01850597746670246, 'r2': 0.7068749666213989}
+2025-08-06 01:10:25,455 - INFO - Final metrics: {'mse': 0.0006983017083257437, 'rmse': 0.026425398924628245, 'mae': 0.01850597746670246, 'r2': 0.7068749666213989}
+2025-08-06 01:10:25,455 - INFO - Model and results saved to logs/training/all/Experiment11/tabnet
+2025-08-06 01:10:25,521 - INFO - Model saved to logs/training/all/Experiment11/tabnet/tabnet_model.joblib
+2025-08-06 01:10:31,501 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment11/combined",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "combined",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-06 01:10:31,509 - INFO - Using device: cuda
+2025-08-06 01:10:31,509 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-06 01:10:31,509 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-06 01:10:31,852 - INFO - Loaded data with shape (100000, 46)
+2025-08-06 01:10:31,852 - INFO - Preprocessing data
+2025-08-06 01:10:31,852 - INFO - Initialized feature similarity graph constructor for nprocs
+2025-08-06 01:10:31,852 - INFO - Initialized feature similarity graph constructor for POSIX_OPENS
+2025-08-06 01:10:31,852 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_SIZE
+2025-08-06 01:10:31,852 - INFO - Initialized feature similarity graph constructor for LUSTRE_STRIPE_WIDTH
+2025-08-06 01:10:31,852 - INFO - Initialized feature similarity graph constructor for POSIX_FILENOS
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_ALIGNMENT
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_ALIGNMENT
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_READS
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_WRITES
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_SEEKS
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_STATS
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_READ
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_BYTES_WRITTEN
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_READS
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_CONSEC_WRITES
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_READS
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_SEQ_WRITES
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_RW_SWITCHES
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_MEM_NOT_ALIGNED
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_FILE_NOT_ALIGNED
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_0_100
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100_1K
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_1K_10K
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_READ_100K_1M
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_0_100
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100_1K
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_1K_10K
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_10K_100K
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_SIZE_WRITE_100K_1M
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_STRIDE
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_STRIDE
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_STRIDE
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_STRIDE
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE1_COUNT
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE2_COUNT
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE3_COUNT
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_STRIDE4_COUNT
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_ACCESS
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_ACCESS
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_ACCESS
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_ACCESS
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS1_COUNT
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS2_COUNT
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS3_COUNT
+2025-08-06 01:10:31,853 - INFO - Initialized feature similarity graph constructor for POSIX_ACCESS4_COUNT
+2025-08-06 01:10:31,853 - INFO - Initialized multiplex graph constructor for 45 features
+2025-08-06 01:10:31,853 - INFO - Creating combined PyG data
+2025-08-06 01:10:31,854 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 01:12:02,222 - INFO - Splitting data into train, validation, and test sets
+2025-08-06 01:12:02,229 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-06 01:12:02,232 - INFO - Saving processed data to logs/training/all/Experiment11/combined/processed_data
+2025-08-06 01:12:04,787 - INFO - Constructing multiplex graphs
+2025-08-06 01:12:04,787 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 01:12:48,180 - INFO - Creating combined PyG data
+2025-08-06 01:12:48,180 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-06 01:14:09,492 - INFO - Saved processed data to logs/training/all/Experiment11/combined/processed_data
+2025-08-06 01:14:09,882 - INFO - Initialized GCN model with 2 layers
+2025-08-06 01:14:09,882 - INFO - Initialized TabGNN regressor with 1 graph types
+2025-08-06 01:14:10,351 - INFO - Epoch 1/100: Train Loss: 0.0171, Val Loss: 0.0083, Test Loss: 0.0078
+2025-08-06 01:14:10,658 - INFO - Epoch 2/100: Train Loss: 0.0085, Val Loss: 0.0051, Test Loss: 0.0050
+2025-08-06 01:14:10,962 - INFO - Epoch 3/100: Train Loss: 0.0054, Val Loss: 0.0043, Test Loss: 0.0043
+2025-08-06 01:14:11,267 - INFO - Epoch 4/100: Train Loss: 0.0047, Val Loss: 0.0041, Test Loss: 0.0040
+2025-08-06 01:14:11,572 - INFO - Epoch 5/100: Train Loss: 0.0043, Val Loss: 0.0033, Test Loss: 0.0033
+2025-08-06 01:14:11,876 - INFO - Epoch 6/100: Train Loss: 0.0036, Val Loss: 0.0026, Test Loss: 0.0027
+2025-08-06 01:14:12,181 - INFO - Epoch 7/100: Train Loss: 0.0031, Val Loss: 0.0024, Test Loss: 0.0024
+2025-08-06 01:14:12,486 - INFO - Epoch 8/100: Train Loss: 0.0029, Val Loss: 0.0024, Test Loss: 0.0023
+2025-08-06 01:14:12,790 - INFO - Epoch 9/100: Train Loss: 0.0030, Val Loss: 0.0021, Test Loss: 0.0021
+2025-08-06 01:14:13,095 - INFO - Epoch 10/100: Train Loss: 0.0027, Val Loss: 0.0017, Test Loss: 0.0017
+2025-08-06 01:14:13,399 - INFO - Epoch 11/100: Train Loss: 0.0023, Val Loss: 0.0015, Test Loss: 0.0016
+2025-08-06 01:14:13,704 - INFO - Epoch 12/100: Train Loss: 0.0020, Val Loss: 0.0015, Test Loss: 0.0015
+2025-08-06 01:14:14,008 - INFO - Epoch 13/100: Train Loss: 0.0018, Val Loss: 0.0015, Test Loss: 0.0015
+2025-08-06 01:14:14,313 - INFO - Epoch 14/100: Train Loss: 0.0018, Val Loss: 0.0014, Test Loss: 0.0013
+2025-08-06 01:14:14,618 - INFO - Epoch 15/100: Train Loss: 0.0016, Val Loss: 0.0011, Test Loss: 0.0011
+2025-08-06 01:14:14,924 - INFO - Epoch 16/100: Train Loss: 0.0014, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 01:14:15,229 - INFO - Epoch 17/100: Train Loss: 0.0013, Val Loss: 0.0008, Test Loss: 0.0008
+2025-08-06 01:14:15,534 - INFO - Epoch 18/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 01:14:15,838 - INFO - Epoch 19/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 01:14:16,144 - INFO - Epoch 20/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 01:14:16,449 - INFO - Epoch 21/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 01:14:16,754 - INFO - Epoch 22/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 01:14:17,058 - INFO - Epoch 23/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 01:14:17,363 - INFO - Epoch 24/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 01:14:17,669 - INFO - Epoch 25/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 01:14:17,974 - INFO - Epoch 26/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 01:14:18,280 - INFO - Epoch 27/100: Train Loss: 0.0011, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-06 01:14:18,280 - INFO - Early stopping at epoch 27
+2025-08-06 01:14:18,281 - INFO - Initialized lightgbm model
+2025-08-06 01:14:18,281 - INFO - Initialized TabGNN tabular model with lightgbm base model
+/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 537, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 502, in main
+    model, metrics = train_combined_model(data, args, device)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 344, in train_combined_model
+    combined_model.fit(
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 997, in fit
+    self.tabular_model.fit(combined_features, y, **kwargs)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 331, in fit
+    self.model.fit(X, y)
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/sklearn.py", line 1189, in fit
+    super().fit(
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/sklearn.py", line 955, in fit
+    self._Booster = train(
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/engine.py", line 282, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/basic.py", line 3637, in __init__
+    train_set.construct()
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/basic.py", line 2576, in construct
+    self._lazy_init(
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/basic.py", line 2144, in _lazy_init
+    params_str = _param_dict_to_str(params)
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/basic.py", line 537, in _param_dict_to_str
+    raise TypeError(f"Unknown type of parameter:{key}, got:{type(val).__name__}")
+TypeError: Unknown type of parameter:train_mask, got:Tensor
+2025-08-06 01:14:20,716 - WARNING - No metrics file found in logs/training/all/Experiment11/catboost
+2025-08-06 01:14:20,716 - WARNING - No metrics file found in logs/training/all/Experiment11/combined
+2025-08-06 01:14:20,716 - WARNING - No metrics file found in logs/training/all/Experiment11/lightgbm
+2025-08-06 01:14:20,717 - INFO - Loaded metrics for mlp: {'mse': 0.00016301813593599945, 'rmse': 0.012767855573117964, 'mae': 0.007080026436597109, 'r2': 0.9315701127052307}
+2025-08-06 01:14:20,718 - INFO - Loaded metrics for tabgnn: {'mse': 0.0005023329285904765, 'rmse': 0.02241278493606889, 'mae': 0.013538391329348087, 'r2': 0.7891364693641663}
+2025-08-06 01:14:20,718 - INFO - Loaded metrics for tabnet: {'mse': 0.0006983017083257437, 'rmse': 0.026425398924628245, 'mae': 0.01850597746670246, 'r2': 0.7068749666213989}
+2025-08-06 01:14:20,719 - WARNING - No metrics file found in logs/training/all/Experiment11/xgboost
+2025-08-06 01:14:20,741 - INFO - Comparison report saved to logs/training/all/Experiment11/comparison_report_Experiment11.json
+2025-08-06 01:14:20,741 - INFO - Markdown summary saved to logs/training/all/Experiment11/comparison_report_Experiment11.md
+2025-08-06 01:14:20,874 - INFO - Saved RMSE plot to logs/training/all/Experiment11/model_comparison_Experiment11_rmse.png
+2025-08-06 01:14:20,991 - INFO - Saved MAE plot to logs/training/all/Experiment11/model_comparison_Experiment11_mae.png
+2025-08-06 01:14:21,089 - INFO - Saved R2 plot to logs/training/all/Experiment11/model_comparison_Experiment11_r2.png
+2025-08-06 01:14:21,089 - INFO - Best model: mlp
+2025-08-06 01:14:21,089 - INFO - Best metrics: {'mse': 0.00016301813593599945, 'rmse': 0.012767855573117964, 'mae': 0.007080026436597109, 'r2': 0.9315701127052307}

@@ -619,9 +619,6 @@ class IODataProcessor:
             edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
             edge_attr = torch.tensor(edge_attr, dtype=torch.float)
 
-        logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
-        sim_dict = torch.load(self.precomputed_similarity_path)
-
         edge_index = []
         edge_attr = []
 

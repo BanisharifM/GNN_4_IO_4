@@ -341,22 +341,20 @@ def train_combined_model(
         use_original_features=True
     )
     
-    # Move data to device
     combined_model.fit(
         data.x,
         [data.edge_index],
         data.y,
         batch=None,
-        train_mask=data.train_mask,
+        train_mask=data.train_mask
     )
-    
-    # Evaluate model
+
     metrics = combined_model.evaluate(
         data.x,
         [data.edge_index],
         data.y,
         batch=None,
-        eval_mask=data.test_mask,     # <<< metrics only on TEST
+        mask=data.test_mask
     )
     
     return combined_model, metrics
