@@ -523,6 +523,11 @@ class IODataProcessor:
         if self.data is None:
             self.load_data()
         
+        # If a pre-computed similarity file is supplied, nothing else to do
+        if self.precomputed_similarity_path and os.path.exists(self.precomputed_similarity_path):
+            logger.info("Pre-computed similarity file found – skipping per-feature graph constructor creation.")
+            return self.data
+
         # Create graph constructor
         if self.graph_constructor is None and self.important_features is not None:
             self.graph_constructor = MultiplexGraphConstructor(
