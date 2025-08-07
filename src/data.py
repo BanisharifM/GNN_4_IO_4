@@ -490,6 +490,8 @@ class IODataProcessor:
         self.data = None
         self.scaler = None
         self.graph_constructor = None
+
+        self._sim_cache = None # Cache for precomputed similarity dict
         
         logger.info(f"Initialized I/O data processor for {data_path}")
     
@@ -543,7 +545,13 @@ class IODataProcessor:
         
         if self.precomputed_similarity_path and os.path.exists(self.precomputed_similarity_path):
             logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
-            sim_dict = torch.load(self.precomputed_similarity_path)
+
+            if self._sim_cache is None:
+                logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
+                self._sim_cache = torch.load(self.precomputed_similarity_path)
+            else:
+                logger.info("Using cached similarity dictionary")
+            sim_dict = self._sim_cache
 
             edge_index = []
             edge_attr = []
@@ -605,8 +613,12 @@ class IODataProcessor:
 
             return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
         else:
-            logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
-            sim_dict = torch.load(self.precomputed_similarity_path)
+            if self._sim_cache is None:
+                logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
+                self._sim_cache = torch.load(self.precomputed_similarity_path)
+            else:
+                logger.info("Using cached similarity dictionary")
+            sim_dict = self._sim_cache
 
             edge_index = []
             edge_attr = []
@@ -717,12 +729,16 @@ class IODataProcessor:
         # Save data
         self.data.to_csv(os.path.join(output_dir, "data.csv"), index=False)
         
-        # Save multiplex graphs
-        multiplex_graphs = self.construct_multiplex_graphs()
-        
-        for graph_name, (edge_index, edge_attr) in multiplex_graphs.items():
-            torch.save(edge_index, os.path.join(output_dir, f"{graph_name}_edge_index.pt"))
-            torch.save(edge_attr, os.path.join(output_dir, f"{graph_name}_edge_attr.pt"))
+        # Save multiplex graphs only if no precomputed file is provided
+        if not self.precomputed_similarity_path:
+            logger.info("No precomputed similarity path provided. Constructing multiplex graphs.")
+            multiplex_graphs = self.construct_multiplex_graphs()
+
+            for graph_name, (edge_index, edge_attr) in multiplex_graphs.items():
+                torch.save(edge_index, os.path.join(output_dir, f"{graph_name}_edge_index.pt"))
+                torch.save(edge_attr, os.path.join(output_dir, f"{graph_name}_edge_attr.pt"))
+        else:
+            logger.info("Precomputed similarity detected. Skipping multiplex graph construction.")
         
         # Save combined PyG data
         combined_data = self.create_combined_pyg_data(target_column)
