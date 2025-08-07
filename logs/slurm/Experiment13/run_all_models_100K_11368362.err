@@ -1,0 +1,401 @@
+2025-08-07 15:20:52,857 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment13/tabgnn",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "tabgnn",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-07 15:20:52,879 - INFO - Using device: cuda
+2025-08-07 15:20:52,879 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-07 15:20:52,879 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-07 15:20:53,282 - INFO - Loaded data with shape (100000, 46)
+2025-08-07 15:20:53,282 - INFO - Preprocessing data
+2025-08-07 15:20:53,283 - INFO - Pre-computed similarity file found – skipping per-feature graph constructor creation.
+2025-08-07 15:20:53,283 - INFO - Creating combined PyG data
+2025-08-07 15:20:53,283 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-07 15:21:49,464 - INFO - Splitting data into train, validation, and test sets
+2025-08-07 15:21:49,598 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-07 15:21:49,603 - INFO - Saving processed data to logs/training/all/Experiment13/tabgnn/processed_data
+2025-08-07 15:21:52,145 - INFO - Precomputed similarity detected. Skipping multiplex graph construction.
+2025-08-07 15:21:53,088 - INFO - Saved processed data to logs/training/all/Experiment13/tabgnn/processed_data
+2025-08-07 15:21:53,547 - INFO - Initialized GCN model with 2 layers
+2025-08-07 15:21:53,547 - INFO - Initialized TabGNN regressor with 1 graph types
+2025-08-07 15:21:54,467 - INFO - Epoch 1/100: Train Loss: 0.0171, Val Loss: 0.0083, Test Loss: 0.0078
+2025-08-07 15:21:54,787 - INFO - Epoch 2/100: Train Loss: 0.0085, Val Loss: 0.0051, Test Loss: 0.0050
+2025-08-07 15:21:55,091 - INFO - Epoch 3/100: Train Loss: 0.0054, Val Loss: 0.0043, Test Loss: 0.0043
+2025-08-07 15:21:55,396 - INFO - Epoch 4/100: Train Loss: 0.0047, Val Loss: 0.0041, Test Loss: 0.0040
+2025-08-07 15:21:55,701 - INFO - Epoch 5/100: Train Loss: 0.0043, Val Loss: 0.0033, Test Loss: 0.0033
+2025-08-07 15:21:56,005 - INFO - Epoch 6/100: Train Loss: 0.0036, Val Loss: 0.0026, Test Loss: 0.0027
+2025-08-07 15:21:56,309 - INFO - Epoch 7/100: Train Loss: 0.0031, Val Loss: 0.0024, Test Loss: 0.0024
+2025-08-07 15:21:56,613 - INFO - Epoch 8/100: Train Loss: 0.0029, Val Loss: 0.0024, Test Loss: 0.0023
+2025-08-07 15:21:56,917 - INFO - Epoch 9/100: Train Loss: 0.0030, Val Loss: 0.0021, Test Loss: 0.0021
+2025-08-07 15:21:57,222 - INFO - Epoch 10/100: Train Loss: 0.0027, Val Loss: 0.0017, Test Loss: 0.0017
+2025-08-07 15:21:57,527 - INFO - Epoch 11/100: Train Loss: 0.0023, Val Loss: 0.0015, Test Loss: 0.0016
+2025-08-07 15:21:57,831 - INFO - Epoch 12/100: Train Loss: 0.0020, Val Loss: 0.0015, Test Loss: 0.0015
+2025-08-07 15:21:58,135 - INFO - Epoch 13/100: Train Loss: 0.0018, Val Loss: 0.0015, Test Loss: 0.0015
+2025-08-07 15:21:58,439 - INFO - Epoch 14/100: Train Loss: 0.0018, Val Loss: 0.0014, Test Loss: 0.0013
+2025-08-07 15:21:58,743 - INFO - Epoch 15/100: Train Loss: 0.0016, Val Loss: 0.0011, Test Loss: 0.0011
+2025-08-07 15:21:59,047 - INFO - Epoch 16/100: Train Loss: 0.0014, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:21:59,352 - INFO - Epoch 17/100: Train Loss: 0.0013, Val Loss: 0.0008, Test Loss: 0.0008
+2025-08-07 15:21:59,657 - INFO - Epoch 18/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:21:59,961 - INFO - Epoch 19/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:22:00,266 - INFO - Epoch 20/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:22:00,571 - INFO - Epoch 21/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:22:00,876 - INFO - Epoch 22/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:22:01,180 - INFO - Epoch 23/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:22:01,485 - INFO - Epoch 24/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:22:01,789 - INFO - Epoch 25/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:22:02,093 - INFO - Epoch 26/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:22:02,397 - INFO - Epoch 27/100: Train Loss: 0.0011, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:22:02,398 - INFO - Early stopping at epoch 27
+2025-08-07 15:22:02,403 - INFO - Model checkpoint saved to logs/training/all/Experiment13/tabgnn/tabgnn_model.pt
+2025-08-07 15:22:02,688 - INFO - Final metrics: {'mse': 0.0008636033162474632, 'rmse': 0.02938712841104866, 'mae': 0.01873527094721794, 'r2': 0.6374865770339966}
+2025-08-07 15:22:02,688 - INFO - Model and results saved to logs/training/all/Experiment13/tabgnn
+2025-08-07 15:22:10,710 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment13/lightgbm",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "lightgbm",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-07 15:22:10,717 - INFO - Using device: cuda
+2025-08-07 15:22:10,717 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-07 15:22:10,717 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-07 15:22:11,074 - INFO - Loaded data with shape (100000, 46)
+2025-08-07 15:22:11,074 - INFO - Preprocessing data
+2025-08-07 15:22:11,074 - INFO - Pre-computed similarity file found – skipping per-feature graph constructor creation.
+2025-08-07 15:22:11,074 - INFO - Creating combined PyG data
+2025-08-07 15:22:11,074 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-07 15:23:04,186 - INFO - Splitting data into train, validation, and test sets
+2025-08-07 15:23:04,237 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-07 15:23:04,240 - INFO - Saving processed data to logs/training/all/Experiment13/lightgbm/processed_data
+2025-08-07 15:23:06,786 - INFO - Precomputed similarity detected. Skipping multiplex graph construction.
+2025-08-07 15:23:07,707 - INFO - Saved processed data to logs/training/all/Experiment13/lightgbm/processed_data
+2025-08-07 15:23:07,716 - INFO - Initialized lightgbm model
+/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+2025-08-07 15:23:11,561 - INFO - LightGBM model fitted with 45 features
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 537, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 519, in main
+    model, metrics = train_tabular_model(data, args, args.model_type)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 308, in train_tabular_model
+    metrics = model.evaluate(X_test, y_test)
+TypeError: evaluate() missing 1 required positional argument: 'y'
+2025-08-07 15:23:20,203 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment13/catboost",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "catboost",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-07 15:23:20,210 - INFO - Using device: cuda
+2025-08-07 15:23:20,211 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-07 15:23:20,211 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-07 15:23:20,539 - INFO - Loaded data with shape (100000, 46)
+2025-08-07 15:23:20,539 - INFO - Preprocessing data
+2025-08-07 15:23:20,539 - INFO - Pre-computed similarity file found – skipping per-feature graph constructor creation.
+2025-08-07 15:23:20,539 - INFO - Creating combined PyG data
+2025-08-07 15:23:20,539 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-07 15:24:12,933 - INFO - Splitting data into train, validation, and test sets
+2025-08-07 15:24:13,092 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-07 15:24:13,095 - INFO - Saving processed data to logs/training/all/Experiment13/catboost/processed_data
+2025-08-07 15:24:15,691 - INFO - Precomputed similarity detected. Skipping multiplex graph construction.
+2025-08-07 15:24:16,628 - INFO - Saved processed data to logs/training/all/Experiment13/catboost/processed_data
+2025-08-07 15:24:16,637 - INFO - Initialized catboost model
+2025-08-07 15:24:21,573 - INFO - CatBoost model fitted with 45 features
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 537, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 519, in main
+    model, metrics = train_tabular_model(data, args, args.model_type)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 308, in train_tabular_model
+    metrics = model.evaluate(X_test, y_test)
+TypeError: evaluate() missing 1 required positional argument: 'y'
+2025-08-07 15:24:29,450 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment13/xgboost",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "xgboost",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-07 15:24:29,457 - INFO - Using device: cuda
+2025-08-07 15:24:29,457 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-07 15:24:29,457 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-07 15:24:29,785 - INFO - Loaded data with shape (100000, 46)
+2025-08-07 15:24:29,785 - INFO - Preprocessing data
+2025-08-07 15:24:29,785 - INFO - Pre-computed similarity file found – skipping per-feature graph constructor creation.
+2025-08-07 15:24:29,785 - INFO - Creating combined PyG data
+2025-08-07 15:24:29,785 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-07 15:25:21,950 - INFO - Splitting data into train, validation, and test sets
+2025-08-07 15:25:22,102 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-07 15:25:22,105 - INFO - Saving processed data to logs/training/all/Experiment13/xgboost/processed_data
+2025-08-07 15:25:24,687 - INFO - Precomputed similarity detected. Skipping multiplex graph construction.
+2025-08-07 15:25:25,628 - INFO - Saved processed data to logs/training/all/Experiment13/xgboost/processed_data
+2025-08-07 15:25:25,637 - INFO - Initialized xgboost model
+2025-08-07 15:25:40,084 - INFO - XGBoost model fitted with 45 features
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 537, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 519, in main
+    model, metrics = train_tabular_model(data, args, args.model_type)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 308, in train_tabular_model
+    metrics = model.evaluate(X_test, y_test)
+TypeError: evaluate() missing 1 required positional argument: 'y'
+2025-08-07 15:25:48,025 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment13/mlp",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "mlp",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-07 15:25:48,031 - INFO - Using device: cuda
+2025-08-07 15:25:48,031 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-07 15:25:48,032 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-07 15:25:48,375 - INFO - Loaded data with shape (100000, 46)
+2025-08-07 15:25:48,375 - INFO - Preprocessing data
+2025-08-07 15:25:48,376 - INFO - Pre-computed similarity file found – skipping per-feature graph constructor creation.
+2025-08-07 15:25:48,376 - INFO - Creating combined PyG data
+2025-08-07 15:25:48,376 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-07 15:26:41,346 - INFO - Splitting data into train, validation, and test sets
+2025-08-07 15:26:41,500 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-07 15:26:41,503 - INFO - Saving processed data to logs/training/all/Experiment13/mlp/processed_data
+2025-08-07 15:26:44,138 - INFO - Precomputed similarity detected. Skipping multiplex graph construction.
+2025-08-07 15:26:45,069 - INFO - Saved processed data to logs/training/all/Experiment13/mlp/processed_data
+2025-08-07 15:26:45,078 - INFO - Initialized mlp model
+2025-08-07 15:27:05,854 - INFO - MLP model fitted with 45 features
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 537, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 519, in main
+    model, metrics = train_tabular_model(data, args, args.model_type)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 308, in train_tabular_model
+    metrics = model.evaluate(X_test, y_test)
+TypeError: evaluate() missing 1 required positional argument: 'y'
+2025-08-07 15:27:15,736 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment13/tabnet",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "tabnet",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-07 15:27:15,759 - INFO - Using device: cuda
+2025-08-07 15:27:15,759 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-07 15:27:15,759 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-07 15:27:16,114 - INFO - Loaded data with shape (100000, 46)
+2025-08-07 15:27:16,114 - INFO - Preprocessing data
+2025-08-07 15:27:16,118 - INFO - Pre-computed similarity file found – skipping per-feature graph constructor creation.
+2025-08-07 15:27:16,118 - INFO - Creating combined PyG data
+2025-08-07 15:27:16,118 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-07 15:28:08,981 - INFO - Splitting data into train, validation, and test sets
+2025-08-07 15:28:09,055 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-07 15:28:09,059 - INFO - Saving processed data to logs/training/all/Experiment13/tabnet/processed_data
+2025-08-07 15:28:11,830 - INFO - Precomputed similarity detected. Skipping multiplex graph construction.
+2025-08-07 15:28:12,830 - INFO - Saved processed data to logs/training/all/Experiment13/tabnet/processed_data
+2025-08-07 15:28:12,839 - INFO - Initialized tabnet model
+/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:82: UserWarning: Device used : cuda
+  warnings.warn(f"Device used : {self.device}")
+/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/pytorch_tabnet/abstract_model.py:687: UserWarning: No early stopping will be performed, last training weights will be used.
+  warnings.warn(wrn_msg)
+2025-08-07 15:32:16,647 - INFO - TabNet model fitted with 45 features
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 537, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 519, in main
+    model, metrics = train_tabular_model(data, args, args.model_type)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 308, in train_tabular_model
+    metrics = model.evaluate(X_test, y_test)
+TypeError: evaluate() missing 1 required positional argument: 'y'
+2025-08-07 15:32:24,289 - INFO - Parsed arguments:
+{
+    "data_path": "data/100K/sample_100K.csv",
+    "output_dir": "logs/training/all/Experiment13/combined",
+    "target_column": "tag",
+    "important_features": null,
+    "similarity_threshold": 0.05,
+    "model_type": "combined",
+    "gnn_type": "gcn",
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "batch_size": 32,
+    "epochs": 100,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 10,
+    "seed": 42,
+    "device": "cuda",
+    "precomputed_similarity_path": "data/100K/similarity_output_merged_100K.pt"
+}
+2025-08-07 15:32:24,297 - INFO - Using device: cuda
+2025-08-07 15:32:24,297 - INFO - Initialized I/O data processor for data/100K/sample_100K.csv
+2025-08-07 15:32:24,297 - INFO - Loading data from data/100K/sample_100K.csv
+2025-08-07 15:32:24,629 - INFO - Loaded data with shape (100000, 46)
+2025-08-07 15:32:24,630 - INFO - Preprocessing data
+2025-08-07 15:32:24,630 - INFO - Pre-computed similarity file found – skipping per-feature graph constructor creation.
+2025-08-07 15:32:24,630 - INFO - Creating combined PyG data
+2025-08-07 15:32:24,630 - INFO - Loading precomputed similarity from data/100K/similarity_output_merged_100K.pt
+2025-08-07 15:33:17,937 - INFO - Splitting data into train, validation, and test sets
+2025-08-07 15:33:17,997 - INFO - Train: 69999, Val: 15001, Test: 15000
+2025-08-07 15:33:17,999 - INFO - Saving processed data to logs/training/all/Experiment13/combined/processed_data
+2025-08-07 15:33:20,611 - INFO - Precomputed similarity detected. Skipping multiplex graph construction.
+2025-08-07 15:33:21,551 - INFO - Saved processed data to logs/training/all/Experiment13/combined/processed_data
+2025-08-07 15:33:22,394 - INFO - Initialized GCN model with 2 layers
+2025-08-07 15:33:22,394 - INFO - Initialized TabGNN regressor with 1 graph types
+2025-08-07 15:33:22,872 - INFO - Epoch 1/100: Train Loss: 0.0171, Val Loss: 0.0083, Test Loss: 0.0078
+2025-08-07 15:33:23,179 - INFO - Epoch 2/100: Train Loss: 0.0085, Val Loss: 0.0051, Test Loss: 0.0050
+2025-08-07 15:33:23,483 - INFO - Epoch 3/100: Train Loss: 0.0054, Val Loss: 0.0043, Test Loss: 0.0043
+2025-08-07 15:33:23,788 - INFO - Epoch 4/100: Train Loss: 0.0047, Val Loss: 0.0041, Test Loss: 0.0040
+2025-08-07 15:33:24,092 - INFO - Epoch 5/100: Train Loss: 0.0043, Val Loss: 0.0033, Test Loss: 0.0033
+2025-08-07 15:33:24,398 - INFO - Epoch 6/100: Train Loss: 0.0036, Val Loss: 0.0026, Test Loss: 0.0027
+2025-08-07 15:33:24,701 - INFO - Epoch 7/100: Train Loss: 0.0031, Val Loss: 0.0024, Test Loss: 0.0024
+2025-08-07 15:33:25,005 - INFO - Epoch 8/100: Train Loss: 0.0029, Val Loss: 0.0024, Test Loss: 0.0023
+2025-08-07 15:33:25,310 - INFO - Epoch 9/100: Train Loss: 0.0030, Val Loss: 0.0021, Test Loss: 0.0021
+2025-08-07 15:33:25,614 - INFO - Epoch 10/100: Train Loss: 0.0027, Val Loss: 0.0017, Test Loss: 0.0017
+2025-08-07 15:33:25,918 - INFO - Epoch 11/100: Train Loss: 0.0023, Val Loss: 0.0015, Test Loss: 0.0016
+2025-08-07 15:33:26,222 - INFO - Epoch 12/100: Train Loss: 0.0020, Val Loss: 0.0015, Test Loss: 0.0015
+2025-08-07 15:33:26,527 - INFO - Epoch 13/100: Train Loss: 0.0018, Val Loss: 0.0015, Test Loss: 0.0015
+2025-08-07 15:33:26,832 - INFO - Epoch 14/100: Train Loss: 0.0018, Val Loss: 0.0014, Test Loss: 0.0013
+2025-08-07 15:33:27,137 - INFO - Epoch 15/100: Train Loss: 0.0016, Val Loss: 0.0011, Test Loss: 0.0011
+2025-08-07 15:33:27,441 - INFO - Epoch 16/100: Train Loss: 0.0014, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:33:27,746 - INFO - Epoch 17/100: Train Loss: 0.0013, Val Loss: 0.0008, Test Loss: 0.0008
+2025-08-07 15:33:28,051 - INFO - Epoch 18/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:33:28,355 - INFO - Epoch 19/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:33:28,660 - INFO - Epoch 20/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:33:28,964 - INFO - Epoch 21/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:33:29,268 - INFO - Epoch 22/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:33:29,572 - INFO - Epoch 23/100: Train Loss: 0.0013, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:33:29,876 - INFO - Epoch 24/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:33:30,181 - INFO - Epoch 25/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:33:30,485 - INFO - Epoch 26/100: Train Loss: 0.0012, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:33:30,789 - INFO - Epoch 27/100: Train Loss: 0.0011, Val Loss: 0.0009, Test Loss: 0.0009
+2025-08-07 15:33:30,790 - INFO - Early stopping at epoch 27
+2025-08-07 15:33:30,790 - INFO - Initialized lightgbm model
+2025-08-07 15:33:30,790 - INFO - Initialized TabGNN tabular model with lightgbm base model
+/u/mbanisharifdehkordi/.conda/envs/gnn4_env/lib/python3.9/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 537, in <module>
+    main()
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 502, in main
+    model, metrics = train_combined_model(data, args, device)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 344, in train_combined_model
+    combined_model.fit(
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 997, in fit
+    self.tabular_model.fit(combined_features, y, **kwargs)
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 331, in fit
+    self.model.fit(X, y)
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/sklearn.py", line 1189, in fit
+    super().fit(
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/sklearn.py", line 955, in fit
+    self._Booster = train(
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/engine.py", line 282, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/basic.py", line 3637, in __init__
+    train_set.construct()
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/basic.py", line 2576, in construct
+    self._lazy_init(
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/basic.py", line 2144, in _lazy_init
+    params_str = _param_dict_to_str(params)
+  File "/u/mbanisharifdehkordi/.local/lib/python3.9/site-packages/lightgbm/basic.py", line 537, in _param_dict_to_str
+    raise TypeError(f"Unknown type of parameter:{key}, got:{type(val).__name__}")
+TypeError: Unknown type of parameter:train_mask, got:Tensor
+2025-08-07 15:33:35,652 - WARNING - No metrics file found in logs/training/all/Experiment13/catboost
+2025-08-07 15:33:35,652 - WARNING - No metrics file found in logs/training/all/Experiment13/combined
+2025-08-07 15:33:35,652 - WARNING - No metrics file found in logs/training/all/Experiment13/lightgbm
+2025-08-07 15:33:35,652 - WARNING - No metrics file found in logs/training/all/Experiment13/mlp
+2025-08-07 15:33:35,653 - INFO - Loaded metrics for tabgnn: {'mse': 0.0008636033162474632, 'rmse': 0.02938712841104866, 'mae': 0.01873527094721794, 'r2': 0.6374865770339966}
+2025-08-07 15:33:35,653 - WARNING - No metrics file found in logs/training/all/Experiment13/tabnet
+2025-08-07 15:33:35,654 - WARNING - No metrics file found in logs/training/all/Experiment13/xgboost
+2025-08-07 15:33:35,676 - INFO - Comparison report saved to logs/training/all/Experiment13/comparison_report_Experiment13.json
+2025-08-07 15:33:35,676 - INFO - Markdown summary saved to logs/training/all/Experiment13/comparison_report_Experiment13.md
+2025-08-07 15:33:35,816 - INFO - Saved RMSE plot to logs/training/all/Experiment13/model_comparison_Experiment13_rmse.png
+2025-08-07 15:33:35,930 - INFO - Saved MAE plot to logs/training/all/Experiment13/model_comparison_Experiment13_mae.png
+2025-08-07 15:33:36,250 - INFO - Saved R2 plot to logs/training/all/Experiment13/model_comparison_Experiment13_r2.png
+2025-08-07 15:33:36,251 - INFO - Best model: tabgnn
+2025-08-07 15:33:36,251 - INFO - Best metrics: {'mse': 0.0008636033162474632, 'rmse': 0.02938712841104866, 'mae': 0.01873527094721794, 'r2': 0.6374865770339966}

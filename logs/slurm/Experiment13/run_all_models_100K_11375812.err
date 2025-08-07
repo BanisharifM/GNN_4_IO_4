@@ -1,0 +1,56 @@
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 32, in <module>
+    from src.models.tabular import (
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 25, in <module>
+    from base import TabularModel    
+ModuleNotFoundError: No module named 'base'
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 32, in <module>
+    from src.models.tabular import (
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 25, in <module>
+    from base import TabularModel    
+ModuleNotFoundError: No module named 'base'
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 32, in <module>
+    from src.models.tabular import (
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 25, in <module>
+    from base import TabularModel    
+ModuleNotFoundError: No module named 'base'
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 32, in <module>
+    from src.models.tabular import (
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 25, in <module>
+    from base import TabularModel    
+ModuleNotFoundError: No module named 'base'
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 32, in <module>
+    from src.models.tabular import (
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 25, in <module>
+    from base import TabularModel    
+ModuleNotFoundError: No module named 'base'
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 32, in <module>
+    from src.models.tabular import (
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 25, in <module>
+    from base import TabularModel    
+ModuleNotFoundError: No module named 'base'
+Traceback (most recent call last):
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/scripts/train.py", line 32, in <module>
+    from src.models.tabular import (
+  File "/u/mbanisharifdehkordi/Github/GNN_4_IO_4/src/models/tabular.py", line 25, in <module>
+    from base import TabularModel    
+ModuleNotFoundError: No module named 'base'
+2025-08-07 18:33:40,940 - WARNING - No metrics file found in logs/training/all/Experiment13/catboost
+2025-08-07 18:33:40,940 - WARNING - No metrics file found in logs/training/all/Experiment13/combined
+2025-08-07 18:33:40,941 - WARNING - No metrics file found in logs/training/all/Experiment13/lightgbm
+2025-08-07 18:33:40,941 - WARNING - No metrics file found in logs/training/all/Experiment13/mlp
+2025-08-07 18:33:40,943 - INFO - Loaded metrics for tabgnn: {'mse': 0.0008636033162474632, 'rmse': 0.02938712841104866, 'mae': 0.01873527094721794, 'r2': 0.6374865770339966}
+2025-08-07 18:33:40,943 - WARNING - No metrics file found in logs/training/all/Experiment13/tabnet
+2025-08-07 18:33:40,944 - WARNING - No metrics file found in logs/training/all/Experiment13/xgboost
+2025-08-07 18:33:40,972 - INFO - Comparison report saved to logs/training/all/Experiment13/comparison_report_Experiment13.json
+2025-08-07 18:33:40,972 - INFO - Markdown summary saved to logs/training/all/Experiment13/comparison_report_Experiment13.md
+2025-08-07 18:33:41,145 - INFO - Saved RMSE plot to logs/training/all/Experiment13/model_comparison_Experiment13_rmse.png
+2025-08-07 18:33:41,268 - INFO - Saved MAE plot to logs/training/all/Experiment13/model_comparison_Experiment13_mae.png
+2025-08-07 18:33:41,375 - INFO - Saved R2 plot to logs/training/all/Experiment13/model_comparison_Experiment13_r2.png
+2025-08-07 18:33:41,375 - INFO - Best model: tabgnn
+2025-08-07 18:33:41,375 - INFO - Best metrics: {'mse': 0.0008636033162474632, 'rmse': 0.02938712841104866, 'mae': 0.01873527094721794, 'r2': 0.6374865770339966}

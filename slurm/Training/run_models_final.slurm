@@ -4,12 +4,12 @@
 #SBATCH --partition=gpuA100x4-interactive
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=64
+#SBATCH --cpus-per-task=32
 #SBATCH --gres=gpu:1
-#SBATCH --mem=128G
+#SBATCH --mem=64G
 #SBATCH --time=01:00:00
-#SBATCH --output=logs/slurm/Experiment12/run_all_models_100K_%j.out
-#SBATCH --error=logs/slurm/Experiment12/run_all_models_100K_%j.err
+#SBATCH --output=logs/slurm/Experiment13/run_all_models_100K_%j.out
+#SBATCH --error=logs/slurm/Experiment13/run_all_models_100K_%j.err
 
 # === Setup environment ===
 module load cuda
@@ -18,8 +18,8 @@ module load cuda
 
 # === Config ===
 CONDA_ENV_PATH="$HOME/.conda/envs/gnn4_env/bin/python"
-CONFIG_FILE="configs/experiment12.yml"
-EXPERIMENT_NAME="Experiment12"
+CONFIG_FILE="configs/experiment13.yml"
+EXPERIMENT_NAME="Experiment13"
 BASE_OUTPUT_DIR="logs/training/all/${EXPERIMENT_NAME}"
 mkdir -p "$BASE_OUTPUT_DIR"
 

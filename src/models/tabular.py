@@ -22,12 +22,13 @@ import logging
 import joblib
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.preprocessing import StandardScaler
+from src.models.base import TabularModel
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
-class TabularModelBase:
+class TabularModelBase(TabularModel):
     """
     Base class for all tabular models.
     """
@@ -76,36 +77,28 @@ class TabularModelBase:
         """
         Fit the combined model on the (masked) training rows.
         """
-        # 1) Extract embeddings on the *full graph* (keeps message-passing intact)
+        # 1) Extract embeddings on the full graph
         embeddings = self.extract_embeddings(x, edge_indices, batch)
 
         # 2) To numpy
-        if isinstance(x, torch.Tensor):
-            x_np = x.detach().cpu().numpy()
-        else:
-            x_np = x
-        if isinstance(y, torch.Tensor):
-            y_np = y.detach().cpu().numpy()
-        else:
-            y_np = y
+        X_np = x.detach().cpu().numpy() if isinstance(x, torch.Tensor) else x
+        y_np = y.detach().cpu().numpy() if isinstance(y, torch.Tensor) else y
 
         # 3) Combine features
-        X_all = self.combine_features(x_np, embeddings)
+        X_all = self.combine_features(X_np, embeddings)
 
         # 4) Apply train mask if provided
         if train_mask is not None:
-            if isinstance(train_mask, torch.Tensor):
-                train_mask = train_mask.detach().cpu().numpy()
-            train_mask = np.asarray(train_mask, dtype=bool)
-            X_fit = X_all[train_mask]
-            y_fit = y_np[train_mask]
+            m = train_mask.detach().cpu().numpy() if isinstance(train_mask, torch.Tensor) else train_mask
+            m = np.asarray(m, dtype=bool)
+            X_fit = X_all[m]
+            y_fit = y_np[m]
         else:
             X_fit = X_all
             y_fit = y_np
 
-        # 5) IMPORTANT: do NOT pass masks down to the tabular model
-        self.tabular_model.fit(X_fit, y_fit)
-
+        # 5) Train underlying tabular estimator
+        self.model.fit(X_fit, y_fit)
         logger.info(f"TabGNN tabular model fitted with {X_fit.shape[1]} features on {X_fit.shape[0]} rows")
         return self
 
@@ -187,48 +180,57 @@ class TabularModelBase:
 
     def evaluate(
         self,
-        x,
-        edge_indices,
+        X,
         y,
+        edge_indices=None,
         batch=None,
         mask=None
     ) -> Dict[str, float]:
         """
-        Evaluate the combined model on the (masked) rows.
+        Dual-mode evaluation:
+        * Plain tabular (edge_indices is None) → predict on X directly.
+        * TabGNN + tabular (edge_indices provided) → extract embeddings, combine, then predict.
         """
-        # 1) Extract embeddings on the *full graph*
-        embeddings = self.extract_embeddings(x, edge_indices, batch)
 
-        # 2) To numpy
-        if isinstance(x, torch.Tensor):
-            x_np = x.detach().cpu().numpy()
-        else:
-            x_np = x
-        if isinstance(y, torch.Tensor):
-            y_np = y.detach().cpu().numpy()
-        else:
-            y_np = y
+        # ---------- Plain tabular ----------
+        if edge_indices is None:
+            X_np = X.detach().cpu().numpy() if isinstance(X, torch.Tensor) else X
+            y_np = y.detach().cpu().numpy() if isinstance(y, torch.Tensor) else y
+            y_pred = self.predict(X_np)
+            y_pred = np.asarray(y_pred).reshape(-1)
+            y_np = np.asarray(y_np).reshape(-1)
 
-        # 3) Combine features
-        X_all = self.combine_features(x_np, embeddings)
+            mse  = mean_squared_error(y_np, y_pred)
+            rmse = float(np.sqrt(mse))
+            mae  = mean_absolute_error(y_np, y_pred)
+            r2   = r2_score(y_np, y_pred)
+            return {"mse": mse, "rmse": rmse, "mae": mae, "r2": r2}
 
-        # 4) Apply eval mask if provided
+        # ---------- TabGNN + tabular ----------
+        embeddings = self.extract_embeddings(X, edge_indices, batch)
+
+        X_np = X.detach().cpu().numpy() if isinstance(X, torch.Tensor) else X
+        y_np = y.detach().cpu().numpy() if isinstance(y, torch.Tensor) else y
+
+        X_all = self.combine_features(X_np, embeddings)
+
         if mask is not None:
-            if isinstance(mask, torch.Tensor):
-                mask = mask.detach().cpu().numpy()
-            mask = np.asarray(mask, dtype=bool)
-            X_eval = X_all[mask]
-            y_eval = y_np[mask]
+            m = mask.detach().cpu().numpy() if isinstance(mask, torch.Tensor) else mask
+            m = np.asarray(m, dtype=bool)
+            X_eval = X_all[m]
+            y_eval = y_np[m]
         else:
             X_eval = X_all
             y_eval = y_np
 
-        # 5) Predict and compute metrics (don’t call base.evaluate to avoid any binding surprises)
-        y_pred = self.tabular_model.predict(X_eval)
-        mse = mean_squared_error(y_eval, y_pred)
+        y_pred = self.predict(X_eval)
+        y_pred = np.asarray(y_pred).reshape(-1)
+        y_eval = np.asarray(y_eval).reshape(-1)
+
+        mse  = mean_squared_error(y_eval, y_pred)
         rmse = float(np.sqrt(mse))
-        mae = mean_absolute_error(y_eval, y_pred)
-        r2 = r2_score(y_eval, y_pred)
+        mae  = mean_absolute_error(y_eval, y_pred)
+        r2   = r2_score(y_eval, y_pred)
         metrics = {"mse": mse, "rmse": rmse, "mae": mae, "r2": r2}
         logger.info(f"Evaluation metrics: {metrics}")
         return metrics

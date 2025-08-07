@@ -350,9 +350,9 @@ def train_combined_model(
     )
 
     metrics = combined_model.evaluate(
-        data.x,
-        [data.edge_index],
-        data.y,
+        X=data.x,
+        y=data.y,
+        edge_indices=[data.edge_index],
         batch=None,
         mask=data.test_mask
     )
