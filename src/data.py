@@ -492,6 +492,8 @@ class IODataProcessor:
         self.graph_constructor = None
 
         self._sim_cache = None # Cache for precomputed similarity dict
+
+        self._combined_data: Optional[Data] = None
         
         logger.info(f"Initialized I/O data processor for {data_path}")
     
@@ -603,6 +605,10 @@ class IODataProcessor:
         Returns:
             Data: Combined PyG Data object
         """
+        # Return cached object if we already built it during this run
+        if self._combined_data is not None:
+            return self._combined_data
+
         logger.info("Creating combined PyG data")
 
         if self.data is None:
@@ -634,23 +640,18 @@ class IODataProcessor:
                     edge_attr.append([sim])
 
             edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
-            edge_attr = torch.tensor(edge_attr, dtype=torch.float)
-
-        edge_index = []
-        edge_attr = []
-
-        for src, neighbors in sim_dict.items():
-            for dst, sim in neighbors:
-                edge_index.append([src, dst])
-                edge_attr.append([sim])
-
-        edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
-        edge_attr = torch.tensor(edge_attr, dtype=torch.float)
+            edge_attr  = torch.tensor(edge_attr,  dtype=torch.float)
 
         x = torch.tensor(self.data.drop(columns=[target_column]).values, dtype=torch.float)
         y = torch.tensor(self.data[target_column].values, dtype=torch.float)
 
-        return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
+        # --- build & cache ---
+        combined_data = Data(x=x,
+                             edge_index=edge_index,
+                             edge_attr=edge_attr,
+                             y=y)
+        self._combined_data = combined_data
+        return combined_data
 
 
     def train_val_test_split(
@@ -746,9 +747,11 @@ class IODataProcessor:
             logger.info("Precomputed similarity detected. Skipping multiplex graph construction.")
         
         # Save combined PyG data
-        combined_data = self.create_combined_pyg_data(target_column)
+        if self._combined_data is None:
+            self._combined_data = self.create_combined_pyg_data(target_column)
+        combined_data = self._combined_data
         torch.save(combined_data, os.path.join(output_dir, "combined_data.pt"))
-        
+
         # Save configuration
         config = {
             "data_path": self.data_path,
