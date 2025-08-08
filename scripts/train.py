@@ -189,6 +189,12 @@ def train_tabgnn(
         # Validation
         model.eval()
         with torch.no_grad():
+            # Recreate the multiplex list on the active device
+            edge_indices = getattr(data, "edge_indices", None)
+            if edge_indices is None:
+                edge_indices = [data.edge_index]
+            edge_indices = [ei.to(device) for ei in edge_indices]
+
             out = model(
                 data.x,
                 edge_indices,
@@ -473,11 +479,17 @@ def main():
         # Evaluate model
         model.eval()
         with torch.no_grad():
+            # Recreate the multiplex list on the active device
+            edge_indices = getattr(data, "edge_indices", None)
+            if edge_indices is None:
+                edge_indices = [data.edge_index]
+            edge_indices = [ei.to(device) for ei in edge_indices]
+
             out = model(
                 data.x,
                 edge_indices,
                 batch=None
-            )  
+            )
 
             # Calculate test loss
             test_mask = data.test_mask
