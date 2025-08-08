@@ -118,15 +118,21 @@ def train_tabgnn(
     """
     # Move data to device
     data = data.to(device)
-    
-    # Create model
+
+    # Prepare multiplex edge indices on the same device
+    edge_indices = getattr(data, "edge_indices", None)
+    if edge_indices is None:
+        edge_indices = [data.edge_index]
+    edge_indices = [ei.to(device) for ei in edge_indices]
+
+    # Create model (use true number of channels)
     model = TabGNNRegressor(
         in_channels=data.x.shape[1],
         hidden_channels=args.hidden_dim,
         gnn_out_channels=args.hidden_dim,
         mlp_hidden_channels=[args.hidden_dim, args.hidden_dim // 2],
         num_layers=args.num_layers,
-        num_graph_types=1,  # Using combined graph
+        num_graph_types=len(edge_indices),
         model_type=args.gnn_type,
         dropout=args.dropout
     ).to(device)
@@ -164,11 +170,11 @@ def train_tabgnn(
         
         # Forward pass
         out = model(
-            data.x, 
-            [data.edge_index],
+            data.x,
+            edge_indices,
             batch=None
         )
-        
+
         # Calculate loss
         train_mask = data.train_mask
         train_loss = torch.nn.functional.mse_loss(
@@ -184,8 +190,8 @@ def train_tabgnn(
         model.eval()
         with torch.no_grad():
             out = model(
-                data.x, 
-                [data.edge_index],
+                data.x,
+                edge_indices,
                 batch=None
             )
             
@@ -340,23 +346,31 @@ def train_combined_model(
         tabular_model=tabular_model,
         use_original_features=True
     )
-    
+
+    # Ensure tensors are on the same device as the trained GNN
+    x_dev = data.x.to(device)
+    y_dev = data.y.to(device)
+    edge_indices = getattr(data, "edge_indices", None)
+    if edge_indices is None:
+        edge_indices = [data.edge_index]
+    edge_indices = [ei.to(device) for ei in edge_indices]
+
     combined_model.fit(
-        data.x,
-        [data.edge_index],
-        data.y,
+        x_dev,
+        edge_indices,
+        y_dev,
         batch=None,
         train_mask=data.train_mask
     )
 
     metrics = combined_model.evaluate(
-        X=data.x,
-        y=data.y,
-        edge_indices=[data.edge_index],
+        X=x_dev,
+        y=y_dev,
+        edge_indices=edge_indices,
         batch=None,
         mask=data.test_mask
     )
-    
+
     return combined_model, metrics
 
 def plot_training_history(
@@ -460,11 +474,11 @@ def main():
         model.eval()
         with torch.no_grad():
             out = model(
-                data.x, 
-                [data.edge_index],
+                data.x,
+                edge_indices,
                 batch=None
-            )
-            
+            )  
+
             # Calculate test loss
             test_mask = data.test_mask
             test_loss = torch.nn.functional.mse_loss(

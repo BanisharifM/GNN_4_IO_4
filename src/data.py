@@ -549,29 +549,48 @@ class IODataProcessor:
             Dict[str, Tuple[torch.Tensor, torch.Tensor]]: Dictionary mapping graph names to (edge_index, edge_attr) tuples
         """
         logger.info("Constructing multiplex graphs")
-        
+
         if self.precomputed_similarity_path and os.path.exists(self.precomputed_similarity_path):
             logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
 
             if self._sim_cache is None:
-                logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
                 self._sim_cache = torch.load(self.precomputed_similarity_path)
             else:
                 logger.info("Using cached similarity dictionary")
             sim_dict = self._sim_cache
 
-            edge_index = []
-            edge_attr = []
+            # Case A: dict[str(feature)] -> dict[int node] -> List[(int dst, float sim)]
+            if isinstance(sim_dict, dict) and len(sim_dict) > 0 and all(isinstance(k, str) for k in sim_dict.keys()):
+                out: Dict[str, Tuple[torch.Tensor, torch.Tensor]] = {}
+                # Preserve order if important_features provided
+                feature_keys = [f for f in (self.important_features or list(sim_dict.keys())) if f in sim_dict]
+                for feat in feature_keys:
+                    ei, ea = [], []
+                    for src, neighbors in sim_dict[feat].items():
+                        for dst, sim in neighbors:
+                            ei.append([src, dst])
+                            ea.append([sim])
+                    if ei:
+                        ei = torch.tensor(ei, dtype=torch.long).t().contiguous()
+                        ea = torch.tensor(ea, dtype=torch.float)
+                    else:
+                        ei = torch.zeros((2, 0), dtype=torch.long)
+                        ea = torch.zeros((0, 1), dtype=torch.float)
+                    out[feat] = (ei, ea)
+                return out
 
+            # Case B: legacy “combined” dict[int] -> List[(int dst, float sim)]
+            ei, ea = [], []
             for src, neighbors in sim_dict.items():
                 for dst, sim in neighbors:
-                    edge_index.append([src, dst])
-                    edge_attr.append([sim])
-
-            edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
-            edge_attr = torch.tensor(edge_attr, dtype=torch.float)
-
-            return {"combined": (edge_index, edge_attr)}
+                    ei.append([src, dst]); ea.append([sim])
+            if ei:
+                ei = torch.tensor(ei, dtype=torch.long).t().contiguous()
+                ea = torch.tensor(ea, dtype=torch.float)
+            else:
+                ei = torch.zeros((2, 0), dtype=torch.long)
+                ea = torch.zeros((0, 1), dtype=torch.float)
+            return {"combined": (ei, ea)}
         
         if self.data is None:
             self.load_data()
@@ -592,67 +611,48 @@ class IODataProcessor:
         
         return multiplex_graphs
     
-    def create_combined_pyg_data(
-        self,
-        target_column: Optional[str] = None
-    ) -> Data:
-        """
-        Create combined PyTorch Geometric Data object.
-
-        Args:
-            target_column (str, optional): Target column for prediction
-
-        Returns:
-            Data: Combined PyG Data object
-        """
-        # Return cached object if we already built it during this run
+    def create_combined_pyg_data(self, target_column: Optional[str] = None) -> Data:
+        # Cached?
         if self._combined_data is not None:
             return self._combined_data
-
-        logger.info("Creating combined PyG data")
 
         if self.data is None:
             self.load_data()
 
-        if not self.precomputed_similarity_path or not os.path.exists(self.precomputed_similarity_path):
-            logger.warning("No precomputed similarity file provided or file not found. Creating empty graph.")
-            edge_index = torch.zeros((2, 0), dtype=torch.long)
-            edge_attr = torch.zeros((0, 1), dtype=torch.float)
-            
-            x = torch.tensor(self.data.drop(columns=[target_column]).values, dtype=torch.float)
-            y = torch.tensor(self.data[target_column].values, dtype=torch.float)
+        # Build multiplex graphs (from precomputed or on-the-fly)
+        multiplex_graphs = self.construct_multiplex_graphs()
 
-            return Data(x=x, edge_index=edge_index, edge_attr=edge_attr, y=y)
+        # Choose deterministic feature order
+        if self.important_features:
+            graph_keys = [k for k in self.important_features if k in multiplex_graphs]
         else:
-            if self._sim_cache is None:
-                logger.info(f"Loading precomputed similarity from {self.precomputed_similarity_path}")
-                self._sim_cache = torch.load(self.precomputed_similarity_path)
-            else:
-                logger.info("Using cached similarity dictionary")
-            sim_dict = self._sim_cache
+            graph_keys = list(multiplex_graphs.keys())
 
-            edge_index = []
-            edge_attr = []
+        # Edge lists
+        edge_indices_list = [multiplex_graphs[k][0] for k in graph_keys]
+        edge_attrs_list   = [multiplex_graphs[k][1] for k in graph_keys]
 
-            for src, neighbors in sim_dict.items():
-                for dst, sim in neighbors:
-                    edge_index.append([src, dst])
-                    edge_attr.append([sim])
+        # Combined edge_index (backward-compat for any code still reading data.edge_index)
+        if len(edge_indices_list) > 0:
+            combined_edge_index = torch.cat(
+                [ei for ei in edge_indices_list if ei.numel() > 0],
+                dim=1
+            ) if any(ei.numel() > 0 for ei in edge_indices_list) else torch.zeros((2, 0), dtype=torch.long)
+        else:
+            combined_edge_index = torch.zeros((2, 0), dtype=torch.long)
 
-            edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
-            edge_attr  = torch.tensor(edge_attr,  dtype=torch.float)
-
+        # Node features / target
         x = torch.tensor(self.data.drop(columns=[target_column]).values, dtype=torch.float)
         y = torch.tensor(self.data[target_column].values, dtype=torch.float)
 
-        # --- build & cache ---
-        combined_data = Data(x=x,
-                             edge_index=edge_index,
-                             edge_attr=edge_attr,
-                             y=y)
-        self._combined_data = combined_data
-        return combined_data
+        # Build Data with multiplex attributes
+        data = Data(x=x, y=y)
+        data.edge_indices = edge_indices_list        # <- list[Tensor], one per graph type
+        data.edge_attrs   = edge_attrs_list          # <- list[Tensor], aligned with edge_indices
+        data.edge_index   = combined_edge_index      # <- keep for legacy use
 
+        self._combined_data = data
+        return data
 
     def train_val_test_split(
         self, 
