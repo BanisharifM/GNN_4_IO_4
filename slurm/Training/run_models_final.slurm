@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=GNN4_IO_4
 #SBATCH --account=bdau-delta-gpu    
-#SBATCH --partition=gpuA100x4-interactive
+#SBATCH --partition=gpuH200x8-interactive
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
